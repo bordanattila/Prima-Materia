@@ -5,7 +5,7 @@
 
 // createUser
 
-// login logout
+// login 
 
 // addCardToWishlist
 
@@ -13,6 +13,6 @@
 
 // createDeck
 
-// removeCardList
+// removeCardFromList
 
-// removeCardDeck
+// removeCardFromDeck
