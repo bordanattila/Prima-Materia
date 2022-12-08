@@ -27,7 +27,7 @@ const resolvers = {
 
             return { token, user };
         },
-    // login logout
+    // login 
         login: async (parent, {email, password}) => {
             const user = await User.findOne({ email });
             if(!user) {
@@ -43,24 +43,21 @@ const resolvers = {
             return { token, user };
         },
     // TODO: addCardToWishlist
-        addCardToWishlist: async (parent, {}, context) => {
+        addCardToWishlist: async (parent, args, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     {_id: context.user._id},
-                    { $addToSet: { }}//TODO: Add 
+                    { $addToSet: { wishlist: args }},
+                    { new: true}
                 )
             }
-        }
+        },
     // addCardToDeck
-
+    
     // createDeck
 
-    // removeCardList
+// removeCardFromList
 
-    // removeCardDeck
-    
-
+// removeCardFromDeck
     }
 }
-
-
