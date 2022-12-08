@@ -27,7 +27,7 @@ const userSchema = new Schema(
         // set wishListCards to be an array of data that adheres to the bookSchema
         wishList: [cardSchema],
         // set deckCards to be an array of data that adheres to the bookSchema
-        deckCards: [deckSchema]
+        decks: [deckSchema]
     }
 );
 

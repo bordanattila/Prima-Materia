@@ -19,7 +19,7 @@ const cardSchema = new Schema(
             type: String,
             required: true,
         },
-        deckId: { type: ObjectId, required: true }
+        deckId: { type: ObjectId, required: false }
     }
 );
 
