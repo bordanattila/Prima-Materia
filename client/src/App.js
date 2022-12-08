@@ -6,7 +6,12 @@ import React from "react";
 //   createHttpLink,
 // } from '@apollo/client';
 // import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
 
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
@@ -43,7 +48,7 @@ import "./App.css";
 function App() {
   return (
     // <ApolloProvider client={client}>
-    <div>
+    <Router>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -51,7 +56,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
       </Routes>
       <Footer />
-    </div>
+    </Router>
+
     // </ApolloProvider>
   );
 }
