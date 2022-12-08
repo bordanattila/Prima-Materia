@@ -25,7 +25,7 @@ export const CREATE_USER = gql`
 
 export const ADD_CARD_LIST = gql`
   mutation addCardToWishList($cardId: ID!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
-    addCardToWishList(cardId: $ID, name: $String, $type: String, text: $String, color: $[String], image: $String!) {
+    addCardToWishList(cardId: $cardId, name: $name, type: $type, text: $text, color: $color, image: $image) {
       wishList {
         cardId
         name
