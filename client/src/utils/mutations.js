@@ -38,3 +38,35 @@ export const ADD_CARD_LIST = gql`
   }
 `;
 
+export const ADD_CARD_DECK = gql`
+  mutation addCardToDeck($cardId: ID!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
+    addCardToDeck(cardId: $cardId, name: $name, type: $type, text: $text, color: $color, image: $image) {
+      wishList {
+        cardId
+        name
+        type
+        text
+        color
+        image
+      }
+    }
+  }
+`;
+
+export const CREATE_DECK = gql`
+  mutation createDeck($title: String!) {
+    addCardToDeck(title: $title) {
+      decks {
+        deckId
+         cards {
+          cardId
+          name
+          type
+          text
+          color
+          image
+        }
+      }
+    }
+  }
+`;
