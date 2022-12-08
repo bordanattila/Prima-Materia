@@ -5,7 +5,7 @@ type User {
   _id: ID
   username: String
   email
-  wishlist: [Card]
+  wishList: [Card]
   decks: [Deck]
 }
 
