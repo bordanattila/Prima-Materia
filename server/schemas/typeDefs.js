@@ -32,7 +32,7 @@ type Mutation {
   createUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
   addCardToWishList(cardId: ID!, name: String!, type: String!, text: String!, color: [String]!, image: String!): User
-  addCardToDeck(deckId: ID!, title: String!, cards: [Card]): User
+  addCardToDeck(cardId: ID!, name: String!, type: String!, text: String!, color: [String]!, image: String!): User
   createDeck(title: String!): User
   removeCardFromList(cardId: ID!): User
   removeCardFromDeck(deckId: ID!): User
