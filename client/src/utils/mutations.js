@@ -58,15 +58,29 @@ export const CREATE_DECK = gql`
     addCardToDeck(title: $title) {
       decks {
         deckId
-         cards {
-          cardId
-          name
-          type
-          text
-          color
-          image
-        }
+        title
+        cards
       }
     }
   }
+`;
+
+export const REMOVE_CARD_LIST = gql`
+mutation removeCardFromList($cardId: ID!) {
+removeBook(cardId: $cardId) {
+    wishlist {
+      cardId
+    }
+  }
+}
+`;
+
+export const REMOVE_CARD_DECK = gql`
+mutation removeCardFromDeck($deckId: ID!) {
+    removeCardFromDeck(deckId: $deckId) {
+    wishlist {
+        deckId
+    }
+  }
+}
 `;
