@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, Deck } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -9,9 +9,7 @@ const resolvers = {
       me: async (parent, args, context) => {
         // check if users exist
         if (context.user) {
-          const userData = await User.findOne({ _id: context.user._id }).select(
-            "-__v -password"
-          );
+          const userData = await User.findOne({ _id: context.user._id }).select("-__v -password");
           return userData;
         }
         throw new AuthenticationError("You need to be logged in!");
@@ -36,28 +34,84 @@ const resolvers = {
             const correctPassword = await user.isCorrectPassword(password);
 
             if (!correctPassword) {
-                throw new AuthenticationError("Incorrect password")
+                throw new AuthenticationError("Incorrect password");
             }
 
             const token = signToken(user);
             return { token, user };
         },
-    // TODO: addCardToWishlist
-        addCardToWishlist: async (parent, args, context) => {
+    // addCardToWishlist
+        addCardToWishList: async (parent, args, context) => {
+            // args --> {cardId: '1234okpjf0-23', name: 'cardName', type: 'theType', ...}
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     {_id: context.user._id},
-                    { $addToSet: { wishlist: args }},
+                    { $addToSet: { wishList: args }},
                     { new: true}
-                )
+                );
+                return updatedUser;
             }
+            throw new AuthenticationError("You need to be logged in!");
         },
     // addCardToDeck
-    
-    // createDeck
+        addCardToDeck: async (parent, {deckId, cardId, name, type, text, color, image}, context) => {
+            if (context.user) {
+                const deck = await Deck.findOneAndUpdate(
+                    {deckId},
+                    {$addToSet: {cards: {cardId, name, type, text, color, image}}},
+                    {new: true}
+                    );
+                const user = await User.findOne(
+                    {_id: context.user._id},
+                )
+                return user;
+            }
+            throw new AuthenticationError("You need to be logged in!")
+        },
+    // TODO: createDeck
+        createDeck: async (parent, {title}, context) => {
+            if(context.user) {
+                const newDeck = await Deck.create({title});//NOTE: May need to include other parameters in order to create b/c of Deck model requirements
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    { $addToSet: {decks: newDeck}},
+                    {new: true}
+                );
 
-// removeCardFromList
+                return updatedUser;
+            }
+            throw new AuthenticationError("You need to be logged in!");
+        },
 
-// removeCardFromDeck
+    // removeCardFromList
+         removeCardFromList: async (parent, {cardId}, context) => {
+            if(context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    {$pull: {wishList: {cardId: cardId}}},
+                    {new: true}
+                );
+                return updatedUser;
+            }
+            throw new AuthenticationError("You need to be logged in!");
+         },
+
+//     removeCardFromDeck
+         removeCardFromDeck: async (parent, {deckId, cardId}, context) => {//Note: May need to figure out how to assign a deckId to the Deck or retrieve _id from Deck
+            if(context.user) {
+                const updatedDeck = await Deck.findOneAndUpdate(
+                    {deckId: deckId},
+                    {$pull: {cards: {cardId: cardId}}},
+                    {new: true}
+                );
+                const user = await User.findOne(
+                    {_id: context.user._id},
+                );
+                return user;
+            }
+            throw new AuthenticationError("You need to be logged in!");
+         } 
     }
 }
+
+module.exports = resolvers;
