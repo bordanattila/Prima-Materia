@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import Search from "./pages/Search";
 
 import "./App.css";
+import { Container } from "@mui/material";
 
 // // Construct our main GraphQL API endpoint
 // const httpLink = createHttpLink({
@@ -49,13 +50,16 @@ function App() {
         <Header />
       </div>
       <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
+        <Container sx={{ mt: "6rem", mb: "6rem" }}>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </Container>
       </div>
+
       <div>
         <Footer />
       </div>
