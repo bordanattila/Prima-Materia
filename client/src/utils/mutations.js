@@ -55,7 +55,7 @@ export const ADD_CARD_DECK = gql`
 
 export const CREATE_DECK = gql`
   mutation createDeck($title: String!) {
-    addCardToDeck(title: $title) {
+    createDeck(title: $title) {
       decks {
         deckId
         title
@@ -67,7 +67,7 @@ export const CREATE_DECK = gql`
 
 export const REMOVE_CARD_LIST = gql`
 mutation removeCardFromList($cardId: ID!) {
-removeBook(cardId: $cardId) {
+  removeCardFromList(cardId: $cardId) {
     wishList {
       cardId
     }
