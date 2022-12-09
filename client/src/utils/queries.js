@@ -6,7 +6,7 @@ query me {
         _id
         username
         email
-        wishlist {
+        wishList {
             cardId
             name
             type

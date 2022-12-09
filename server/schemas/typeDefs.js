@@ -4,7 +4,7 @@ const typeDefs = gql`
 type User {
   _id: ID
   username: String
-  email
+  email: String
   wishList: [Card]
   decks: [Deck]
 }
