@@ -1,4 +1,4 @@
-import { margin } from "@mui/system";
+import { borderRadius, margin } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import { searchMagicCards } from "../utils/API";
 
@@ -51,7 +51,7 @@ export const Search = () => {
     // };
 return (
     <>
-        <button style={{color: 'white', margin: '10em'}} onClick={() => searchMagicCards()}>Test API</button>
+        <button style={{color: 'white', margin: '40em', padding: '2em', backgroundColor: 'green', borderRadius: '8px'}} onClick={() => searchMagicCards()}>Test API</button>
     </>
 )
 }
