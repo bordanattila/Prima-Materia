@@ -4,23 +4,23 @@ import React from "react";
 export const Search = () => {
 
 
-    const handleFormSubmit = async (event) => {
+    // const handleFormSubmit = async (event) => {
 
-        event.preventDefault();
+    //     event.preventDefault();
 
-        if (!searchInput) {
-            return false;
-        }
+    //     if (!searchInput) {
+    //         return false;
+    //     }
 
-        try {
+    //     try {
 
-            const response = await searchMagicCards(searchInput);
+            const response =  searchMagicCards();
 
             if (!response.ok) {
                 throw new Error('something went wrong!');
             }
 
-            const { cards } = await response.json();
+            // const { cards } =  response.json();
 
             const cardData = items.map((card) => ({
                 cardId: card.id,
@@ -33,11 +33,11 @@ export const Search = () => {
             //check our data out
             console.log(cardData);
 
-        } catch (err) {
-            console.error(err);
-        }
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
 
-    };
+    // };
     // return (
     //     <>
     //     </>
