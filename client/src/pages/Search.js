@@ -1,47 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { searchMagicCards } from "../utils/API";
 
 export const Search = () => {
 
+//     const [searchedCards, setSearchedCards] = useState([]);
 
-    // const handleFormSubmit = async (event) => {
 
-    //     event.preventDefault();
+//     useEffect(() => {
+//         if(cardData) {
+//             return () => setSearchedCards(cardData);
+//         }
+//     }, []);
 
-    //     if (!searchInput) {
-    //         return false;
-    //     }
+//     if (!cardData) {
+//         return false;
+//     }
+//     console.log(cardData);
 
-    //     try {
+//     const handleFormSubmit = async (event) => {
 
-            const response =  searchMagicCards();
+//         event.preventDefault();
 
-            if (!response.ok) {
-                throw new Error('something went wrong!');
-            }
+//     if (!searchInput) {
+//         return false;
+//     }
 
-            const { cards } =  response.json();
+//     try {
 
-            const cardData = cards.map((card) => ({
-                cardId: card.id,
-                name: card.name,
-                type: card.type,
-                text: card.text,
-                image: card.image,
-            }));
+//     const response = searchMagicCards();
 
-            //check our data out
-            console.log(cardData);
+//     if (!response.ok) {
+//         throw new Error('something went wrong!');
+//     }
 
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
+//     const { cards } = response.json();
 
-    // };
-    // return (
-    //     <>
-    //     </>
-    // )
-}
+//     const cardData = cards.map((card) => ({
+//         cardId: card.id,
+//         name: card.name,
+//         type: card.type,
+//         text: card.text,
+//         image: card.image,
+//     }));
+
+// } catch (err) {
+//     console.error(err);
+// }
+
+    };
+return (
+    <>
+        <button onClick={() => console.log(searchMagicCards())}></button>
+    </>
+)
+// }
 
 export default Search;
