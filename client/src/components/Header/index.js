@@ -58,7 +58,7 @@ function Header(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component="nav" style={{ background: "black" }}>
+      <AppBar component="nav" style={{ background: "none" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -76,7 +76,7 @@ function Header(props) {
               flexGrow: 1,
               display: { xs: "none", sm: "block" },
               fontFamily: "sans-serif",
-              letterSpacing: ".3rem",
+              letterSpacing: ".4rem",
             }}
           >
             Prima Materia

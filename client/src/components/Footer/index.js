@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper";
 function Footer() {
   return (
     <Paper
-      style={{ background: "black" }}
+      style={{ background: "none" }}
       sx={{
         marginTop: ".2rem",
         position: "fixed",
