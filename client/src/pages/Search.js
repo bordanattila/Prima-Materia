@@ -1,3 +1,4 @@
+import { margin } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import { searchMagicCards } from "../utils/API";
 
@@ -47,12 +48,12 @@ export const Search = () => {
 //     console.error(err);
 // }
 
-    };
+    // };
 return (
     <>
-        <button onClick={() => console.log(searchMagicCards())}></button>
+        <button style={{color: 'white', margin: '10em'}} onClick={() => searchMagicCards()}>Test API</button>
     </>
 )
-// }
+}
 
 export default Search;

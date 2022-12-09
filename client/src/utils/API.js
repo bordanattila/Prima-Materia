@@ -1,8 +1,3 @@
-import { mtg } from 'mtgsdk';
-
 export const searchMagicCards = () => {
-    return mtg.card.all({ supertypes: 'legendary', types: 'creature', colors: 'red,white' })
-    .on('data', function (card) {
-        console.log(card.name)
-    });
+    return fetch(`https://api.magicthegathering.io/v1/cards?q=$color=blue`)
 }
