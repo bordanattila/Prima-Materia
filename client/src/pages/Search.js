@@ -1,5 +1,5 @@
 import React from "react";
-
+import { searchMagicCards } from "../utils/API";
 
 export const Search = () => {
 
@@ -20,9 +20,9 @@ export const Search = () => {
                 throw new Error('something went wrong!');
             }
 
-            // const { cards } =  response.json();
+            const { cards } =  response.json();
 
-            const cardData = items.map((card) => ({
+            const cardData = cards.map((card) => ({
                 cardId: card.id,
                 name: card.name,
                 type: card.type,
