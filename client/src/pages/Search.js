@@ -3,29 +3,30 @@ import React, { useState, useEffect } from "react";
 import { searchMagicCards } from "../utils/API";
 import { alpha, styled } from '@mui/material/styles';
 
-import { Container, TextField, Box, Typography, inputBase, inputLabel, formControl } from "@mui/material";
+import { Container, TextField, Box, Typography, InputBase, InputLabel, formControl } from "@mui/material";
 
 import FormControl from '@mui/material/FormControl';
 
-const CssTextField = styled(TextField)({
-  '& label.Mui-focused': {
-    color: 'green',
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'green',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'red',
+const SearchBox = styled(TextField)({
+    '& label.Mui-focused': {
+        color: '#fff',
     },
-    '&:hover fieldset': {
-      borderColor: 'yellow',
+    '& .MuiInput-underline:after': {
+        borderBottomColor: 'teal',
     },
-    '&.Mui-focused fieldset': {
-      borderColor: 'green',
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'teal',
+        },
+        '&:hover fieldset': {
+            borderColor: 'teal',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'teal',
+        },
     },
-  },
 });
+
 
 export const Search = () => {
 
@@ -80,15 +81,14 @@ export const Search = () => {
                 <h2 style={{ color: '#fff' }}>Search for Cards</h2>
                 <Box
                     component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '25ch' },
-                    }}
                     noValidate
-                    autoComplete="off"
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { sm: '1fr 1fr' },
+                        gap: 2,
+                    }}
                 >
-                    <TextField id="outlined-secondary" label="Card Name" variant="outlined" color="secondary" />
-                    <TextField id="filled-basic" label="Filled" variant="filled" />
-                    <TextField id="standard-basic" label="Standard" variant="standard" />
+                    <SearchBox label="Search Card Name" id="custom-css-outlined-input" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }}  />
                 </Box>
                 {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
             </Container >
