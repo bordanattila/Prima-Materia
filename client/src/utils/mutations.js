@@ -12,8 +12,8 @@ export const LOGIN_USER = gql`
 `;
 
 export const CREATE_USER = gql`
-  mutation createUser($username: String!, $email: String!, $password: String!) {
-    createUser(username: $username, email: $email, password: $password) {
+  mutation createUser($_id: ID!, $username: String!, $email: String!, $password: String!) {
+    createUser(_id: $_id, username: $username, email: $email, password: $password) {
       user {
         _id
         username
@@ -24,7 +24,7 @@ export const CREATE_USER = gql`
 `;
 
 export const ADD_CARD_LIST = gql`
-  mutation addCardToWishList($cardId: ID!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
+  mutation addCardToWishList($cardId: Int!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
     addCardToWishList(cardId: $cardId, name: $name, type: $type, text: $text, color: $color, image: $image) {
       wishList {
         cardId
@@ -39,15 +39,19 @@ export const ADD_CARD_LIST = gql`
 `;
 
 export const ADD_CARD_DECK = gql`
-  mutation addCardToDeck($cardId: ID!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
-    addCardToDeck(cardId: $cardId, name: $name, type: $type, text: $text, color: $color, image: $image) {
+  mutation addCardToDeck($_id: ID!, $cardId: ID!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
+    addCardToDeck(_id: $_id, cardId: $cardId, name: $name, type: $type, text: $text, color: $color, image: $image) {
       decks {
-        cardId
-        name
-        type
-        text
-        color
-        image
+        _id
+        title
+        cards {
+          cardId
+          name
+          type
+          text
+          color
+          image
+        }
       }
     }
   }

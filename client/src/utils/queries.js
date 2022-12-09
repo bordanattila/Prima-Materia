@@ -15,7 +15,7 @@ query me {
             image
         }
         decks {
-            deckId
+            _id
             title
             cards {
                 cardId
