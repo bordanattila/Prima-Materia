@@ -44,7 +44,10 @@ function Header(props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }} href={item}>
+            <ListItemButton
+              sx={{ textAlign: "center" }}
+              href={item.replace(/\s/g, "").toLowerCase()}
+            >
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -83,7 +86,11 @@ function Header(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }} href={item}>
+              <Button
+                key={item}
+                sx={{ color: "#fff" }}
+                href={item.replace(/\s/g, "").toLowerCase()}
+              >
                 {item}
               </Button>
             ))}

@@ -9,11 +9,13 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Search from "./pages/Search";
+import Decks from "./pages/Decks";
+import Wishlist from "./pages/Wishlist";
+import MysteryCard from "./pages/MysteryCard";
 
 import "./App.css";
 import { Container } from "@mui/material";
@@ -54,8 +56,10 @@ function App() {
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/decks" element={<Decks />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/decks" element={<MysteryCard />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
           </Routes>
         </Container>
       </div>
