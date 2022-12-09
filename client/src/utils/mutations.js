@@ -61,7 +61,7 @@ export const CREATE_DECK = gql`
   mutation createDeck($title: String!) {
     createDeck(title: $title) {
       decks {
-        deckId
+        _id
         title
         cards
       }
@@ -70,7 +70,7 @@ export const CREATE_DECK = gql`
 `;
 
 export const REMOVE_CARD_LIST = gql`
-mutation removeCardFromList($cardId: ID!) {
+mutation removeCardFromList($cardId: Int!) {
   removeCardFromList(cardId: $cardId) {
     wishList {
       cardId
@@ -80,10 +80,10 @@ mutation removeCardFromList($cardId: ID!) {
 `;
 
 export const REMOVE_CARD_DECK = gql`
-mutation removeCardFromDeck($deckId: ID!) {
-    removeCardFromDeck(deckId: $deckId) {
+mutation removeCardFromDeck($_id: ID!) {
+    removeCardFromDeck(_id: $_id) {
     decks {
-        deckId
+        _id
     }
   }
 }
