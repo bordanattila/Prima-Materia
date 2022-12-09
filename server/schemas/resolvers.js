@@ -46,7 +46,7 @@ const resolvers = {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     {_id: context.user._id},
-                    { $addToSet: { wishList: args }},
+                    { $addToSet: { wishList: { ...args } }},
                     { new: true}
                 );
                 return updatedUser;
@@ -58,7 +58,7 @@ const resolvers = {
             if (context.user) {
                 const deck = await Deck.findOneAndUpdate(
                     {deckId},
-                    {$addToSet: {cards: {cardId, name, type, text, color, image}}},
+                    {$addToSet: { cards: {cardId, name, type, text, color, image} } },
                     {new: true}
                     );
                 const user = await User.findOne(

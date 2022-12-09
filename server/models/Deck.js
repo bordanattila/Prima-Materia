@@ -10,7 +10,7 @@ const deckSchema = new Schema(
             type: String, 
             required: true, 
         },
-        cardId: { type: ObjectId, required: true },
+        cardId: { type: ObjectId, required: false },
         cards: [cardSchema]
     }
 );
