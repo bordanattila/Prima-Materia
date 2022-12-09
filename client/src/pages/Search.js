@@ -121,7 +121,7 @@ export const Search = () => {
                     noValidate
                     sx={{
                         display: 'grid',
-                        gridTemplateColumns: { sm: '1fr 1fr' },
+                        gridTemplateColumns: { sm: '1fr 1fr', md: '1fr 1fr 1fr', },
                         gap: 2,
                     }}
                 >
@@ -137,8 +137,9 @@ export const Search = () => {
 
                     <SearchBox label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)" id="custom-css-outlined-input" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
 
-                    <Box>
-
+                    <Box sx={{ backgroundColor: '#212121', padding: '2em', paddingTop: '5px',borderRadius: '8px', textAlign: 'left', color: '#fff' }}>
+                        <h3>Select Card Colors:</h3>
+                        <hr></hr>
                         <FormControlLabel control={<Checkbox defaultUnchecked color="secondary" />} label="White" sx={{ color: '#fff' }} />
                         <FormControlLabel control={<Checkbox defaultUnchecked color="secondary" />} label="Blue" sx={{ color: '#fff' }} />
                         <FormControlLabel control={<Checkbox defaultUnchecked color="secondary" />} label="Green" sx={{ color: '#fff' }} />
