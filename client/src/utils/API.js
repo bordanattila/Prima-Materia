@@ -1,5 +1,5 @@
 export const searchMagicCards = () => {
-    return fetch(`https://api.magicthegathering.io/v1/cards?subtypes=merfolk;pageSize=20;contains=imageUrl`)
+    return fetch(`https://api.magicthegathering.io/v1/cards?subtypes=cat;pageSize=20;contains=imageUrl`)
 }
 
 
