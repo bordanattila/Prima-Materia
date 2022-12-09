@@ -1,0 +1,47 @@
+import React from "react";
+
+
+export const Search = () => {
+
+
+    const handleFormSubmit = async (event) => {
+
+        event.preventDefault();
+
+        if (!searchInput) {
+            return false;
+        }
+
+        try {
+
+            const response = await searchMagicCards(searchInput);
+
+            if (!response.ok) {
+                throw new Error('something went wrong!');
+            }
+
+            const { cards } = await response.json();
+
+            const cardData = items.map((card) => ({
+                cardId: card.id,
+                name: card.name,
+                type: card.type,
+                text: card.text,
+                image: card.image,
+            }));
+
+            //check our data out
+            console.log(cardData);
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    };
+    // return (
+    //     <>
+    //     </>
+    // )
+}
+
+export default Search;
