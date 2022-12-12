@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import { Container } from "@mui/system";
 import { Grid, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const FormInput = styled(TextField)({
   "& label.Mui-focused": {
@@ -24,6 +25,20 @@ const FormInput = styled(TextField)({
     },
   },
 });
+
+const FormButton = (props) => (
+  <Button
+    variant="outlined"
+    sx={{
+      padding: 1,
+      borderColor: "teal",
+      color: "#fff",
+      margin: "8px",
+    }}
+  >
+    {props.children}
+  </Button>
+);
 
 const Login = () => {
   return (
@@ -49,6 +64,7 @@ const Login = () => {
               "& .MuiTextField-root": { m: 1, width: "25ch" },
               borderColor: "teal",
             }}
+            direction="column"
             noValidate
             autoComplete="off"
           >
@@ -68,7 +84,7 @@ const Login = () => {
                 autoComplete="current-password"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
               />
-              <Button variant="outlined">Login</Button>
+              <FormButton>Login</FormButton>
             </div>
           </Box>
         </Grid>
@@ -104,7 +120,7 @@ const Login = () => {
                 autoComplete="current-password"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
               />
-              <Button variant="outlined">Sign Up</Button>
+              <FormButton>Sign Up</FormButton>
             </div>
           </Box>
         </Grid>
