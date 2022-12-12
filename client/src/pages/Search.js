@@ -9,7 +9,12 @@ import {
     Box,
     Autocomplete,
     FormControlLabel,
-    Checkbox
+    Checkbox,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
 } from "@mui/material";
 
 import FormControl from '@mui/material/FormControl';
@@ -67,51 +72,54 @@ const cardTypes = [
 
 export const Search = () => {
 
-    //     const [searchedCards, setSearchedCards] = useState([]);
+    const [searchedCards, setSearchedCards] = useState([]);
 
 
-    //     useEffect(() => {
-    //         if(cardData) {
-    //             return () => setSearchedCards(cardData);
-    //         }
-    //     }, []);
-
-    //     if (!cardData) {
-    //         return false;
+    // useEffect(() => {
+    //     if(inputData) {
+    //         return () => setSearchedCards(cardData);
     //     }
-    //     console.log(cardData);
+    // }, []);
 
-    //     const handleFormSubmit = async (event) => {
+    if (!inputData) {
+        return false;
+    }
+    console.log(inputData);
 
-    //         event.preventDefault();
+    const handleFormSubmit = async (event) => {
 
-    //     if (!searchInput) {
-    //         return false;
-    //     }
+        event.preventDefault();
 
-    //     try {
+        if (!inputData) {
+            return false;
+        }
 
-    //     const response = searchMagicCards();
+        try {
 
-    //     if (!response.ok) {
-    //         throw new Error('something went wrong!');
-    //     }
+            const response = await searchMagicCards(inputData);
 
-    //     const { cards } = response.json();
+            if (!response.ok) {
+                throw new Error('something went wrong!');
+            }
 
-    //     const cardData = cards.map((card) => ({
-    //         cardId: card.id,
-    //         name: card.name,
-    //         type: card.type,
-    //         text: card.text,
-    //         image: card.imageUrl,
-    //     }));
+            const { cards } = response.json();
 
-    // } catch (err) {
-    //     console.error(err);
-    // }
+            const cardData = cards.map((card) => ({
+                cardId: card.id,
+                name: card.name,
+                type: card.type,
+                text: card.text,
+                image: card.imageUrl,
+            }));
 
-    // };
+            setSearchedCards(cardData);
+            // we may not want to clear the form for the user in this setting -- they may want to run the same search again, as it only returns a small, random sample of the many possible matches.
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    };
     return (
         <>
             <Container maxWidth="md" sx={{ margin: "10em" }}>
@@ -137,18 +145,55 @@ export const Search = () => {
 
                     <SearchBox label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)" id="custom-css-outlined-input" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
 
-                    <Box sx={{ backgroundColor: '#212121', padding: '2em', paddingTop: '5px',borderRadius: '8px', textAlign: 'left', color: '#fff' }}>
+                    <Box sx={{ backgroundColor: '#3e2723', padding: '2em', paddingTop: '5px', borderRadius: '8px', textAlign: 'left', color: '#fff' }}>
                         <h3>Select Card Colors:</h3>
                         <hr></hr>
-                        <FormControlLabel control={<Checkbox defaultUnchecked color="secondary" />} label="White" sx={{ color: '#fff' }} />
-                        <FormControlLabel control={<Checkbox defaultUnchecked color="secondary" />} label="Blue" sx={{ color: '#fff' }} />
-                        <FormControlLabel control={<Checkbox defaultUnchecked color="secondary" />} label="Green" sx={{ color: '#fff' }} />
-                        <FormControlLabel control={<Checkbox defaultUnchecked color="secondary" />} label="Red" sx={{ color: '#fff' }} />
-                        <FormControlLabel control={<Checkbox defaultUnchecked color="secondary" />} label="Black" sx={{ color: '#fff' }} />
-
+                        <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="White" sx={{ color: '#fff' }} />
+                        <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="Blue" sx={{ color: '#fff' }} />
+                        <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="Green" sx={{ color: '#fff' }} />
+                        <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="Red" sx={{ color: '#fff' }} />
+                        <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="Black" sx={{ color: '#fff' }} />
                     </Box>
+
                 </Box>
+                <Button variant="contained" color="success" sx={{ marginTop: "2em" }} onClick={() => handleFormSubmit(inputData)}>Submit</Button>
                 {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
+                <Box
+                    component="results"
+                    noValidate
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { sm: '1fr 1fr', md: '1fr 1fr 1fr', },
+                        gap: 2,
+                    }}
+                >
+                    {searchedCards.map((card) => {
+                        return (
+                            <Card key={card.cardId} sx={{ maxWidth: 345 }}>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={card.image}
+                                    alt={card.title}
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    {card.title}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    {card.text}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    {/* these buttons need functionality */}
+                                    <Button size="small">Add to Wishlist</Button>
+                                    <Button size="small">Add to a Deck:</Button>
+                                </CardActions>
+                            </Card>
+                        )
+                    })}
+
+                </Box>
             </Container >
         </>
     )
