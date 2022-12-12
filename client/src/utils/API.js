@@ -1,5 +1,24 @@
-export const searchMagicCards = () => {
-    return fetch(`https://api.magicthegathering.io/v1/cards?subtypes=cat;pageSize=20;contains=imageUrl`)
+export const searchMagicCards = (query) => {
+    //check the data we are getting
+    console.log(query);
+    //make sure to factor in the semicolon before adding each new string -- because having a semi-colon hanging out at the end may cause fetch errors(?)
+    const baseAPI = "https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl"
+    const cardName = query.cardName
+    const cardType = query.cardType
+    const subType = query.subType
+
+    if(cardName) {
+        let cardFetch = baseAPI + ";name=" + cardName;
+    }
+    if(cardType) {
+        let cardFetch = baseAPI + ";types=" + cardType;
+    }
+    if(subType) {
+        let cardFetch = baseAPI + ";subtypes=" + subType;
+    }
+
+
+    return cardFetch;
 }
 
 
@@ -14,4 +33,5 @@ export const searchMagicCards = () => {
 
 //subtypes is a really fun field, it should be included -- but it doesn't need to be in the graphQL? it is a means for searching, but what really needs to be saved? The image, the text, the name, the type.
 
+//fetch(`https://api.magicthegathering.io/v1/cards?subtypes=cat;pageSize=20;contains=imageUrl`)
 

@@ -81,22 +81,22 @@ export const Search = () => {
     //     }
     // }, []);
 
-    if (!inputData) {
+    if (!cardFetch) {
         return false;
     }
-    console.log(inputData);
+    console.log(cardFetch);
 
     const handleFormSubmit = async (event) => {
 
         event.preventDefault();
 
-        if (!inputData) {
+        if (!cardFetch) {
             return false;
         }
 
         try {
 
-            const response = await searchMagicCards(inputData);
+            const response = await searchMagicCards(cardFetch);
 
             if (!response.ok) {
                 throw new Error('something went wrong!');
@@ -133,18 +133,22 @@ export const Search = () => {
                         gap: 2,
                     }}
                 >
-                    <SearchBox label="Search by Card Name" id="search-box" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
+                    {/* search by card name */}
+                    <SearchBox label="Search by Card Name" id="cardName" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
 
+                    {/* search by card type */}
                     <AutoSearch
                         disablePortal
-                        id="search-box"
+                        id="cardType"
                         options={cardTypes}
                         sx={{ input: { color: '#fff', }, label: { color: '#fff', } }}
                         renderInput={(params) => <TextField {...params} label="Card Type" />}
                     />
 
-                    <SearchBox label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)" id="custom-css-outlined-input" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
+                    {/* search by subtype */}
+                    <SearchBox label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)" id="subType" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
 
+                    {/* checkboxes for colors to search */}
                     <Box sx={{ backgroundColor: '#3e2723', padding: '2em', paddingTop: '5px', borderRadius: '8px', textAlign: 'left', color: '#fff' }}>
                         <h3>Select Card Colors:</h3>
                         <hr></hr>
@@ -156,8 +160,12 @@ export const Search = () => {
                     </Box>
 
                 </Box>
+
+                {/* submit button */}
                 <Button variant="contained" color="success" sx={{ marginTop: "2em" }} onClick={() => handleFormSubmit(inputData)}>Submit</Button>
                 {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
+
+                {/* results of search (map all cards returned) */}
                 <Box
                     component="results"
                     noValidate
@@ -178,10 +186,10 @@ export const Search = () => {
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">
-                                    {card.title}
+                                        {card.title}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                    {card.text}
+                                        {card.text}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
