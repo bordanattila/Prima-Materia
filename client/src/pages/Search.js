@@ -15,9 +15,9 @@ import {
     CardActions,
     CardContent,
     CardMedia,
+    Typography,
 } from "@mui/material";
-
-import FormControl from '@mui/material/FormControl';
+import { Form } from "react-router-dom";
 
 const SearchBox = styled(TextField)({
     '& label.Mui-focused': {
@@ -60,19 +60,20 @@ const AutoSearch = styled(Autocomplete)({
 });
 
 const cardTypes = [
-    { label: 'Creatures' },
-    { label: 'Enchantments' },
-    { label: 'Lands' },
-    { label: 'Sorceries' },
-    { label: 'Artifacts' },
-    { label: 'Instants' },
-
+    { label: 'creature' },
+    { label: 'enchantment' },
+    { label: 'land' },
+    { label: 'sorcery' },
+    { label: 'artifact' },
+    { label: 'instant' },
+    { label: 'planeswalker' },
 ]
 
 
 export const Search = () => {
 
     const [searchedCards, setSearchedCards] = useState([]);
+    const [searchInput, setSearchInput] = useState([]);
 
 
     // useEffect(() => {
@@ -81,22 +82,22 @@ export const Search = () => {
     //     }
     // }, []);
 
-    if (!cardFetch) {
+    if (!searchInput) {
         return false;
     }
-    console.log(cardFetch);
+    console.log(searchInput);
 
     const handleFormSubmit = async (event) => {
 
         event.preventDefault();
 
-        if (!cardFetch) {
+        if (!searchInput) {
             return false;
         }
 
         try {
 
-            const response = await searchMagicCards(cardFetch);
+            const response = await searchMagicCards(searchInput);
 
             if (!response.ok) {
                 throw new Error('something went wrong!');
@@ -118,14 +119,16 @@ export const Search = () => {
         } catch (err) {
             console.error(err);
         }
-
     };
     return (
         <>
             <Container maxWidth="md" sx={{ margin: "10em" }}>
                 <h2 style={{ color: '#fff' }}>Search for Cards</h2>
+
+                {/* <Form onSubmit={handleFormSubmit}> */}
                 <Box
                     component="form"
+                    onSubmit={handleFormSubmit}
                     noValidate
                     sx={{
                         display: 'grid',
@@ -133,42 +136,64 @@ export const Search = () => {
                         gap: 2,
                     }}
                 >
+
                     {/* search by card name */}
-                    <SearchBox label="Search by Card Name" id="cardName" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
+                    <SearchBox
+                        name='searchInput'
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        label="Search by Card Name"
+                        id="cardName"
+                        sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
 
                     {/* search by card type */}
                     <AutoSearch
+                        name='searchInput'
+                        // isOptionEqualToValue={true}
+                        // value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
                         disablePortal
                         id="cardType"
                         options={cardTypes}
                         sx={{ input: { color: '#fff', }, label: { color: '#fff', } }}
-                        renderInput={(params) => <TextField {...params} label="Card Type" />}
+                        renderInput={(params) => <TextField {...params}
+                            label="Card Type" />}
                     />
 
                     {/* search by subtype */}
-                    <SearchBox label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)" id="subType" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
+                    <SearchBox
+                        name='searchInput'
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)" id="subType" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
 
                     {/* checkboxes for colors to search */}
-                    <Box sx={{ backgroundColor: '#3e2723', padding: '2em', paddingTop: '5px', borderRadius: '8px', textAlign: 'left', color: '#fff' }}>
+                    <Box
+                        name='searchInput'
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        sx={{ backgroundColor: '#3e2723', padding: '2em', paddingTop: '5px', borderRadius: '8px', textAlign: 'left', color: '#fff' }}>
+
                         <h3>Select Card Colors:</h3>
                         <hr></hr>
+
                         <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="White" sx={{ color: '#fff' }} />
                         <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="Blue" sx={{ color: '#fff' }} />
                         <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="Green" sx={{ color: '#fff' }} />
                         <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="Red" sx={{ color: '#fff' }} />
                         <FormControlLabel control={<Checkbox defaultUnchecked color="success" />} label="Black" sx={{ color: '#fff' }} />
-                    </Box>
 
+                    </Box>
+                    {/* submit button */}
+                    <Button type="submit" variant="contained" color="success" sx={{ marginTop: "2em" }}>Submit</Button>
                 </Box>
 
-                {/* submit button */}
-                <Button variant="contained" color="success" sx={{ marginTop: "2em" }} onClick={() => handleFormSubmit(inputData)}>Submit</Button>
+
+                {/* </Form> */}
                 {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
 
                 {/* results of search (map all cards returned) */}
                 <Box
-                    component="results"
-                    noValidate
                     sx={{
                         display: 'grid',
                         gridTemplateColumns: { sm: '1fr 1fr', md: '1fr 1fr 1fr', },

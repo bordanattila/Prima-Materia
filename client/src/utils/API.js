@@ -8,17 +8,17 @@ export const searchMagicCards = (query) => {
     const subType = query.subType
 
     if(cardName) {
-        let cardFetch = baseAPI + ";name=" + cardName;
+        let query = baseAPI + ";name=" + cardName;
     }
     if(cardType) {
-        let cardFetch = baseAPI + ";types=" + cardType;
+        let query = baseAPI + ";type=" + cardType;
     }
     if(subType) {
-        let cardFetch = baseAPI + ";subtypes=" + subType;
+        let query = baseAPI + ";subtype=" + subType;
     }
 
 
-    return cardFetch;
+    return fetch(query);
 }
 
 
