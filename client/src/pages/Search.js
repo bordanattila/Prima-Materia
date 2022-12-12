@@ -73,7 +73,10 @@ const cardTypes = [
 export const Search = () => {
 
     const [searchedCards, setSearchedCards] = useState([]);
-    const [searchInput, setSearchInput] = useState([]);
+    const [nameInput, setNameInput] = useState([]);
+    const [typeInput, setTypeInput] = useState([]);
+    const [subtypeInput, setSubtypeInput] = useState([]);
+    const [colorInput, setColorInput] = useState([]);
 
 
     // useEffect(() => {
@@ -81,23 +84,19 @@ export const Search = () => {
     //         return () => setSearchedCards(cardData);
     //     }
     // }, []);
-
-    if (!searchInput) {
-        return false;
-    }
-    console.log(searchInput);
+    console.log(subtypeInput);
 
     const handleFormSubmit = async (event) => {
 
         event.preventDefault();
 
-        if (!searchInput) {
+        if (!subtypeInput) {
             return false;
         }
 
         try {
 
-            const response = await searchMagicCards(searchInput);
+            const response = await searchMagicCards(subtypeInput);
 
             if (!response.ok) {
                 throw new Error('something went wrong!');
@@ -112,8 +111,9 @@ export const Search = () => {
                 text: card.text,
                 image: card.imageUrl,
             }));
-
+            console.log(cardData);
             setSearchedCards(cardData);
+            console.log(searchedCards);
             // we may not want to clear the form for the user in this setting -- they may want to run the same search again, as it only returns a small, random sample of the many possible matches.
 
         } catch (err) {
@@ -139,19 +139,19 @@ export const Search = () => {
 
                     {/* search by card name */}
                     <SearchBox
-                        name='searchInput'
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
+                        name='nameInput'
+                        value={nameInput}
+                        onChange={(e) => setNameInput(e.target.value)}
                         label="Search by Card Name"
                         id="cardName"
                         sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
 
                     {/* search by card type */}
                     <AutoSearch
-                        name='searchInput'
+                        name='typeInput'
                         // isOptionEqualToValue={true}
-                        // value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
+                        // value={typeInput}
+                        onChange={(e) => setTypeInput(e.target.value)}
                         disablePortal
                         id="cardType"
                         options={cardTypes}
@@ -162,16 +162,16 @@ export const Search = () => {
 
                     {/* search by subtype */}
                     <SearchBox
-                        name='searchInput'
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
+                        name='subtypeInput'
+                        value={subtypeInput}
+                        onChange={(e) => setSubtypeInput(e.target.value)}
                         label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)" id="subType" sx={{ input: { color: '#fff', }, label: { color: '#fff', } }} />
 
                     {/* checkboxes for colors to search */}
                     <Box
-                        name='searchInput'
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
+                        name='colorInput'
+                        value={colorInput}
+                        onChange={(e) => setColorInput(e.target.value)}
                         sx={{ backgroundColor: '#3e2723', padding: '2em', paddingTop: '5px', borderRadius: '8px', textAlign: 'left', color: '#fff' }}>
 
                         <h3>Select Card Colors:</h3>
@@ -223,13 +223,13 @@ export const Search = () => {
                                     <Button size="small">Add to a Deck:</Button>
                                 </CardActions>
                             </Card>
-                        )
+                        );
                     })}
 
                 </Box>
             </Container >
         </>
-    )
-}
+    );
+};
 
 export default Search;

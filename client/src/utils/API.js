@@ -2,23 +2,23 @@ export const searchMagicCards = (query) => {
     //check the data we are getting
     console.log(query);
     //make sure to factor in the semicolon before adding each new string -- because having a semi-colon hanging out at the end may cause fetch errors(?)
-    const baseAPI = "https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl"
-    const cardName = query.cardName
-    const cardType = query.cardType
-    const subType = query.subType
+    // const baseAPI = "https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl"
+    // const cardName = {query}.cardName
+    // const cardType = {query}.cardType
+    // const subType = {query}.subType
 
-    if(cardName) {
-        let query = baseAPI + ";name=" + cardName;
-    }
-    if(cardType) {
-        let query = baseAPI + ";type=" + cardType;
-    }
-    if(subType) {
-        let query = baseAPI + ";subtype=" + subType;
-    }
+    // if(cardName) {
+    //     let query = baseAPI + ";name=" + cardName;
+    // }
+    // if(cardType) {
+    //     let query = baseAPI + ";types=" + cardType;
+    // }
+    // if(subType) {
+    //     let query = baseAPI + ";subtypes=" + subType;
+    // }
+return fetch(`https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl;subtypes=` + query)
 
-
-    return fetch(query);
+    // return fetch(query);
 }
 
 
