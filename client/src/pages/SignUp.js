@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Grid, Button, Link } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const FormInput = styled(TextField)({
@@ -38,7 +38,7 @@ const FormButton = (props) => (
   </Button>
 );
 
-const Login = () => {
+const SignUp = () => {
   return (
     <Grid
       container
@@ -59,33 +59,34 @@ const Login = () => {
             component="form"
             sx={{
               "& .MuiTextField-root": { m: 1, width: "25ch" },
-              borderColor: "teal",
             }}
             noValidate
             autoComplete="off"
           >
-            <h2 style={{ color: "#fff" }}>Login</h2>
+            <h2 style={{ color: "#fff" }}>Sign Up</h2>
             <div>
               <FormInput
-                id="login-email-input"
+                id="signup-username-input"
+                label="Username"
+                type="username"
+                autoComplete="current-username"
+                sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
+              />
+              <FormInput
+                id="signup-email-input"
                 label="Email"
                 type="email"
                 autoComplete="current-email"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
               />
               <FormInput
-                id="login-password-input"
+                id="signup-password-input"
                 label="Password"
                 type="password"
                 autoComplete="current-password"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
               />
-              <FormButton>Login</FormButton>
-            </div>
-            <div>
-              <Link href="/signup" underline="none">
-                {"Click here to sign up"}
-              </Link>
+              <FormButton>Sign Up</FormButton>
             </div>
           </Box>
         </Grid>
@@ -94,4 +95,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
