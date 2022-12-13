@@ -169,7 +169,7 @@ export const Search = () => {
           <Box
             name="colorInput"
             value={colorInput}
-            onChange={(e) => setColorInput(e.target.value)}
+            onChange={(e) => setColorInput(colorInput + e.target.value + ",")}
             sx={{
               backgroundColor: "#3e2723",
               padding: "2em",
