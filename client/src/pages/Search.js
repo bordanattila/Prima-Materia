@@ -215,7 +215,7 @@ export const Search = () => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
+           style={{ maxWidth: "100px"}}
           >
             Submit
           </Button>
@@ -251,7 +251,7 @@ export const Search = () => {
                 </CardContent>
                 <CardActions>
                   {/* these buttons need functionality */}
-                  <Button size="small" color="primary">Add to Wishlist</Button>
+                  <Button size="small" color="secondary">Add to Wishlist</Button>
                   <Button size="small">Add to a Deck:</Button>
                 </CardActions>
               </Card>
