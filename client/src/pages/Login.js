@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Grid, Button, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
+// import { useMutation } from '@apollo/client';
+// import { LOGIN_USER } from "../utils/mutations";
+// import Auth from '../utils/auth';
 
 const FormInput = styled(TextField)({
   "& label.Mui-focused": {
@@ -39,6 +42,40 @@ const FormButton = (props) => (
 );
 
 const Login = () => {
+  // const [formState, setFormState] = useState({ email: "", password: "" });
+  // const [login, { error, data }] = useMutation(LOGIN_USER);
+
+  // // update state based on form input changes
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+
+  //   setFormState({
+  //     ...formState,
+  //     [name]: value,
+  //   });
+  // };
+
+  // // submit form
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   console.log(formState);
+  //   try {
+  //     const { data } = await login({
+  //       variables: { ...formState },
+  //     });
+
+  //     Auth.login(data.login.token);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+
+  //   // clear form values
+  //   setFormState({
+  //     email: "",
+  //     password: "",
+  //   });
+  // };
+
   return (
     <Grid
       container
@@ -63,6 +100,7 @@ const Login = () => {
             }}
             noValidate
             autoComplete="off"
+            // onSubmit={handleFormSubmit}
           >
             <h2 style={{ color: "#fff" }}>Login</h2>
             <div>
@@ -72,15 +110,23 @@ const Login = () => {
                 type="email"
                 autoComplete="current-email"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
+                // value={formState.email}
+                // onChange={handleChange}
               />
+            </div>
+            <div>
               <FormInput
                 id="login-password-input"
                 label="Password"
                 type="password"
                 autoComplete="current-password"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
+                // value={formState.password}
+                // onChange={handleChange}
               />
-              <FormButton>Login</FormButton>
+            </div>
+            <div>
+              <FormButton type="submit">Login</FormButton>
             </div>
             <div>
               <Link href="/signup" underline="none">
