@@ -1,6 +1,6 @@
 import { borderRadius, margin } from "@mui/system";
 import React, { useState, useEffect } from "react";
-import { searchMagicCards } from "../utils/API";
+// import { searchMagicCards } from "../utils/API";
 import { alpha, styled } from "@mui/material/styles";
 
 import {
@@ -77,14 +77,42 @@ export const Search = () => {
   const [colorInput, setColorInput] = useState([]);
   const [cardFetch, setCardFetch] = useState("https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl");
 
+//handle the value conversion between user input and letter needed for fetch  
+
+  useEffect(() => {
+if(colorInput === "White") {
+    setColorInput("w");
+}
+if(colorInput === "Blue") {
+    setColorInput("u");
+}
+if(colorInput === "Green") {
+    setColorInput("g");
+}
+if(colorInput === "Red") {
+    setColorInput("r");
+}
+if(colorInput === "Black") {
+    setColorInput("b");
+}
+  }, []);
+  
+
   useEffect(() => {
       if(nameInput) {
-          setCardFetch(";name=" = nameInput);
+          setCardFetch( ";name=" + nameInput);
       }
       if(typeInput) {
-        setCardFetch(";type=" = typeInput);
+        setCardFetch(";type=" + typeInput);
+      }
+      if(subtypeInput) {
+        setCardFetch(";type=" + subtypeInput);
+      }
+      if(colorInput) {
+        setCardFetch(";type=" + colorInput);
       }
   }, []);
+
   console.log(subtypeInput);
 
   const handleFormSubmit = async (event) => {
