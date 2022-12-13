@@ -1,8 +1,6 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { Grid, Button } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Grid, Button, TextField, Box, styled } from "@mui/material";
+
 // import { CREATE_USER } from "../utils/mutations";
 // import { useMutation } from '@apollo/client';
 // import Auth from '../utils/auth';
