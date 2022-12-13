@@ -123,6 +123,7 @@ export const Search = () => {
             display: "grid",
             gridTemplateColumns: { sm: "1fr 1fr", md: "1fr 1fr 1fr" },
             gap: 2,
+            marginBottom: "2em"
           }}
         >
           {/* search by card name */}
@@ -156,7 +157,7 @@ export const Search = () => {
             value={subtypeInput}
             onChange={(e) => setSubtypeInput(e.target.value)}
             label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)"
-            id="subType"
+            id="cardName"
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
           />
 
@@ -232,10 +233,10 @@ export const Search = () => {
         >
           {searchedCards.map((card) => {
             return (
-              <Card key={card.cardId} sx={{ maxWidth: 345 }}>
+              <Card key={card.cardId} 
+              sx={{ padding: "1em", margin: "5px"}}>
                 <CardMedia
                   component="img"
-                  height="140"
                   image={card.image}
                   alt={card.name}
                 />
