@@ -17,6 +17,7 @@ import Search from "./pages/Search";
 import Decks from "./components/Deck";
 import Wishlist from "./pages/Wishlist";
 import MysteryCard from "./pages/MysteryCard";
+// import Title from "./pages/Title";
 
 import "./App.css";
 import { Container } from "@mui/material";
@@ -56,6 +57,7 @@ function App() {
       <div>
         <Container sx={{ mt: "6rem", mb: "6rem" }}>
           <Routes>
+            {/* <Route path="/" element={<Title />} /> */}
             <Route path="/home" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/decks" element={<Decks />} />
@@ -63,8 +65,7 @@ function App() {
             <Route path="/mysterycard" element={<MysteryCard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-          <Route path="/decks/create" element={<CreateDeck />} />
-
+            <Route path="/decks/create" element={<CreateDeck />} />
           </Routes>
         </Container>
       </div>

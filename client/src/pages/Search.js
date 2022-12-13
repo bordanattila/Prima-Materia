@@ -91,7 +91,12 @@ export const Search = () => {
     }
 
     try {
-      const response = await searchMagicCards(nameInput, typeInput, subtypeInput, colorInput);
+      const response = await searchMagicCards(
+        nameInput,
+        typeInput,
+        subtypeInput,
+        colorInput
+      );
 
       if (!response.ok) {
         throw new Error("something went wrong!");
