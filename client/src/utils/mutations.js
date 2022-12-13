@@ -2,7 +2,8 @@ import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
+    login(email: $email, password: $password) {
+      token
       user {
         _id
         username
@@ -14,6 +15,7 @@ export const LOGIN_USER = gql`
 export const CREATE_USER = gql`
   mutation createUser($_id: ID!, $username: String!, $email: String!, $password: String!) {
     createUser(_id: $_id, username: $username, email: $email, password: $password) {
+      token
       user {
         _id
         username
@@ -27,6 +29,7 @@ export const ADD_CARD_LIST = gql`
   mutation addCardToWishList($cardId: ID!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
     addCardToWishList(cardId: $cardId, name: $name, type: $type, text: $text, color: $color, image: $image) {
       wishList {
+        _id
         cardId
         name
         type
@@ -45,6 +48,7 @@ export const ADD_CARD_DECK = gql`
         _id
         title
         cards {
+          _id
           cardId
           name
           type
@@ -63,27 +67,35 @@ export const CREATE_DECK = gql`
       decks {
         _id
         title
-        cards
+        cards {
+          _id
+          cardId
+          name
+          type
+          text
+          color
+          image
+        }
       }
     }
   }
 `;
 
 export const REMOVE_CARD_LIST = gql`
-mutation removeCardFromList($cardId: ID!) {
-  removeCardFromList(cardId: $cardId) {
+mutation removeCardFromList($idCard: ID!) {
+  removeCardFromList(idCard: $idCard) {
     wishList {
-      cardId
+      _id
     }
   }
 }
 `;
 
 export const REMOVE_CARD_DECK = gql`
-mutation removeCardFromDeck($_id: ID!) {
-    removeCardFromDeck(_id: $_id) {
+mutation removeCardFromDeck($idDeck: ID!, $idCard: ID!) {
+  removeCardFromDeck(idDeck: $idDeck, idCard: $idCard) {
     decks {
-        _id
+      _id
     }
   }
 }
