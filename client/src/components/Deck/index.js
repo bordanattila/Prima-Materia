@@ -24,24 +24,7 @@ function Decks() {
 
     return (
         <>
-         <Router>
-      
-      <div>
-        <Routes>
-        
-          <Route path="/decks/currentdecks" element={<CurrentDecks />} />
-          <Route path="/decks/createdeck" element={<CreateDeck />} />
-      
-        </Routes>
-      </div>
-      
-    </Router>
-    <div>
-            <CurrentDecks />
-
-    </div>
-    {/* <CurrentDecks currentPage={currentPage} handlePageChange={handlePageChange} */}
-            {/* {renderPage()} */}
+    <CurrentDecks />
         </>
     );
 

@@ -13,6 +13,7 @@ import { styled } from '@mui/system';
 
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import { Link } from 'react-router-dom';
 
 // styling input field
 const DeckTextField = styled(TextField)({
@@ -26,9 +27,9 @@ const DeckTextField = styled(TextField)({
     }
 })
 
-function CurrentDecks ({ currentPage, handlePageChange }) {
+function CurrentDecks({ currentPage, handlePageChange }) {
 
-    
+
 
     return (
         <>
@@ -66,16 +67,18 @@ function CurrentDecks ({ currentPage, handlePageChange }) {
                             maxWidth: "150px",
                             padding: "6px"
                         }}>Add New Deck</Button> */}
-                         <BottomNavigation
-          showLabels
-          currentPage={"CreateDeck"}
-          onClick={(event, newValue) => {
-            handlePageChange("CreateDeck");
-          }}
-        >
-          <BottomNavigationAction label="Add New Deck" />
-          
-        </BottomNavigation>
+                    <BottomNavigation
+                        showLabels
+                        currentPage={"CreateDeck"}
+                        onClick={(event, newValue) => {
+                            handlePageChange("CreateDeck");
+                        }}
+                    >
+                        <Link to={"/decks/create"}>
+                            Add new deck
+                        </Link>
+
+                    </BottomNavigation>
                 </Box>
             </Container>
         </>
