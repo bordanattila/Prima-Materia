@@ -86,10 +86,6 @@ export const Search = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (!subtypeInput) {
-      return false;
-    }
-
     try {
       const response = await searchMagicCards(
         nameInput,
