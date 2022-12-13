@@ -62,7 +62,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/decks" element={<Decks />} />
             <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/mystery" element={<MysteryCard />} />
+            <Route path="/mysterycard" element={<MysteryCard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/decks/create" element={<CreateDeck />} />
