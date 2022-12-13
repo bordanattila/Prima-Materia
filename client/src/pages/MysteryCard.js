@@ -43,7 +43,7 @@ export const MysteryCard = () => {
         alignItems="center"
         justifyContent="center"
         justify="center"
-        style={{ minHeight: "70vh" }}
+        style={{ minHeight: "20vh" }}
       >
         <Grid item xs={4}>
           <Box
@@ -54,30 +54,6 @@ export const MysteryCard = () => {
               alignItems: "center",
             }}
           >
-            {mysteryCard.map((card) => {
-              return (
-                <Card key={card.cardId} sx={{ margin: "5em" }}>
-                  <CardMedia
-                    component="img"
-                    image={card.image}
-                    alt={card.name}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {card.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {card.text}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    {/* these buttons need functionality */}
-                    <Button size="small">Add to Wishlist</Button>
-                    <Button size="small">Add to a Deck:</Button>
-                  </CardActions>
-                </Card>
-              );
-            })}
             <Typography>
               Cast your query into the void!
             </Typography>
@@ -90,7 +66,30 @@ export const MysteryCard = () => {
               Get a Mystery Card
             </Button>
           </Box>
-
+          {mysteryCard.map((card) => {
+              return (
+                <Card key={card.cardId} sx={{ padding: "1.5em", margin: "5px", backgroundColor: "#424242", color: "#fff",  marginTop: "2em" }}>
+                  <CardMedia
+                    component="img"
+                    image={card.image}
+                    alt={card.name}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {card.name}
+                    </Typography>
+                    <Typography variant="body2" color="#eeeeee">
+                      {card.text}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    {/* these buttons need functionality */}
+                    <Button size="small" color="secondary">Add to Wishlist</Button>
+                    <Button size="small">Add to a Deck:</Button>
+                  </CardActions>
+                </Card>
+              );
+            })}
 
         </Grid>
       </Grid>

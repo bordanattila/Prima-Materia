@@ -25,6 +25,12 @@ import { Container } from "@mui/material";
 import CreateDeck from "./pages/CreateDeckName";
 import AddToDeck from "./pages/AddToDeck";
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
+
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
