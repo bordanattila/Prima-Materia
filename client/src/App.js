@@ -17,6 +17,7 @@ import Search from "./pages/Search";
 import Decks from "./components/Deck";
 import Wishlist from "./pages/Wishlist";
 import MysteryCard from "./pages/MysteryCard";
+import MagicCard from "./components/Card";
 // import Title from "./pages/Title";
 
 import "./App.css";
