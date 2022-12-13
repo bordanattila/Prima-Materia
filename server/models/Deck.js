@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 // import card schema from Card.js
 const cardSchema = require("./Card");
@@ -10,7 +10,6 @@ const deckSchema = new Schema(
             type: String, 
             required: true, 
         },
-        cardId: { type: ObjectId, required: false },
         cards: [cardSchema]
     }
 );

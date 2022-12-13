@@ -7,6 +7,7 @@ query me {
         username
         email
         wishList {
+            _id
             cardId
             name
             type
@@ -18,6 +19,7 @@ query me {
             _id
             title
             cards {
+                _id
                 cardId
                 name
                 type
