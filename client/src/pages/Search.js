@@ -2,7 +2,6 @@ import { borderRadius, margin } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import { searchMagicCards } from "../utils/API";
 import { alpha, styled } from "@mui/material/styles";
-
 import {
   Container,
   TextField,
@@ -16,6 +15,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  Icon,
 } from "@mui/material";
 import { Form } from "react-router-dom";
 
@@ -251,6 +251,7 @@ export const Search = () => {
                 </CardContent>
                 <CardActions>
                   {/* these buttons need functionality */}
+                  
                   <Button size="small" color="secondary">Add to Wishlist</Button>
                   <Button size="small">Add to a Deck:</Button>
                 </CardActions>
