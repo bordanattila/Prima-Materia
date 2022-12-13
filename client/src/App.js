@@ -64,6 +64,7 @@ function App() {
             <Route path="/decks" element={<MysteryCard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/decks/create" element={<CreateDeck />} />
           </Routes>
         </Container>
       </div>
