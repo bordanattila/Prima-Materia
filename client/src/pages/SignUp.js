@@ -1,9 +1,11 @@
-import * as React from "react";
-import { Grid, Button, TextField, Box, styled } from "@mui/material";
-
-// import { CREATE_USER } from "../utils/mutations";
-// import { useMutation } from '@apollo/client';
-// import Auth from '../utils/auth';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { Grid, Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { CREATE_USER } from "../utils/mutations";
+import { useMutation } from '@apollo/client';
+import Auth from '../utils/auth';
 
 const FormInput = styled(TextField)({
   "& label.Mui-focused": {
@@ -28,6 +30,7 @@ const FormInput = styled(TextField)({
 const FormButton = (props) => (
   <Button
     variant="outlined"
+    type="submit"
     sx={{
       padding: 1,
       borderColor: "teal",
@@ -40,36 +43,39 @@ const FormButton = (props) => (
 );
 
 const SignUp = () => {
-  // const [formState, setFormState] = useState({
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  // });
-  // const [createUser, { error, data }] = useMutation(CREATE_USER);
+  const [formState, setFormState] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [createUser, { error, data }] = useMutation(CREATE_USER);
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  //   setFormState({
-  //     ...formState,
-  //     [name]: value,
-  //   });
-  // };
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
 
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   console.log(formState);
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
 
-  //   try {
-  //     const { data } = await createUser({
-  //       variables: { ...formState },
-  //     });
+    
+    try {
+      const { data } = await createUser({
+        variables: { ...formState },
+      });
+      
+      Auth.login(data.createUser.token);
+    } catch (e) {
+      console.error(e);
+    }
 
-  //     Auth.login(data.createUser.token);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
+  };
+
   return (
     <Grid
       container
@@ -98,7 +104,7 @@ const SignUp = () => {
             }}
             noValidate
             autoComplete="off"
-            // onSubmit={handleFormSubmit}
+            onSubmit={handleFormSubmit}
           >
             <h2 style={{ color: "#fff" }}>Sign Up</h2>
             <div>
@@ -106,10 +112,11 @@ const SignUp = () => {
                 id="signup-username-input"
                 label="Username"
                 type="username"
+                name="username"
                 autoComplete="current-username"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
-                // value={formState.username}
-                // onChange={handleChange}
+                value={formState.username}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -117,10 +124,11 @@ const SignUp = () => {
                 id="signup-email-input"
                 label="Email"
                 type="email"
+                name="email"
                 autoComplete="current-email"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
-                // value={formState.email}
-                // onChange={handleChange}
+                value={formState.email}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -128,10 +136,11 @@ const SignUp = () => {
                 id="signup-password-input"
                 label="Password"
                 type="password"
+                name="password"
                 autoComplete="current-password"
                 sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
-                // value={formState.password}
-                // onChange={handleChange}
+                value={formState.password}
+                onChange={handleChange}
               />
             </div>
             <div>

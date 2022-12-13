@@ -9,25 +9,50 @@ import {
     Button
 } from "@mui/material";
 import { styled } from '@mui/system';
+import { useMutation } from '@apollo/client';
+import { CREATE_DECK } from '../utils/mutations';
+import { Link } from 'react-router-dom';
 
 // styling input field
 const DeckTextField = styled(TextField)({
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
-          borderColor: 'white',
+            borderColor: 'white',
         },
         '&:hover fieldset': {
             borderColor: 'white',
-          },
+        },
     }
 })
 
+// styling button 
+const linkStyle = {
+    textDecoration: "none",
+    color: "white"
+}
+
 export const CreateDeck = () => {
+    const [title, setTitle] = useState('');
+
+    const [createDeck, { error }] = useMutation(CREATE_DECK);
+    const handleCreate = async (event) => {
+        // event.preventDefault();
+
+        try {
+            const { data } = await createDeck({
+                variables: { title },
+            });
+            setTitle('');
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
     return (
         <>
             <Container maxWidth="md"
                 sx={{
-                    margin: "10em",           
+                    margin: "10em",
                 }}>
                 <Box component="form"
                     noValidate
@@ -46,19 +71,27 @@ export const CreateDeck = () => {
                     >Create a Deck</h3>
                     <DeckTextField
                         sx={{
-                            input: { color: "white", }, 
+                            input: { color: "white", },
                             label: { color: "white", },
                         }}
                         id="outlined"
                         label="Name your Deck"
                         variant="outlined"
-                        />
+                        value={title}
+                        onChange={(event) => setTitle(event.target.value)}
+                    />
                     <Button variant="contained"
-                    sx={{
-                        minWidth: "10px",
-                        maxWidth: "150px",
-                        padding: "6px"
-                    }}>Create Deck</Button>
+                        sx={{
+                            minWidth: "10px",
+                            maxWidth: "150px",
+                            padding: "6px"
+                        }}
+                        onClick={() => handleCreate()}
+                        >
+                            <Link to={"search"} style={linkStyle}>
+                            Create Deck
+                        </Link>
+                        </Button>
                 </Box>
             </Container>
         </>

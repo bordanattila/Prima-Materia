@@ -47,6 +47,7 @@ function Header(props) {
             <ListItemButton
               sx={{ textAlign: "center" }}
               href={item.replace(/\s/g, "").toLowerCase()}
+              // use Link nad to to not reload page
             >
               <ListItemText primary={item} />
             </ListItemButton>
