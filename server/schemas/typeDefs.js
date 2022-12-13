@@ -10,12 +10,13 @@ type User {
 }
 
 type Card {
+  _id: ID
   cardId: ID
   name: String
   type: String
   text: String
   color: [String]
-  image: [String]
+  image: String
 }
 
 type Auth {
@@ -31,6 +32,7 @@ type Deck {
 
 type Query {
   me: User
+  deck(_id: ID!): Deck
 }
 
 type Mutation {
@@ -39,8 +41,8 @@ type Mutation {
   addCardToWishList(cardId: ID!, name: String!, type: String!, text: String!, color: [String]!, image: String!): User
   addCardToDeck(_id: ID!, cardId: ID!, name: String!, type: String!, text: String!, color: [String]!, image: String!): User
   createDeck(title: String!): User
-  removeCardFromList(cardId: ID!): User
-  removeCardFromDeck(_id: ID!, cardId: ID!): User
+  removeCardFromList(idCard: ID!): User
+  removeCardFromDeck(idDeck: ID!, idCard: ID!): User
 }
 `;
 
