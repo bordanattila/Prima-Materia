@@ -91,7 +91,7 @@ export const Search = () => {
     }
 
     try {
-      const response = await searchMagicCards(subtypeInput);
+      const response = await searchMagicCards(nameInput, typeInput, subtypeInput, colorInput);
 
       if (!response.ok) {
         throw new Error("something went wrong!");
@@ -242,11 +242,11 @@ export const Search = () => {
                   component="img"
                   height="140"
                   image={card.image}
-                  alt={card.title}
+                  alt={card.name}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {card.title}
+                    {card.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {card.text}
