@@ -3,8 +3,6 @@ const bcrypt = require("bcrypt");
 
 // import schema from Card.js
 const cardSchema = require("./Card");
-// import schema from Deck.js
-const deckSchema = require("./Deck");
 
 // define user schema
 const userSchema = new Schema(
@@ -27,7 +25,11 @@ const userSchema = new Schema(
         // set wishListCards to be an array of data that adheres to the bookSchema
         wishList: [cardSchema],
         // set deckCards to be an array of data that adheres to the bookSchema
-        decks: [deckSchema]
+        decks: [    {
+            type: Schema.Types.ObjectId,
+            ref: 'Deck',
+          },
+        ],
     }
 );
 
