@@ -16,7 +16,7 @@ export const searchMagicCards = (query) => {
     // if(subType) {
     //     let query = baseAPI + ";subtypes=" + subType;
     // }
-return fetch(`https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl;subtypes=` + query)
+return fetch(`https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl;random=true;name=;subtypes=` + query)
 
     // return fetch(query);
 }

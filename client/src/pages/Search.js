@@ -185,26 +185,31 @@ export const Search = () => {
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="White"
+              value="w"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="Blue"
+              value="u"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="Green"
+              value="g"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="Red"
+              value="r"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="Black"
+              value="b"
               sx={{ color: "#fff" }}
             />
           </Box>
