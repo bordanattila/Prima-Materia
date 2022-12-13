@@ -76,22 +76,17 @@ export const Search = () => {
   const [subtypeInput, setSubtypeInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
 
-  // useEffect(() => {
-  //     if(inputData) {
-  //         return () => setSearchedCards(cardData);
-  //     }
-  // }, []);
-  console.log(subtypeInput);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (!subtypeInput) {
-      return false;
-    }
-
     try {
-      const response = await searchMagicCards(nameInput, typeInput, subtypeInput, colorInput);
+      const response = await searchMagicCards(
+        nameInput,
+        typeInput,
+        subtypeInput,
+        colorInput
+      );
 
       if (!response.ok) {
         throw new Error("something went wrong!");

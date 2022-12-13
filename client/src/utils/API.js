@@ -4,3 +4,7 @@ return fetch(`https://api.magicthegathering.io/v1/cards?pageSize=20;contains=ima
 
 }
 
+export const mysteryCardSearch = () => {
+    return fetch(`https://api.magicthegathering.io/v1/cards?pageSize=1;contains=imageUrl;random=true`)
+}
+

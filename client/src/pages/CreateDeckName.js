@@ -88,7 +88,7 @@ export const CreateDeck = () => {
                         }}
                         onClick={() => handleCreate()}
                         >
-                            <Link to={"search"} style={linkStyle}>
+                            <Link to=".." relative="/search" style={linkStyle}>
                             Create Deck
                         </Link>
                         </Button>
