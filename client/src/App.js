@@ -67,7 +67,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/decks/create" element={<CreateDeck />} />
-            {/* <Route path="/decks/create/search" element={<Search />} /> */}
+            <Route path="/decks/create/search" element={<Search />} />
           </Routes>
         </Container>
       </div>
