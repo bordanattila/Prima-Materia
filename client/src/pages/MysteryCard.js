@@ -43,7 +43,7 @@ export const MysteryCard = () => {
         alignItems="center"
         justifyContent="center"
         justify="center"
-        style={{ minHeight: "70vh" }}
+        style={{ minHeight: "20vh" }}
       >
         <Grid item xs={4}>
           <Box

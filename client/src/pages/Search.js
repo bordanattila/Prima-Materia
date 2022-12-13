@@ -141,14 +141,14 @@ export const Search = () => {
             name="typeInput"
             // isOptionEqualToValue={true}
             // value={typeInput}
-            onChange={(e) => setTypeInput(e.target.value)}
             disablePortal
-            id="cardType"
+            id="typeInput"
             options={cardTypes}
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
             renderInput={(params) => (
               <TextField {...params} label="Card Type" />
-            )}
+            )}   
+            // onChange={(params) => setTypeInput(params)}
           />
 
           {/* search by subtype */}
@@ -182,31 +182,31 @@ export const Search = () => {
             {/* <hr></hr> */}
 
             <FormControlLabel
-              control={<Checkbox defaultUnchecked color="primary" />}
+              control={<Checkbox color="primary" />}
               label="White"
               value="w"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
-              control={<Checkbox defaultUnchecked color="primary" />}
+              control={<Checkbox color="primary" />}
               label="Blue"
               value="u"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
-              control={<Checkbox defaultUnchecked color="primary" />}
+              control={<Checkbox color="primary" />}
               label="Green"
               value="g"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
-              control={<Checkbox defaultUnchecked color="primary" />}
+              control={<Checkbox color="primary" />}
               label="Red"
               value="r"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
-              control={<Checkbox defaultUnchecked color="primary" />}
+              control={<Checkbox color="primary" />}
               label="Black"
               value="b"
               sx={{ color: "#fff" }}
