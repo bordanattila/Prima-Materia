@@ -75,12 +75,16 @@ export const Search = () => {
   const [typeInput, setTypeInput] = useState([]);
   const [subtypeInput, setSubtypeInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
+  const [cardFetch, setCardFetch] = useState("https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl");
 
-  // useEffect(() => {
-  //     if(inputData) {
-  //         return () => setSearchedCards(cardData);
-  //     }
-  // }, []);
+  useEffect(() => {
+      if(nameInput) {
+          setCardFetch(";name=" = nameInput);
+      }
+      if(typeInput) {
+        setCardFetch(";type=" = typeInput);
+      }
+  }, []);
   console.log(subtypeInput);
 
   const handleFormSubmit = async (event) => {
