@@ -13,6 +13,37 @@ import {
   ModalRoot,
 } from "@mui/material";
 
+const cardTheme = createTheme({
+  components: {
+    // Name of the component
+    MuiCard: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          padding: "1rem",
+          background: "black",
+          border: "solid 2px teal",
+        },
+      },
+    },
+    MuiCardMedia: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          borderRadius: 12,
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {},
+      },
+    },
+  },
+});
+
 const MagicCard = () => {
   return (
     <>
@@ -25,28 +56,30 @@ const MagicCard = () => {
         style={{ minHeight: "100vh" }}
       >
         <Grid item>
-          <Card>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                image="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=136279&type=card"
-                alt="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Card Title
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Short Description
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-            </CardActions>
-          </Card>
+          <ThemeProvider theme={cardTheme}>
+            <Card sx={{ color: "#fff" }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  image="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=136279&type=card"
+                  alt="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Card Title
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: "#fff" }}>
+                    Description
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button size="small" color="primary">
+                  Share
+                </Button>
+              </CardActions>
+            </Card>
+          </ThemeProvider>
         </Grid>
       </Grid>
     </>
