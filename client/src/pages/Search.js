@@ -91,7 +91,7 @@ export const Search = () => {
     }
 
     try {
-      const response = await searchMagicCards(subtypeInput);
+      const response = await searchMagicCards(nameInput, typeInput, subtypeInput, colorInput);
 
       if (!response.ok) {
         throw new Error("something went wrong!");
@@ -169,7 +169,7 @@ export const Search = () => {
           <Box
             name="colorInput"
             value={colorInput}
-            onChange={(e) => setColorInput(e.target.value)}
+            onChange={(e) => setColorInput(colorInput + e.target.value + ",")}
             sx={{
               backgroundColor: "#3e2723",
               padding: "2em",
@@ -185,26 +185,31 @@ export const Search = () => {
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="White"
+              value="w"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="Blue"
+              value="u"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="Green"
+              value="g"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="Red"
+              value="r"
               sx={{ color: "#fff" }}
             />
             <FormControlLabel
               control={<Checkbox defaultUnchecked color="success" />}
               label="Black"
+              value="b"
               sx={{ color: "#fff" }}
             />
           </Box>
@@ -237,11 +242,11 @@ export const Search = () => {
                   component="img"
                   height="140"
                   image={card.image}
-                  alt={card.title}
+                  alt={card.name}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {card.title}
+                    {card.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {card.text}
