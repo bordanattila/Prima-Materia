@@ -14,12 +14,13 @@ import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Search from "./pages/Search";
-import Decks from "./pages/Decks";
+import Decks from "./components/Deck";
 import Wishlist from "./pages/Wishlist";
 import MysteryCard from "./pages/MysteryCard";
 
 import "./App.css";
 import { Container } from "@mui/material";
+import CreateDeck from "./pages/CreateDecks";
 
 // // Construct our main GraphQL API endpoint
 // const httpLink = createHttpLink({
@@ -59,9 +60,11 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/decks" element={<Decks />} />
             <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/decks" element={<MysteryCard />} />
+            <Route path="/mystery" element={<MysteryCard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+          <Route path="/decks/create" element={<CreateDeck />} />
+
           </Routes>
         </Container>
       </div>
