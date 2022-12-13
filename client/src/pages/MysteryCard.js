@@ -1,29 +1,33 @@
 import React, { useState } from "react";
 import { Box, Typography, Grid, Button, Card, CardActions, CardContent, CardMedia } from "@mui/material";
 
-const MysteryCard = () => {
+import { mysteryCardSearch } from "../utils/API";
+
+
+export const MysteryCard = () => {
 
   const [mysteryCard, setMysteryCard] = useState([]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleSubmit = async () => {
+    // event.preventDefault();
+    // console.log(event);
     try {
-      const response = await fetch("https://api.magicthegathering.io/v1/cards?pageSize=1;contains=imageUrl;random=true");
+      const response = await mysteryCardSearch();
 
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
-
-      const { data } = await response.json();
-
-      const cardData = data.map((card) => ({
+      console.log(response);
+      const { cards } = await response.json();
+      console.log(cards);
+      const cardData = cards.map((card) => ({
         cardId: card.id,
         name: card.name,
         type: card.type,
         text: card.text,
         image: card.imageUrl,
       }));
+      console.log(cardData);
       setMysteryCard(cardData);
     } catch (err) {
       console.error(err);
@@ -41,38 +45,20 @@ const MysteryCard = () => {
         justify="center"
         style={{ minHeight: "70vh" }}
       >
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
+          flexDirection="column"
             sx={{
               display: "flex",
               color: "#fff",
               alignItems: "center",
             }}
           >
-            <Typography>
-              Cast your query into the void!
-            </Typography>
-          </Box>
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            sx={{ marginTop: "2em" }}
-          >
-            Get a Mystery Card
-          </Button>
-        </Grid>
-      </Grid>
-      <Box>
             {mysteryCard.map((card) => {
               return (
-                <Card key={card.cardId} sx={{ maxWidth: 345 }}>
+                <Card key={card.cardId} sx={{ margin: "5em" }}>
                   <CardMedia
                     component="img"
-                    height="140"
                     image={card.image}
                     alt={card.name}
                   />
@@ -92,7 +78,22 @@ const MysteryCard = () => {
                 </Card>
               );
             })}
+            <Typography>
+              Cast your query into the void!
+            </Typography>
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              color="secondary"
+              sx={{ marginTop: "2em" }}
+            >
+              Get a Mystery Card
+            </Button>
           </Box>
+
+
+        </Grid>
+      </Grid>
     </>
   );
 };
