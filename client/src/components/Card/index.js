@@ -11,7 +11,12 @@ import {
   ThemeProvider,
   createTheme,
   ModalRoot,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const cardTheme = createTheme({
   components: {
@@ -36,9 +41,12 @@ const cardTheme = createTheme({
         },
       },
     },
-    MuiCardContent: {
+    MuiIconButton: {
       styleOverrides: {
-        root: {},
+        root: {
+          color: "#fff",
+          fontSize: "large",
+        },
       },
     },
   },
@@ -73,10 +81,33 @@ const MagicCard = () => {
                   </Typography>
                 </CardContent>
               </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Share
-                </Button>
+              <CardActions
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+                spacing={2}
+              >
+                <div>
+                  <Tooltip title="Add to wishlist">
+                    <IconButton>
+                      <FavoriteBorderIcon />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+                <div>
+                  <Tooltip title="Remove from wishlist">
+                    <IconButton>
+                      <FavoriteIcon />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+                <div>
+                  <Tooltip title="Add to a deck">
+                    <IconButton>
+                      <AddCircleOutlineIcon />
+                    </IconButton>
+                  </Tooltip>
+                </div>
               </CardActions>
             </Card>
           </ThemeProvider>
