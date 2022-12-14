@@ -13,11 +13,13 @@ import {
   ModalRoot,
   Tooltip,
   IconButton,
+  Dialog,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
+import AlertDialog from "../AddToDeck";
 
 const cardTheme = createTheme({
   components: {
@@ -67,6 +69,15 @@ const cardTheme = createTheme({
 
 const MagicCard = () => {
   const [clicked, setClicked] = useState();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <Grid
@@ -119,7 +130,7 @@ const MagicCard = () => {
                   </div>
                   <div>
                     <Tooltip title="Add to a deck">
-                      <IconButton>
+                      <IconButton onClick={handleClickOpen}>
                         <AddCircleOutlineIcon />
                       </IconButton>
                     </Tooltip>
@@ -130,6 +141,14 @@ const MagicCard = () => {
           </ThemeProvider>
         </Grid>
       </Grid>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <AlertDialog />
+      </Dialog>
     </>
   );
 };
