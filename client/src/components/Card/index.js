@@ -79,7 +79,7 @@ const MagicCard = () => {
       >
         <Grid item>
           <ThemeProvider theme={cardTheme}>
-            <Card sx={{ color: "#fff" }}>
+            <Card sx={{ color: "#fff", width: "250px" }}>
               <CardContent>
                 <CardMedia
                   component="img"
@@ -90,8 +90,15 @@ const MagicCard = () => {
                   <Typography gutterBottom variant="h6" component="div">
                     Card Title
                   </Typography>
-                  <Typography variant="body2" sx={{ color: "#fff" }}>
-                    Description
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "#fff", height: "75px", overflow: "auto" }}
+                  >
+                    Description Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
                   </Typography>
                 </CardContent>
                 <CardActions>
