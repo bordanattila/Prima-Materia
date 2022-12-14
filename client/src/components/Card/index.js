@@ -17,6 +17,7 @@ import {
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useState } from "react";
 
 const cardTheme = createTheme({
   components: {
@@ -26,8 +27,8 @@ const cardTheme = createTheme({
         // Name of the slot
         root: {
           // Some CSS
-          padding: "1rem",
-          background: "black",
+
+          background: "#424242",
           border: "solid 2px teal",
         },
       },
@@ -38,6 +39,18 @@ const cardTheme = createTheme({
         root: {
           // Some CSS
           borderRadius: 12,
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          padding: ".75rem",
+          "&:last-child": {
+            paddingBottom: ".75rem",
+          },
         },
       },
     },
@@ -53,6 +66,7 @@ const cardTheme = createTheme({
 });
 
 const MagicCard = () => {
+  const [clicked, setClicked] = useState();
   return (
     <>
       <Grid
@@ -66,49 +80,45 @@ const MagicCard = () => {
         <Grid item>
           <ThemeProvider theme={cardTheme}>
             <Card sx={{ color: "#fff" }}>
-              <CardActionArea>
+              <CardContent>
                 <CardMedia
                   component="img"
                   image="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=136279&type=card"
                   alt="green iguana"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h6" component="div">
                     Card Title
                   </Typography>
                   <Typography variant="body2" sx={{ color: "#fff" }}>
                     Description
                   </Typography>
                 </CardContent>
-              </CardActionArea>
-              <CardActions
-                direction="row"
-                justifyContent="flex-end"
-                alignItems="center"
-                spacing={2}
-              >
-                <div>
-                  <Tooltip title="Add to wishlist">
-                    <IconButton>
-                      <FavoriteBorderIcon />
-                    </IconButton>
-                  </Tooltip>
-                </div>
-                <div>
-                  <Tooltip title="Remove from wishlist">
-                    <IconButton>
-                      <FavoriteIcon />
-                    </IconButton>
-                  </Tooltip>
-                </div>
-                <div>
-                  <Tooltip title="Add to a deck">
-                    <IconButton>
-                      <AddCircleOutlineIcon />
-                    </IconButton>
-                  </Tooltip>
-                </div>
-              </CardActions>
+                <CardActions>
+                  <div onClick={() => setClicked(!clicked)}>
+                    {clicked ? (
+                      <Tooltip title="Add to wishlist">
+                        <IconButton>
+                          <FavoriteBorderIcon />
+                        </IconButton>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="Remove from wishlist">
+                        <IconButton>
+                          <FavoriteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </div>
+                  <div>
+                    <Tooltip title="Add to a deck">
+                      <IconButton>
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                </CardActions>
+              </CardContent>
             </Card>
           </ThemeProvider>
         </Grid>
