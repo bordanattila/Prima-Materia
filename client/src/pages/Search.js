@@ -18,6 +18,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Form } from "react-router-dom";
+import { ADD_CARD_DECK } from "../utils/mutations";
+import { useMutation } from "@apollo/client";
+
 
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
@@ -76,6 +79,9 @@ export const Search = () => {
   const [subtypeInput, setSubtypeInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
 
+  //  // create state to hold saved cardId values
+  //  const [savedCardIds, setSavedCardIds] = useState(getSavedCardIds());
+  // const [addToDeck, { error }] = useMutation(ADD_CARD_DECK);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -108,7 +114,33 @@ export const Search = () => {
     } catch (err) {
       console.error(err);
     }
+
   };
+
+  // // create function to handle adding cards to deck
+  // const addCard = async (cardId) => {
+  //     // find the card in `searchedCards` state by the matching id
+  //   const cardToSave = searchedCards.find((card) => card.cardId === cardId);
+  //   console.log(cardToSave)
+  //     // get token
+  //     const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+  //     if (!token) {
+  //       return false;
+  //     }
+  //     try {
+  //       const { data } = await addToDeck({
+  //         variables: { cardData: { ...cardToSave } },
+  //       });
+  //       console.log(data)
+  
+  //       // if card successfully saves to deck, save card id to state
+  //       setSavedCardIds([...savedCardIds, cardToSave.cardId]);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  // };
+
   return (
     <>
       <Container maxWidth="md" sx={{ margin: "10em" }}>
@@ -250,7 +282,13 @@ export const Search = () => {
                 <CardActions>
                   {/* these buttons need functionality */}
                   <Button size="small">Add to Wishlist</Button>
-                  <Button size="small">Add to a Deck:</Button>
+                  <Button 
+                  size="small"
+                  // onClick={addCard}
+                  variant="contained"
+                  color="success"
+                  sx={{ marginTop: "2em" }}
+                  >Add to a Deck:</Button>
                 </CardActions>
               </Card>
             );

@@ -30,6 +30,14 @@ type Deck {
   cards: [Card]
 }
 
+input CardInput {
+  cardId: ID
+  name: String
+  type: String
+  text: String
+  color: [String]
+  image: String
+}
 type Query {
   me: User
   deck(_id: ID!): Deck
@@ -39,7 +47,7 @@ type Mutation {
   createUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
   addCardToWishList(cardId: ID!, name: String!, type: String!, text: String!, color: [String]!, image: String!): User
-  addCardToDeck(_id: ID!, cardId: ID!, name: String!, type: String!, text: String!, color: [String]!, image: String!): User
+  addCardToDeck(cardData: CardInput!): User
   createDeck(title: String!): User
   removeCardFromList(idCard: ID!): User
   removeCardFromDeck(idDeck: ID!, idCard: ID!): User

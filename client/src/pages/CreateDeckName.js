@@ -5,22 +5,26 @@ import {
     Box,
     Autocomplete,
     FormControlLabel,
-    Checkbox,
+    createTheme,
     Button
 } from "@mui/material";
 import { styled } from '@mui/system';
 import { useMutation } from '@apollo/client';
 import { CREATE_DECK } from '../utils/mutations';
 import { Link } from 'react-router-dom';
+import { grey } from '@mui/material/colors';
 
 // styling input field
 const DeckTextField = styled(TextField)({
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
-            borderColor: 'white',
+            borderColor: 'teal',
+            maxWidth: "600px",
+            minWidth: "200px",
+            marginRight: "20px"
         },
         '&:hover fieldset': {
-            borderColor: 'white',
+            borderColor: 'teal',
         },
     }
 })
@@ -31,8 +35,25 @@ const linkStyle = {
     color: "white"
 }
 
+const buttonStyle = createTheme({
+    palette: {
+        primary: {
+            main: grey[800]
+
+        }
+    }
+})
+// const CustomButton = styled(Button)(({ theme }) => ({
+//     color: theme.palette.getContrastText(grey[500]),
+//     backgroundColor: grey[500],
+//     '&:hover': {
+//       backgroundColor: grey[700],
+//     },
+//   }));
+
 export const CreateDeck = () => {
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState("");
+    const [currentDeckId, setCurrentDeckId] = useState("");
 
     const [createDeck, { error }] = useMutation(CREATE_DECK);
     const handleCreate = async (event) => {
@@ -43,9 +64,11 @@ export const CreateDeck = () => {
                 variables: { title },
             });
             setTitle('');
+
         } catch (err) {
             console.log(err)
         }
+        // saveDeckId()
     };
 
     return (
@@ -53,11 +76,14 @@ export const CreateDeck = () => {
             <Container maxWidth="md"
                 sx={{
                     margin: "10em",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
                 }}>
                 <Box component="form"
                     noValidate
                     sx={{
-                        display: 'grid',
+                        textAlign: "center",
                         gridTemplateColumns: { sm: '1fr 1fr', md: '1fr 1fr 1fr', },
                         gap: 2,
                         display: "flex",
@@ -66,13 +92,13 @@ export const CreateDeck = () => {
                 >
                     <h3 style={{
                         color: "white",
-                        textAlign: "center"
+
                     }}
                     >Create a Deck</h3>
                     <DeckTextField
                         sx={{
-                            input: { color: "white", },
-                            label: { color: "white", },
+                            input: { color: "teal", },
+                            label: { color: "teal", },
                         }}
                         id="outlined"
                         label="Name your Deck"
@@ -81,17 +107,18 @@ export const CreateDeck = () => {
                         onChange={(event) => setTitle(event.target.value)}
                     />
                     <Button variant="contained"
+
                         sx={{
                             minWidth: "10px",
                             maxWidth: "150px",
-                            padding: "6px"
+                            padding: "6px",
                         }}
                         onClick={() => handleCreate()}
-                        >
-                            <Link to={"search"} style={linkStyle}>
+                    >
+                        <Link to={"search"} style={linkStyle}>
                             Create Deck
                         </Link>
-                        </Button>
+                    </Button>
                 </Box>
             </Container>
         </>

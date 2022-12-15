@@ -5,13 +5,18 @@ import {
     TextField,
     Box,
     Autocomplete,
-    FormControlLabel,
-    Checkbox,
-    Button
+    FCardContent,
+    Card,
+    Button,
+    CardContent
 } from "@mui/material";
 import { styled } from '@mui/system';
-
+import Auth from '../../utils/auth';
 import { Link } from 'react-router-dom';
+// import DeckLayout from './Decks';
+import { QUERY_ME } from '../../utils/queries';
+import { useMutation, useQuery } from '@apollo/client';
+
 
 // styling input field
 const DeckTextField = styled(TextField)({
@@ -32,6 +37,17 @@ const linkStyle = {
 }
 
 function CurrentDecks() {
+    const { loading, error, data } = useQuery(QUERY_ME);
+
+    const userData = data?.me || [];
+
+    if (error) return (
+        <h1 style={{
+            color: "white",
+            textAlign: "center"
+        }}>Error</h1>
+    );
+
     return (
         <>
             <Container maxWidth="md"
@@ -53,13 +69,25 @@ function CurrentDecks() {
                         flexDirection: "row"
                     }}
                 >
-                    <p style={{
-                        color: "white",
-                    }}>Deck 1</p>
-                    <p style={{
-                        color: "white",
-                    }}>Deck 2</p>
+                    {userData?.decks?.length > 0 ? <section > {userData?.decks?.map((deck) => {
+                        return (
+                            <Card sx={{ minWidth: 275 }}>
+                                <CardContent
 
+                                    sx={{
+                                        // color: "white",
+                                        minWidth: "10px",
+                                        maxWidth: "150px",
+                                        padding: "6px"
+                                    }}>
+                                    {deck.title}
+                                   
+                                </CardContent>
+                            </Card>
+                        )
+                    })}
+
+                    </section> : <h1>No Decks found</h1>}
                     <Button variant="contained"
                         sx={{
                             minWidth: "10px",
