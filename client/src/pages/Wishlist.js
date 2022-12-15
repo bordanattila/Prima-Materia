@@ -11,12 +11,21 @@ import {
 import SearchCard from "../components/Card";
 
 const Wishlist = () => {
-  const { loading, data } = useQuery(QUERY_ME);
+  const { loading, error, data} = useQuery(QUERY_ME);
 
   const userData = data?.me || {};
-  console.log(userData)
 
   const [removeCardFromList] = useMutation(REMOVE_CARD_LIST);
+
+  //Error handling if user is not logged in
+  if(error) {
+    console.log(error)
+    return <h3
+    style={{
+      color: "#fff",
+      textAlign: "center"
+    }}>{error.toString().replace("ApolloError: ", "")}</h3>
+  }
 
   const handleDeleteCardList = async (idCard) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
