@@ -14,6 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "@mui/material";
+import Auth from '../../utils/auth';
 
 const drawerWidth = 240;
 const navItems = [
@@ -22,7 +23,6 @@ const navItems = [
   "Decks",
   "Wishlist",
   "Mystery Card",
-  "Login",
 ];
 
 function Header(props) {
@@ -54,6 +54,33 @@ function Header(props) {
             </ListItemButton>
           </ListItem>
         ))}
+        {Auth.loggedIn() ? (
+          <>
+            <ListItem key="Logout" disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                href="home"
+                onClick={Auth.logout}
+              // use Link nad to to not reload page
+              >
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem key="Login" disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                href="login"
+              // use Link nad to to not reload page
+              >
+                <ListItemText primary="Login"/>
+              </ListItemButton>
+            </ListItem>
+          </>
+        )
+        }
       </List>
     </Box>
   );
@@ -97,6 +124,27 @@ function Header(props) {
                 {item.toUpperCase()}
               </Link>
             ))}
+            {
+              Auth.loggedIn() ? (
+                <Link
+                key="Logout"
+                sx={{ color: "#fff", paddingLeft: "1.5rem" }}
+                underline="none"
+                href="home"
+                onClick={Auth.logout}
+              >
+                LOGOUT
+              </Link>
+              ): (
+                <Link
+                key="Login"
+                sx={{ color: "#fff", paddingLeft: "1.5rem" }}
+                underline="none"
+                href="login"
+              >
+                LOGIN
+              </Link>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

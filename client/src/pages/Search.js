@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  Grid
 } from "@mui/material";
 import SearchCard from "../components/Card";
 
