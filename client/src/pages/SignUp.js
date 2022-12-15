@@ -64,7 +64,7 @@ const SignUp = () => {
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
-
+  // use state for setting the open/close alert from material UI
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -82,7 +82,6 @@ const SignUp = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-    // use state for setting the open/close alert from material UI
 
     try {
       const { data } = await createUser({

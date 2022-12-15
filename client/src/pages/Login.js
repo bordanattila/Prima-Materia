@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { Grid, Button, Link, TextField, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
@@ -86,11 +87,14 @@ const Login = () => {
       });
 
       Auth.login(data.login.token);
+
+
+      // clear form values
+
+
     } catch (e) {
       console.error(e);
     }
-
-    // clear form values
     setFormState({
       email: "",
       password: "",
