@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import SearchCard from "../components/Card";
 
+
+
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
     color: "#fff",
@@ -63,11 +65,12 @@ const options = [
 ];
 
 export const Search = () => {
-  const [searchedCards, setSearchedCards] = useState([]);
-  const [nameInput, setNameInput] = useState([]);
-  const [typeInput, setTypeInput] = useState({ title: "" });
-  const [subtypeInput, setSubtypeInput] = useState([]);
-  const [colorInput, setColorInput] = useState([]);
+    const [searchedCards, setSearchedCards] = useState([]);
+    const [nameInput, setNameInput] = useState([]);
+    const [typeInput, setTypeInput] = useState({ title: "" });
+    const [subtypeInput, setSubtypeInput] = useState([]);
+    const [colorInput, setColorInput] = useState([]);
+
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -216,17 +219,16 @@ export const Search = () => {
         {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
 
         {/* results of search (map all cards returned) */}
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { sm: "1fr", md: "1fr 1fr" },
-            gap: 2,
-          }}
-        >
+
+        <Grid container>
           {searchedCards.map((card) => {
-            return <SearchCard card={card} />;
+            return (
+              <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
+                <SearchCard card={card} />
+              </Grid>
+            );
           })}
-        </Box>
+        </Grid>
       </Container>
     </>
   );
