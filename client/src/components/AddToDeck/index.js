@@ -12,6 +12,7 @@ import {
   ListItemText,
   ThemeProvider,
   createTheme,
+  Tooltip,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
@@ -42,10 +43,12 @@ export default function AlertDialog() {
         <List sx={{ overflowY: "scroll" }} disableScrollLock={false}>
           {decks.map((deck) => (
             <ListItem key={deck}>
-              <IconButton>
-                <AddCircleOutlineIcon />
-              </IconButton>
-              <ListItemText primary={deck} />
+              <Tooltip title="Add to this deck">
+                <Button>
+                  <AddCircleOutlineIcon />
+                  <ListItemText primary={deck} />
+                </Button>
+              </Tooltip>
             </ListItem>
           ))}
         </List>
