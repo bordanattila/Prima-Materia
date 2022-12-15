@@ -5,26 +5,26 @@ import { QUERY_ME } from "../utils/queries";
 import { REMOVE_CARD_LIST } from "../utils/mutations";
 import {
   Container,
-  Box
+  Grid
 } from "@mui/material"
 
 import SearchCard from "../components/Card";
 
 const Wishlist = () => {
-  const { loading, error, data} = useQuery(QUERY_ME);
+  const { loading, error, data } = useQuery(QUERY_ME);
 
   const userData = data?.me || {};
 
   const [removeCardFromList] = useMutation(REMOVE_CARD_LIST);
 
   //Error handling if user is not logged in
-  if(error) {
+  if (error) {
     console.log(error)
     return <h3
-    style={{
-      color: "#fff",
-      textAlign: "center"
-    }}>{error.toString().replace("ApolloError: ", "")}</h3>
+      style={{
+        color: "#fff",
+        textAlign: "center",
+      }}>{error.toString().replace("ApolloError: ", "")}</h3>
   }
 
   const handleDeleteCardList = async (idCard) => {
@@ -49,24 +49,22 @@ const Wishlist = () => {
 
   return (
     <Container maxWidth="md"
-      sx={{margin: "10em"}}>
+      sx={{ margin: "10em" }}>
       <h3
         style={{
           color: "#fff",
           textAlign: "center"
         }}>
         Wishlist</h3>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: { sm: "1fr", md: "1fr 1fr" },
-          gap: 2,
-        }}
-      >
+        <Grid container>
         {userData.wishList.map((card) => {
-          return <SearchCard card={card} />;
+          return (
+            <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
+              <SearchCard card={card} />;
+            </Grid>
+            );
         })}
-      </Box>
+        </Grid>
     </Container>
 
   )
