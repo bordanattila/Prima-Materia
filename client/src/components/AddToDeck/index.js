@@ -39,7 +39,7 @@ export default function AlertDialog() {
   return (
     <>
       <DialogTitle>{"Select a deck"}</DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ maxHeight: "400px" }}>
         <List sx={{ overflowY: "scroll" }} disableScrollLock={false}>
           {decks.map((deck) => (
             <ListItem key={deck}>
