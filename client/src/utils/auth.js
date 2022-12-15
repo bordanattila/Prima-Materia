@@ -46,6 +46,7 @@ class AuthService {
     window.location.assign('/home');
     alert("logout successful!");
   }
+  
 }
 
 export default new AuthService();
