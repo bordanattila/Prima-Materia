@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Grid, Button, Stack, Snackbar, MuiAlert } from "@mui/material";
+import { Grid, Button, Snackbar } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
 import { styled } from "@mui/material/styles";
 import { CREATE_USER } from "../utils/mutations";
 import { useMutation } from '@apollo/client';
@@ -59,17 +60,35 @@ const SignUp = () => {
       [name]: value,
     });
   };
+  // setting up the Alert object
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
+    // use state for setting the open/close alert from material UI
 
-    
     try {
       const { data } = await createUser({
         variables: { ...formState },
       });
-      
+
       Auth.login(data.createUser.token);
     } catch (e) {
       console.error(e);
@@ -145,7 +164,12 @@ const SignUp = () => {
               />
             </div>
             <div>
-              <FormButton type="submit">Sign Up</FormButton>
+              <FormButton type="submit" onClick={handleClick}>Sign Up</FormButton>
+              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                  Welcome! Your account has been created.
+                </Alert>
+              </Snackbar>
             </div>
           </Box>
         </Grid>
