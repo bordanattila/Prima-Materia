@@ -38,13 +38,6 @@ const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
-//dark theme by default
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -67,7 +60,6 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-       <ThemeProvider theme={darkTheme}>
       <Router>
         <div>
           <Header />
@@ -84,7 +76,6 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/decks/create" element={<CreateDeck />} />
-              <Route path="/decks/create/search" element={<Search />} />
               <Route path="/card" element={<SearchCard />} />
             </Routes>
           </Container>
@@ -93,7 +84,6 @@ function App() {
           <Footer />
         </div>
       </Router>
-      </ThemeProvider>
     </ApolloProvider>
   );
 }
