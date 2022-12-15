@@ -1,5 +1,4 @@
-import { borderRadius, margin } from "@mui/system";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { searchMagicCards } from "../utils/API";
 import { alpha, styled } from "@mui/material/styles";
 import {
@@ -10,15 +9,7 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
-  Grid,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-  Icon,
 } from "@mui/material";
-import { Form } from "react-router-dom";
 import SearchCard from "../components/Card";
 
 
@@ -64,7 +55,6 @@ const AutoSearch = styled(Autocomplete)({
 });
 
 const options = [
-  // { title: "" },
   { title: "creature" },
   { title: "enchantment" },
   { title: "land" },
@@ -77,7 +67,7 @@ const options = [
 export const Search = () => {
     const [searchedCards, setSearchedCards] = useState([]);
     const [nameInput, setNameInput] = useState([]);
-    const [typeInput, setTypeInput] = useState([]);
+    const [typeInput, setTypeInput] = useState({ title: "" });
     const [subtypeInput, setSubtypeInput] = useState([]);
     const [colorInput, setColorInput] = useState([]);
 
@@ -172,15 +162,15 @@ export const Search = () => {
             value={colorInput}
             onChange={(e) => setColorInput(colorInput + e.target.value + ",")}
             sx={{
-              padding: "2em",
-              paddingTop: "5px",
-              borderRadius: "8px",
-              borderColor: "teal",
-              borderWidth: "2px",
-              borderStyle: "solid",
-              textAlign: "left",
-              color: "#fff",
-            }}
+                padding: "2em",
+                paddingTop: "5px",
+                borderRadius: "8px",
+                borderColor: "teal",
+                borderWidth: "2px",
+                borderStyle: "solid",
+                textAlign: "left",
+                color: "#fff",
+              }}
           >
             <h3>Select Card Colors:</h3>
             {/* <hr></hr> */}
