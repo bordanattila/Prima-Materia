@@ -18,7 +18,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { QUERY_ME } from "../../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
 
-export default function AlertDialog() {
+export default function AddToDeckDialog() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
