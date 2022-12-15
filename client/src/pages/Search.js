@@ -74,7 +74,7 @@ const options = [
 export const Search = () => {
   const [searchedCards, setSearchedCards] = useState([]);
   const [nameInput, setNameInput] = useState([]);
-  const [typeInput, setTypeInput] = useState([]);
+  const [typeInput, setTypeInput] = useState({ title: "" });
   const [subtypeInput, setSubtypeInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
 
@@ -168,7 +168,6 @@ export const Search = () => {
             value={colorInput}
             onChange={(e) => setColorInput(colorInput + e.target.value + ",")}
             sx={{
-              backgroundColor: "#212121",
               padding: "2em",
               paddingTop: "5px",
               borderRadius: "8px",
