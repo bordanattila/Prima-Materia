@@ -68,7 +68,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       {/* keeps the default theme dark across site */}
-       <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={darkTheme}>
       <Router>
         <div>
           <Header />
@@ -95,7 +95,7 @@ function App() {
         </div>
       </Router>
       </ThemeProvider>
-    </ApolloProvider>
+      </ApolloProvider>
   );
 }
 
