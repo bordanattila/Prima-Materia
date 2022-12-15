@@ -75,7 +75,7 @@ const MagicCard = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (value) => {
     setOpen(false);
   };
   return (
@@ -141,12 +141,7 @@ const MagicCard = () => {
           </ThemeProvider>
         </Grid>
       </Grid>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
+      <Dialog open={open} onClose={handleClose}>
         <AlertDialog />
       </Dialog>
     </>
