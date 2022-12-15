@@ -126,43 +126,25 @@ function Header(props) {
             ))}
             {
               Auth.loggedIn() ? (
-                <Button
+                <Link
                 key="Logout"
-                sx={{ color: "#fff" }}
+                sx={{ color: "#fff", paddingLeft: "1.5rem" }}
+                underline="none"
                 href="home"
                 onClick={Auth.logout}
               >
-                Logout
-              </Button>
+                LOGOUT
+              </Link>
               ): (
-                <Button
+                <Link
                 key="Login"
-                sx={{ color: "#fff" }}
+                sx={{ color: "#fff", paddingLeft: "1.5rem" }}
+                underline="none"
                 href="login"
               >
-                Login
-              </Button>
+                LOGIN
+              </Link>
             )}
-            {
-              Auth.loggedIn() ? (
-                <Button
-                key="Logout"
-                sx={{ color: "#fff" }}
-                href="home"
-                onClick={Auth.logout}
-              >
-                Logout
-              </Button>
-              ): (
-                <Button
-                key="Login"
-                sx={{ color: "#fff" }}
-                href="login"
-              >
-                Login
-              </Button>
-              )
-            }
           </Box>
         </Toolbar>
       </AppBar>
