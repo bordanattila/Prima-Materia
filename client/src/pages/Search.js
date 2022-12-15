@@ -78,7 +78,6 @@ export const Search = () => {
     const [subtypeInput, setSubtypeInput] = useState([]);
     const [colorInput, setColorInput] = useState([]);
 
-
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 

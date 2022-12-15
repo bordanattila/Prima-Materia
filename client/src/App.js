@@ -30,9 +30,19 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: "/graphql",
+});
+
+//dark theme by default
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
@@ -57,6 +67,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+       <ThemeProvider theme={darkTheme}>
       <Router>
         <div>
           <Header />
@@ -82,6 +93,7 @@ function App() {
           <Footer />
         </div>
       </Router>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }
