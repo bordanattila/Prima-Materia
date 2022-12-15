@@ -17,7 +17,7 @@ import Search from "./pages/Search";
 import Decks from "./components/Deck";
 import Wishlist from "./pages/Wishlist";
 import MysteryCard from "./pages/MysteryCard";
-import MagicCard from "./components/Card";
+import SearchCard from "./components/Card";
 // import Title from "./pages/Title";
 
 import "./App.css";
@@ -29,6 +29,9 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -73,8 +76,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/decks/create" element={<CreateDeck />} />
-              <Route path="/decks/create/search" element={<Search />} />
-              <Route path="/card" element={<MagicCard />} />
+              <Route path="/card" element={<SearchCard />} />
             </Routes>
           </Container>
         </div>
