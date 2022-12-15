@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import { Grid, Button, Link, TextField, Snackbar } from "@mui/material";
-import MuiAlert from '@mui/material/Alert';
+import { Grid, Button, Link, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from "../utils/mutations";
@@ -58,24 +56,6 @@ const Login = () => {
     });
   };
 
-  // setting up the Alert object
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   // submit form
   const handleFormSubmit = async (event) => {
@@ -88,13 +68,10 @@ const Login = () => {
 
       Auth.login(data.login.token);
 
-
-      // clear form values
-
-
     } catch (e) {
       console.error(e);
     }
+    // clear form values
     setFormState({
       email: "",
       password: "",
@@ -153,12 +130,7 @@ const Login = () => {
               />
             </div>
             <div>
-              <FormButton type="submit" onClick={handleClick}>Login</FormButton>
-              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                  Login Successful!
-                </Alert>
-              </Snackbar>
+              <FormButton type="submit">Login</FormButton>
             </div>
             <div>
               <br></br>

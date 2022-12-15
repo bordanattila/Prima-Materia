@@ -22,8 +22,7 @@ const Home = () => {
             }}
           >
             <Typography>
-             <h2>Welcome to Prima Materia!</h2> 
-              Prima Materia is a site dedicated to fans of Magic The Gathering.  You can search for cards, add cards to a wish list, and even create and manage virtual decks. Login or sign up to get started! 
+              Prima Materia is a site dedicated to fans of Magic The Gathering.  You can search for cards, add cards to a wishlist, and create virtual decks. Login or sign up to get started! 
             </Typography>
           </Box>
         </Grid>

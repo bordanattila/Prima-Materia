@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Grid, Button, Snackbar } from "@mui/material";
+import { Grid, Button, } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
 import { styled } from "@mui/material/styles";
 import { CREATE_USER } from "../utils/mutations";
@@ -59,24 +59,6 @@ const SignUp = () => {
       ...formState,
       [name]: value,
     });
-  };
-  // setting up the Alert object
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-  // use state for setting the open/close alert from material UI
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
   };
 
   const handleFormSubmit = async (event) => {
@@ -163,12 +145,7 @@ const SignUp = () => {
               />
             </div>
             <div>
-              <FormButton type="submit" onClick={handleClick}>Sign Up</FormButton>
-              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                  Welcome! Your account has been created.
-                </Alert>
-              </Snackbar>
+              <FormButton type="submit">Sign Up</FormButton>
             </div>
           </Box>
         </Grid>
