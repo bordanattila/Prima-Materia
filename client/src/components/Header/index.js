@@ -13,6 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Auth from '../../utils/auth';
 
 const drawerWidth = 240;
 const navItems = [
@@ -21,7 +22,6 @@ const navItems = [
   "Decks",
   "Wishlist",
   "Mystery Card",
-  "Login",
 ];
 
 function Header(props) {
@@ -53,6 +53,33 @@ function Header(props) {
             </ListItemButton>
           </ListItem>
         ))}
+        {Auth.loggedIn() ? (
+          <>
+            <ListItem key="Logout" disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                href="home"
+                onClick={Auth.logout}
+              // use Link nad to to not reload page
+              >
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem key="Login" disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                href="login"
+              // use Link nad to to not reload page
+              >
+                <ListItemText primary="Login"/>
+              </ListItemButton>
+            </ListItem>
+          </>
+        )
+        }
       </List>
     </Box>
   );
@@ -95,6 +122,26 @@ function Header(props) {
                 {item}
               </Button>
             ))}
+            {
+              Auth.loggedIn() ? (
+                <Button
+                key="Logout"
+                sx={{ color: "#fff" }}
+                href="home"
+                onClick={Auth.logout}
+              >
+                Logout
+              </Button>
+              ): (
+                <Button
+                key="Login"
+                sx={{ color: "#fff" }}
+                href="login"
+              >
+                Login
+              </Button>
+              )
+            }
           </Box>
         </Toolbar>
       </AppBar>
