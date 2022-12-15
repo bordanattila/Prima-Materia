@@ -88,7 +88,15 @@ const SearchCard = ({ card }) => {
               <CardContent>
                 <CardMedia component="img" image={card.image} alt={card.name} />
                 <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
+                  <Typography
+                    gutterBottom
+                    sx={{
+                      fontWeight: "bold",
+                      height: "40px",
+                      size: "2vw",
+                    }}
+                    component="div"
+                  >
                     {card.name}
                   </Typography>
                   <Typography
@@ -103,13 +111,13 @@ const SearchCard = ({ card }) => {
                     {clicked ? (
                       <Tooltip title="Add to wishlist">
                         <IconButton>
-                          <FavoriteBorderIcon />
+                          <FavoriteIcon />
                         </IconButton>
                       </Tooltip>
                     ) : (
                       <Tooltip title="Remove from wishlist">
                         <IconButton>
-                          <FavoriteIcon />
+                          <FavoriteBorderIcon />
                         </IconButton>
                       </Tooltip>
                     )}
