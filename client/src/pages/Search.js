@@ -1,5 +1,4 @@
-import { borderRadius, margin } from "@mui/system";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { searchMagicCards } from "../utils/API";
 import { alpha, styled } from "@mui/material/styles";
 import {
@@ -10,14 +9,7 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-  Icon,
 } from "@mui/material";
-import { Form } from "react-router-dom";
 import SearchCard from "../components/Card";
 
 const SearchBox = styled(TextField)({
@@ -61,7 +53,6 @@ const AutoSearch = styled(Autocomplete)({
 });
 
 const options = [
-  // { title: "" },
   { title: "creature" },
   { title: "enchantment" },
   { title: "land" },
