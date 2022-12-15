@@ -23,13 +23,9 @@ import AlertDialog from "../AddToDeck";
 
 const cardTheme = createTheme({
   components: {
-    // Name of the component
     MuiCard: {
       styleOverrides: {
-        // Name of the slot
         root: {
-          // Some CSS
-
           background: "#424242",
           border: "solid 2px teal",
         },
@@ -37,18 +33,14 @@ const cardTheme = createTheme({
     },
     MuiCardMedia: {
       styleOverrides: {
-        // Name of the slot
         root: {
-          // Some CSS
           borderRadius: 12,
         },
       },
     },
     MuiCardContent: {
       styleOverrides: {
-        // Name of the slot
         root: {
-          // Some CSS
           padding: ".75rem",
           "&:last-child": {
             paddingBottom: ".75rem",
@@ -67,7 +59,7 @@ const cardTheme = createTheme({
   },
 });
 
-const MagicCard = () => {
+const SearchCard = ({ card }) => {
   const [clicked, setClicked] = useState();
   const [open, setOpen] = React.useState(false);
 
@@ -78,6 +70,8 @@ const MagicCard = () => {
   const handleClose = (value) => {
     setOpen(false);
   };
+  console.log("***CARD***");
+  console.log(card);
   return (
     <>
       <Grid
@@ -88,28 +82,20 @@ const MagicCard = () => {
         justify="center"
         style={{ minHeight: "100vh" }}
       >
-        <Grid item>
+        <Grid item key={card.cardId}>
           <ThemeProvider theme={cardTheme}>
             <Card sx={{ color: "#fff", width: "250px" }}>
               <CardContent>
-                <CardMedia
-                  component="img"
-                  image="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=136279&type=card"
-                  alt="green iguana"
-                />
+                <CardMedia component="img" image={card.image} alt={card.name} />
                 <CardContent>
                   <Typography gutterBottom variant="h6" component="div">
-                    Card Title
+                    {card.name}
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: "#fff", height: "75px", overflow: "auto" }}
                   >
-                    Description Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    {card.text}
                   </Typography>
                 </CardContent>
                 <CardActions>
@@ -148,4 +134,4 @@ const MagicCard = () => {
   );
 };
 
-export default MagicCard;
+export default SearchCard;
