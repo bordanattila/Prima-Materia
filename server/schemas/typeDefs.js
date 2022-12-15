@@ -15,7 +15,6 @@ type Card {
   name: String
   type: String
   text: String
-  color: [String]
   image: String
 }
 
@@ -38,7 +37,7 @@ type Query {
 type Mutation {
   createUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
-  addCardToWishList(cardId: ID!, name: String!, type: String!, text: String!, color: [String]!, image: String!): User
+  addCardToWishList(cardId: ID!, name: String!, type: String!, text: String!, image: String!): User
   addCardToDeck(_id: ID!, cardId: ID!, name: String!, type: String!, text: String!, color: [String]!, image: String!): User
   createDeck(title: String!): User
   removeCardFromList(idCard: ID!): User
