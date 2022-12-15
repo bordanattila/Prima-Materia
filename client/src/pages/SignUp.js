@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Stack, Snackbar, MuiAlert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { CREATE_USER } from "../utils/mutations";
 import { useMutation } from '@apollo/client';
@@ -29,7 +29,8 @@ const FormInput = styled(TextField)({
 
 const FormButton = (props) => (
   <Button
-    variant="outlined"
+    variant="contained"
+    color="success"
     type="submit"
     sx={{
       padding: 1,
@@ -100,7 +101,7 @@ const SignUp = () => {
           <Box
             component="form"
             sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
+              "& .MuiTextField-root": { m: 1, minWidth: "30ch" },
             }}
             noValidate
             autoComplete="off"

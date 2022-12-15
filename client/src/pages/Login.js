@@ -28,8 +28,9 @@ const FormInput = styled(TextField)({
 
 const FormButton = (props) => (
   <Button
-    variant="outlined"
+    variant="contained"
     type="submit"
+    color="success"
     sx={{
       padding: 1,
       borderColor: "teal",
@@ -131,6 +132,7 @@ const Login = () => {
               <FormButton type="submit">Login</FormButton>
             </div>
             <div>
+              <br></br>
               <Link href="/signup" underline="none">
                 {"Click here to sign up"}
               </Link>
