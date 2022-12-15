@@ -20,8 +20,6 @@ import {
 import { Form } from "react-router-dom";
 import SearchCard from "../components/Card";
 
-
-
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
     color: "#fff",
@@ -74,12 +72,11 @@ const options = [
 ];
 
 export const Search = () => {
-    const [searchedCards, setSearchedCards] = useState([]);
-    const [nameInput, setNameInput] = useState([]);
-    const [typeInput, setTypeInput] = useState([]);
-    const [subtypeInput, setSubtypeInput] = useState([]);
-    const [colorInput, setColorInput] = useState([]);
-
+  const [searchedCards, setSearchedCards] = useState([]);
+  const [nameInput, setNameInput] = useState([]);
+  const [typeInput, setTypeInput] = useState({ title: "" });
+  const [subtypeInput, setSubtypeInput] = useState([]);
+  const [colorInput, setColorInput] = useState([]);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();

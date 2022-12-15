@@ -46,7 +46,7 @@ function Header(props) {
           <ListItem key={item} disablePadding>
             <ListItemButton
               sx={{ textAlign: "center" }}
-              href={"/"+item.replace(/\s/g, "").toLowerCase()}
+              href={item.replace(/\s/g, "").toLowerCase()}
               // use Link nad to to not reload page
             >
               <ListItemText primary={item} />

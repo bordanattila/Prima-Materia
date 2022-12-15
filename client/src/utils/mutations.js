@@ -41,8 +41,8 @@ export const ADD_CARD_LIST = gql`
 `;
 
 export const ADD_CARD_DECK = gql`
-  mutation addCardToDeck($cardData: CardInput!) {
-    addCardToDeck(cardData: $cardData) {
+  mutation addCardToDeck($_id: ID!, $cardId: ID!, $name: String!, $type: String!, $text: String!, $image: String!) {
+    addCardToDeck(_id: $_id, cardId: $cardId, name: $name, type: $type, text: $text, image: $image) {
       decks {
         _id
         title

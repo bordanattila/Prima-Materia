@@ -5,18 +5,13 @@ import {
     TextField,
     Box,
     Autocomplete,
-    CardMedia,
-    Card,
-    Button,
-    CardContent
+    FormControlLabel,
+    Checkbox,
+    Button
 } from "@mui/material";
 import { styled } from '@mui/system';
-import Auth from '../../utils/auth';
-import { Link } from 'react-router-dom';
-// import DeckLayout from './Decks';
-import { QUERY_ME } from '../../utils/queries';
-import { useMutation, useQuery } from '@apollo/client';
 
+import { Link } from 'react-router-dom';
 
 // styling input field
 const DeckTextField = styled(TextField)({
@@ -37,17 +32,6 @@ const linkStyle = {
 }
 
 function CurrentDecks() {
-    const { loading, error, data } = useQuery(QUERY_ME);
-
-    const userData = data?.me || [];
-
-    if (error) return (
-        <h1 style={{
-            color: "white",
-            textAlign: "center"
-        }}>Error</h1>
-    );
-
     return (
         <>
             <Container maxWidth="md"
@@ -66,53 +50,16 @@ function CurrentDecks() {
                         gridTemplateColumns: { sm: '1fr 1fr', md: '1fr 1fr 1fr', },
                         gap: 2,
                         display: "flex",
-                        flexDirection: "row",
-                        flexWrap: "wrap"
+                        flexDirection: "row"
                     }}
                 >
-                    {userData?.decks?.length > 0 ?
-                        <section style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            flexWrap: "wrap",
-                            gap: 6,
-                        }}
-                        > {userData?.decks?.map((deck) => {
-                            return (
-                                <Card sx={{
-                                    background: "#424242",
-                                    minWidth: "100px",
-                                    maxWidth: "200px",
-                                    minHeight: "100px",
-                                    maxHeight: "275px",
-                                    padding: "6px"
-                                }}>
-                                    <CardContent
+                    <p style={{
+                        color: "white",
+                    }}>Deck 1</p>
+                    <p style={{
+                        color: "white",
+                    }}>Deck 2</p>
 
-                                        sx={{
-                                            color: "white",
-                                            textAlign: "center",
-                                            minWidth: "10px",
-                                            maxWidth: "150px",
-                                            minHeight: "10px",
-                                            maxHeight: "150px",
-                                            padding: "6px"
-                                        }}>
-                                        {deck.title}
-
-                                    </CardContent>
-                                    <CardMedia
-                                        component="img"
-                                        height="225"
-                                        width="150"
-                                        image="https://cf.geekdo-images.com/CxJmNl4wR4InjqyNrMdBTw__imagepagezoom/img/KuHBP_jVjw_8gbieS8skQD_-_Ho=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic163749.jpg"
-                                        alt="deck cover"
-                                    />
-                                </Card>
-                            )
-                        })}
-
-                        </section> : <h1>No Decks found</h1>}
                     <Button variant="contained"
                         sx={{
                             minWidth: "10px",
