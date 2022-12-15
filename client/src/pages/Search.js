@@ -159,15 +159,15 @@ export const Search = () => {
             value={colorInput}
             onChange={(e) => setColorInput(colorInput + e.target.value + ",")}
             sx={{
-              padding: "2em",
-              paddingTop: "5px",
-              borderRadius: "8px",
-              borderColor: "teal",
-              borderWidth: "2px",
-              borderStyle: "solid",
-              textAlign: "left",
-              color: "#fff",
-            }}
+                padding: "2em",
+                paddingTop: "5px",
+                borderRadius: "8px",
+                borderColor: "teal",
+                borderWidth: "2px",
+                borderStyle: "solid",
+                textAlign: "left",
+                color: "#fff",
+              }}
           >
             <h3>Select Card Colors:</h3>
             {/* <hr></hr> */}
