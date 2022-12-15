@@ -13,6 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Link } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = [
@@ -87,13 +88,14 @@ function Header(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button
+              <Link
                 key={item}
-                sx={{ color: "#fff" }}
+                sx={{ color: "#fff", paddingLeft: "1.5rem" }}
+                underline="none"
                 href={item.replace(/\s/g, "").toLowerCase()}
               >
-                {item}
-              </Button>
+                {item.toUpperCase()}
+              </Link>
             ))}
           </Box>
         </Toolbar>

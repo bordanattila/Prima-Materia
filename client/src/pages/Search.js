@@ -10,6 +10,7 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  Grid,
   Card,
   CardActions,
   CardContent,
@@ -228,17 +229,16 @@ export const Search = () => {
         {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
 
         {/* results of search (map all cards returned) */}
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { sm: "1fr", md: "1fr 1fr" },
-            gap: 2,
-          }}
-        >
+
+        <Grid container>
           {searchedCards.map((card) => {
-            return <SearchCard card={card} />;
+            return (
+              <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
+                <SearchCard card={card} />
+              </Grid>
+            );
           })}
-        </Box>
+        </Grid>
       </Container>
     </>
   );
