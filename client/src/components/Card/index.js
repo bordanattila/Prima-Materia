@@ -19,7 +19,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
-import AlertDialog from "../AddToDeck";
+import AddToDeckDialog from "../AddToDeckDialog";
 
 const cardTheme = createTheme({
   components: {
@@ -70,8 +70,7 @@ const SearchCard = ({ card }) => {
   const handleClose = (value) => {
     setOpen(false);
   };
-  console.log("***CARD***");
-  console.log(card);
+
   return (
     <>
       <Grid
@@ -136,7 +135,7 @@ const SearchCard = ({ card }) => {
         </Grid>
       </Grid>
       <Dialog open={open} onClose={handleClose}>
-        <AlertDialog />
+        <AddToDeckDialog />
       </Dialog>
     </>
   );
