@@ -15,42 +15,39 @@ import {
   Tooltip,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-
-const decks = [
-  "deck1",
-  "deck2",
-  "deck3",
-  "deck4",
-  "deck5",
-  "deck6",
-  "deck7",
-  "deck8",
-  "deck9",
-  "deck10",
-  "deck11",
-  "deck12",
-];
+import { QUERY_ME } from "../../utils/queries";
+import { useMutation, useQuery } from "@apollo/client";
 
 export default function AlertDialog() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
+
+  const { loading, error, data } = useQuery(QUERY_ME);
+  const userData = data?.me || [];
+
   return (
     <>
       <DialogTitle>{"Select a deck"}</DialogTitle>
       <DialogContent sx={{ maxHeight: "400px" }}>
         <List sx={{ overflowY: "scroll" }} disableScrollLock={false}>
-          {decks.map((deck) => (
-            <ListItem key={deck}>
-              <Tooltip title="Add to this deck">
-                <Button>
-                  <AddCircleOutlineIcon />
-                  <ListItemText primary={deck} />
-                </Button>
-              </Tooltip>
-            </ListItem>
-          ))}
+          {userData?.decks?.length > 0 ? (
+            userData?.decks?.map((deck) => {
+              return (
+                <ListItem key={deck.id}>
+                  <Tooltip title="Add to this deck">
+                    <Button>
+                      <AddCircleOutlineIcon />
+                      <ListItemText primary={deck.title} />
+                    </Button>
+                  </Tooltip>
+                </ListItem>
+              );
+            })
+          ) : (
+            <ListItemText primary="No decks found" />
+          )}
         </List>
       </DialogContent>
     </>

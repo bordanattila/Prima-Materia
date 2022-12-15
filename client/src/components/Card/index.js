@@ -70,8 +70,7 @@ const SearchCard = ({ card }) => {
   const handleClose = (value) => {
     setOpen(false);
   };
-  console.log("***CARD***");
-  console.log(card);
+
   return (
     <>
       <Grid
