@@ -1,5 +1,4 @@
-import { borderRadius, margin } from "@mui/system";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { searchMagicCards } from "../utils/API";
 import { alpha, styled } from "@mui/material/styles";
 import {
@@ -10,15 +9,10 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-  Icon,
 } from "@mui/material";
-import { Form } from "react-router-dom";
 import SearchCard from "../components/Card";
+
+
 
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
@@ -61,7 +55,6 @@ const AutoSearch = styled(Autocomplete)({
 });
 
 const options = [
-  // { title: "" },
   { title: "creature" },
   { title: "enchantment" },
   { title: "land" },
@@ -72,11 +65,12 @@ const options = [
 ];
 
 export const Search = () => {
-  const [searchedCards, setSearchedCards] = useState([]);
-  const [nameInput, setNameInput] = useState([]);
-  const [typeInput, setTypeInput] = useState({ title: "" });
-  const [subtypeInput, setSubtypeInput] = useState([]);
-  const [colorInput, setColorInput] = useState([]);
+    const [searchedCards, setSearchedCards] = useState([]);
+    const [nameInput, setNameInput] = useState([]);
+    const [typeInput, setTypeInput] = useState({ title: "" });
+    const [subtypeInput, setSubtypeInput] = useState([]);
+    const [colorInput, setColorInput] = useState([]);
+
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -168,15 +162,15 @@ export const Search = () => {
             value={colorInput}
             onChange={(e) => setColorInput(colorInput + e.target.value + ",")}
             sx={{
-              padding: "2em",
-              paddingTop: "5px",
-              borderRadius: "8px",
-              borderColor: "teal",
-              borderWidth: "2px",
-              borderStyle: "solid",
-              textAlign: "left",
-              color: "#fff",
-            }}
+                padding: "2em",
+                paddingTop: "5px",
+                borderRadius: "8px",
+                borderColor: "teal",
+                borderWidth: "2px",
+                borderStyle: "solid",
+                textAlign: "left",
+                color: "#fff",
+              }}
           >
             <h3>Select Card Colors:</h3>
             {/* <hr></hr> */}
@@ -225,17 +219,16 @@ export const Search = () => {
         {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
 
         {/* results of search (map all cards returned) */}
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { sm: "1fr", md: "1fr 1fr" },
-            gap: 2,
-          }}
-        >
+
+        <Grid container>
           {searchedCards.map((card) => {
-            return <SearchCard card={card} />;
+            return (
+              <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
+                <SearchCard card={card} />
+              </Grid>
+            );
           })}
-        </Box>
+        </Grid>
       </Container>
     </>
   );
