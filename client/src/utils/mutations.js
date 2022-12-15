@@ -26,15 +26,14 @@ export const CREATE_USER = gql`
 `;
 
 export const ADD_CARD_LIST = gql`
-  mutation addCardToWishList($cardId: ID!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
-    addCardToWishList(cardId: $cardId, name: $name, type: $type, text: $text, color: $color, image: $image) {
+  mutation addCardToWishList($cardId: ID!, $name: String!, $type: String!, $text: String!, $image: String!) {
+    addCardToWishList(cardId: $cardId, name: $name, type: $type, text: $text, image: $image) {
       wishList {
         _id
         cardId
         name
         type
         text
-        color
         image
       }
     }
@@ -42,8 +41,8 @@ export const ADD_CARD_LIST = gql`
 `;
 
 export const ADD_CARD_DECK = gql`
-  mutation addCardToDeck($_id: ID!, $cardId: ID!, $name: String!, $type: String!, $text: String!, $color: [String]!, $image: String!) {
-    addCardToDeck(_id: $_id, cardId: $cardId, name: $name, type: $type, text: $text, color: $color, image: $image) {
+  mutation addCardToDeck($_id: ID!, $cardId: ID!, $name: String!, $type: String!, $text: String!, $image: String!) {
+    addCardToDeck(_id: $_id, cardId: $cardId, name: $name, type: $type, text: $text, image: $image) {
       decks {
         _id
         title
@@ -53,7 +52,6 @@ export const ADD_CARD_DECK = gql`
           name
           type
           text
-          color
           image
         }
       }
@@ -73,7 +71,6 @@ export const CREATE_DECK = gql`
           name
           type
           text
-          color
           image
         }
       }

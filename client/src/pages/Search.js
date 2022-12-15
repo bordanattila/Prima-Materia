@@ -18,6 +18,7 @@ import {
   Icon,
 } from "@mui/material";
 import { Form } from "react-router-dom";
+import SearchCard from "../components/Card";
 
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
@@ -59,23 +60,23 @@ const AutoSearch = styled(Autocomplete)({
   },
 });
 
-const cardTypes = [
-  { label: "creature" },
-  { label: "enchantment" },
-  { label: "land" },
-  { label: "sorcery" },
-  { label: "artifact" },
-  { label: "instant" },
-  { label: "planeswalker" },
+const options = [
+  // { title: "" },
+  { title: "creature" },
+  { title: "enchantment" },
+  { title: "land" },
+  { title: "sorcery" },
+  { title: "artifact" },
+  { title: "instant" },
+  { title: "planeswalker" },
 ];
 
 export const Search = () => {
   const [searchedCards, setSearchedCards] = useState([]);
   const [nameInput, setNameInput] = useState([]);
-  const [typeInput, setTypeInput] = useState([]);
+  const [typeInput, setTypeInput] = useState({ title: "" });
   const [subtypeInput, setSubtypeInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
-
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -83,7 +84,7 @@ export const Search = () => {
     try {
       const response = await searchMagicCards(
         nameInput,
-        typeInput,
+        typeInput.title,
         subtypeInput,
         colorInput
       );
@@ -123,7 +124,7 @@ export const Search = () => {
             display: "grid",
             gridTemplateColumns: { sm: "1fr 1fr", md: "1fr" },
             gap: 2,
-            marginBottom: "2em"
+            marginBottom: "2em",
           }}
         >
           {/* search by card name */}
@@ -139,16 +140,16 @@ export const Search = () => {
           {/* search by card type */}
           <AutoSearch
             name="typeInput"
-            // isOptionEqualToValue={true}
-            // value={typeInput}
             disablePortal
-            id="typeInput"
-            options={cardTypes}
+            value={typeInput}
+            getOptionLabel={(option) => (option.title ? option.title : "")}
+            onChange={(e, values) => setTypeInput(values)}
+            id="cardType"
+            options={options}
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
             renderInput={(params) => (
               <TextField {...params} label="Card Type" />
-            )}   
-            // onChange={(params) => setTypeInput(params)}
+            )}
           />
 
           {/* search by subtype */}
@@ -158,7 +159,7 @@ export const Search = () => {
             onChange={(e) => setSubtypeInput(e.target.value)}
             label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)"
             id="cardName"
-            sx={{ input: { color: "#fff" }, label: { color: "#fff" }, }}
+            sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
           />
 
           {/* checkboxes for colors to search */}
@@ -167,7 +168,6 @@ export const Search = () => {
             value={colorInput}
             onChange={(e) => setColorInput(colorInput + e.target.value + ",")}
             sx={{
-              backgroundColor: "#212121",
               padding: "2em",
               paddingTop: "5px",
               borderRadius: "8px",
@@ -215,12 +215,12 @@ export const Search = () => {
           <Button
             type="submit"
             variant="contained"
-           style={{ maxWidth: "100px"}}
+            style={{ maxWidth: "100px" }}
           >
             Submit
           </Button>
         </Box>
-          {/* submit button */}
+        {/* submit button */}
         {/* </Form> */}
         {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
 
@@ -233,30 +233,7 @@ export const Search = () => {
           }}
         >
           {searchedCards.map((card) => {
-            return (
-              <Card key={card.cardId} 
-              sx={{ padding: "1.5em", margin: "5px", backgroundColor: "#424242", color: "#fff"}}>
-                <CardMedia
-                  component="img"
-                  image={card.image}
-                  alt={card.name}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {card.name}
-                  </Typography>
-                  <Typography variant="body2" color="#eeeeee">
-                    {card.text}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  {/* these buttons need functionality */}
-                  
-                  <Button size="small" color="secondary">Add to Wishlist</Button>
-                  <Button size="small">Add to a Deck:</Button>
-                </CardActions>
-              </Card>
-            );
+            return <SearchCard card={card} />;
           })}
         </Box>
       </Container>
