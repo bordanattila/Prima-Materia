@@ -109,13 +109,13 @@ const SearchCard = ({ card }) => {
                 <CardActions>
                   <div onClick={() => setClicked(!clicked)}>
                     {clicked ? (
-                      <Tooltip title="Add to wishlist">
+                      <Tooltip title="Remove from wishlist">
                         <IconButton>
-                          <FavoriteIcon />
+                          <FavoriteIcon sx={{ color: "red" }} />
                         </IconButton>
                       </Tooltip>
                     ) : (
-                      <Tooltip title="Remove from wishlist">
+                      <Tooltip title="Add to wishlist">
                         <IconButton>
                           <FavoriteBorderIcon />
                         </IconButton>
