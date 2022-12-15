@@ -18,6 +18,7 @@ import Decks from "./components/Deck";
 import Wishlist from "./pages/Wishlist";
 import MysteryCard from "./pages/MysteryCard";
 import SearchCard from "./components/Card";
+import SingleDeck from "./pages/SingleDeck";
 // import Title from "./pages/Title";
 
 import "./App.css";
@@ -77,16 +78,16 @@ function App() {
           <Container sx={{ mt: "6rem", mb: "6rem" }}>
             <Routes>
               {/* <Route path="/" element={<Title />} /> */}
-              <Route path="/home" element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/decks" element={<Decks />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/mysterycard" element={<MysteryCard />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/decks/create" element={<CreateDeck />} />
-              <Route path="/decks/create/search" element={<Search />} />
+              <Route path="/decks/create" element={<CreateDeck />} />              
               <Route path="/card" element={<SearchCard />} />
+              <Route path="/decks/:deckId" element={<SingleDeck />} />
             </Routes>
           </Container>
         </div>
