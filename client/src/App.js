@@ -4,8 +4,8 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -25,20 +25,25 @@ import { Container } from "@mui/material";
 import CreateDeck from "./pages/CreateDeckName";
 import AddToDeck from "./pages/AddToDeck";
 
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: "/graphql",
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem("id_token");
   // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -52,27 +57,30 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-    <Router>
-      <div>
-        <Header />
-      </div>
-      <div>
-        <Container sx={{ mt: "6rem", mb: "6rem" }}>
-          <Routes>
-            {/* <Route path="/" element={<Title />} /> */}
-            <Route path="/home" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/decks" element={<Decks />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/mysterycard" element={<MysteryCard />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/decks/create" element={<CreateDeck />} />
-            <Route path="/decks/create/search" element={<Search />} />
-            <Route path="/card" element={<MagicCard />} />
-          </Routes>
-        </Container>
-      </div>
+      <Router>
+        <div>
+          <Header />
+        </div>
+        <div>
+          <Container sx={{ mt: "6rem", mb: "6rem" }}>
+            <Routes>
+              {/* <Route path="/" element={<Title />} /> */}
+              <Route path="/home" element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/decks" element={<Decks />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/mysterycard" element={<MysteryCard />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/decks/create" element={<CreateDeck />} />
+              <Route path="/decks/create/search" element={<Search />} />
+              <Route path="/card" element={<MagicCard />} />
+            </Routes>
+          </Container>
+        </div>
+        <div>
+          <Footer />
+        </div>
       </Router>
     </ApolloProvider>
   );

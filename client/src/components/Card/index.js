@@ -11,7 +11,15 @@ import {
   ThemeProvider,
   createTheme,
   ModalRoot,
+  Tooltip,
+  IconButton,
+  Dialog,
 } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useState } from "react";
+import AlertDialog from "../AddToDeck";
 
 const cardTheme = createTheme({
   components: {
@@ -21,8 +29,8 @@ const cardTheme = createTheme({
         // Name of the slot
         root: {
           // Some CSS
-          padding: "1rem",
-          background: "black",
+
+          background: "#424242",
           border: "solid 2px teal",
         },
       },
@@ -38,13 +46,38 @@ const cardTheme = createTheme({
     },
     MuiCardContent: {
       styleOverrides: {
-        root: {},
+        // Name of the slot
+        root: {
+          // Some CSS
+          padding: ".75rem",
+          "&:last-child": {
+            paddingBottom: ".75rem",
+          },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+          fontSize: "large",
+        },
       },
     },
   },
 });
 
 const MagicCard = () => {
+  const [clicked, setClicked] = useState();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <Grid
@@ -57,31 +90,65 @@ const MagicCard = () => {
       >
         <Grid item>
           <ThemeProvider theme={cardTheme}>
-            <Card sx={{ color: "#fff" }}>
-              <CardActionArea>
+            <Card sx={{ color: "#fff", width: "250px" }}>
+              <CardContent>
                 <CardMedia
                   component="img"
                   image="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=136279&type=card"
                   alt="green iguana"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h6" component="div">
                     Card Title
                   </Typography>
-                  <Typography variant="body2" sx={{ color: "#fff" }}>
-                    Description
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "#fff", height: "75px", overflow: "auto" }}
+                  >
+                    Description Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
                   </Typography>
                 </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Share
-                </Button>
-              </CardActions>
+                <CardActions>
+                  <div onClick={() => setClicked(!clicked)}>
+                    {clicked ? (
+                      <Tooltip title="Add to wishlist">
+                        <IconButton>
+                          <FavoriteBorderIcon />
+                        </IconButton>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="Remove from wishlist">
+                        <IconButton>
+                          <FavoriteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </div>
+                  <div>
+                    <Tooltip title="Add to a deck">
+                      <IconButton onClick={handleClickOpen}>
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                </CardActions>
+              </CardContent>
             </Card>
           </ThemeProvider>
         </Grid>
       </Grid>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <AlertDialog />
+      </Dialog>
     </>
   );
 };

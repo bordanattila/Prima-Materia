@@ -15,7 +15,6 @@ type Card {
   name: String
   type: String
   text: String
-  color: [String]
   image: String
 }
 

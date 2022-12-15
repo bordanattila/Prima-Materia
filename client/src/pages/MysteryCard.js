@@ -1,12 +1,26 @@
 import React, { useState } from "react";
-import { Box, Typography, Grid, Button, Card, CardActions, CardContent, CardMedia } from "@mui/material";
-
+import { useMutation } from '@apollo/client';
+import Auth from "../utils/auth"
+import { ADD_CARD_LIST } from "../utils/mutations";
+import { ADD_CARD_DECK } from "../utils/mutations";
+import { 
+  Box, 
+  Typography, 
+  Grid, 
+  Button, 
+  Card, 
+  CardActions, 
+  CardContent, 
+  CardMedia 
+} from "@mui/material";
 import { mysteryCardSearch } from "../utils/API";
+
 
 
 export const MysteryCard = () => {
 
   const [mysteryCard, setMysteryCard] = useState([]);
+  const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
 
   const handleSubmit = async () => {
     // event.preventDefault();
@@ -34,6 +48,26 @@ export const MysteryCard = () => {
     }
   };
 
+  const handleSaveCardToList = async (cardId) => {
+
+    const cardToSave = mysteryCard.find((card) => card.cardId === cardId);
+
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const { data } = await addCardToWishList({
+        variables: { ...cardToSave }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
       <Grid
@@ -43,41 +77,17 @@ export const MysteryCard = () => {
         alignItems="center"
         justifyContent="center"
         justify="center"
-        style={{ minHeight: "70vh" }}
+        style={{ minHeight: "20vh" }}
       >
         <Grid item xs={4}>
           <Box
-          flexDirection="column"
+            flexDirection="column"
             sx={{
               display: "flex",
               color: "#fff",
               alignItems: "center",
             }}
           >
-            {mysteryCard.map((card) => {
-              return (
-                <Card key={card.cardId} sx={{ margin: "5em" }}>
-                  <CardMedia
-                    component="img"
-                    image={card.image}
-                    alt={card.name}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {card.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {card.text}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    {/* these buttons need functionality */}
-                    <Button size="small">Add to Wishlist</Button>
-                    <Button size="small">Add to a Deck:</Button>
-                  </CardActions>
-                </Card>
-              );
-            })}
             <Typography>
               Cast your query into the void!
             </Typography>
@@ -90,7 +100,30 @@ export const MysteryCard = () => {
               Get a Mystery Card
             </Button>
           </Box>
-
+          {mysteryCard.map((card) => {
+            return (
+              <Card key={card.cardId} sx={{ padding: "1.5em", margin: "5px", backgroundColor: "#424242", color: "#fff", marginTop: "2em" }}>
+                <CardMedia
+                  component="img"
+                  image={card.image}
+                  alt={card.name}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {card.name}
+                  </Typography>
+                  <Typography variant="body2" color="#eeeeee">
+                    {card.text}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  {/* these buttons need functionality */}
+                  <Button size="small" color="secondary" onClick={() => handleSaveCardToList(card.cardId)}>Add to Wishlist</Button>
+                  <Button size="small">Add to a Deck:</Button>
+                </CardActions>
+              </Card>
+            );
+          })}
 
         </Grid>
       </Grid>

@@ -12,7 +12,6 @@ query me {
             name
             type
             text
-            color
             image
         }
         decks {
@@ -24,7 +23,6 @@ query me {
                 name
                 type
                 text
-                color
                 image
             }
         }
