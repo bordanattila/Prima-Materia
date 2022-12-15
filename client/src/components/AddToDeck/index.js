@@ -5,6 +5,30 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import {
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+
+const decks = [
+  "deck1",
+  "deck2",
+  "deck3",
+  "deck4",
+  "deck5",
+  "deck6",
+  "deck7",
+  "deck8",
+  "deck9",
+  "deck10",
+  "deck11",
+  "deck12",
+];
 
 export default function AlertDialog() {
   const [open, setOpen] = React.useState(false);
@@ -13,21 +37,19 @@ export default function AlertDialog() {
   };
   return (
     <>
-      <DialogTitle id="alert-dialog-title">
-        {"Use Google's location service?"}
-      </DialogTitle>
+      <DialogTitle>{"Select a deck"}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
-        </DialogContentText>
+        <List sx={{ overflowY: "scroll" }} disableScrollLock={false}>
+          {decks.map((deck) => (
+            <ListItem key={deck}>
+              <IconButton>
+                <AddCircleOutlineIcon />
+              </IconButton>
+              <ListItemText primary={deck} />
+            </ListItem>
+          ))}
+        </List>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Disagree</Button>
-        <Button onClick={handleClose} autoFocus>
-          Agree
-        </Button>
-      </DialogActions>
     </>
   );
 }
