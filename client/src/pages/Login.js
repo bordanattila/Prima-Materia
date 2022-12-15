@@ -28,8 +28,9 @@ const FormInput = styled(TextField)({
 
 const FormButton = (props) => (
   <Button
-    variant="outlined"
+    variant="contained"
     type="submit"
+    color="success"
     sx={{
       padding: 1,
       borderColor: "teal",
@@ -55,20 +56,21 @@ const Login = () => {
     });
   };
 
+
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-   
+
     try {
       const { data } = await login({
         variables: { ...formState },
       });
 
       Auth.login(data.login.token);
+
     } catch (e) {
       console.error(e);
     }
-
     // clear form values
     setFormState({
       email: "",
@@ -131,6 +133,7 @@ const Login = () => {
               <FormButton type="submit">Login</FormButton>
             </div>
             <div>
+              <br></br>
               <Link href="/signup" underline="none">
                 {"Click here to sign up"}
               </Link>

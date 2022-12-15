@@ -34,7 +34,6 @@ input CardInput {
   name: String
   type: String
   text: String
-  color: [String]
   image: String
 }
 type Query {

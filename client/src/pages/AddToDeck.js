@@ -15,9 +15,16 @@ import {
 } from "@mui/material";
 import { styled } from '@mui/system';
 import { searchMagicCards } from "../utils/API";
+import Auth from "../utils/auth"
 
 function AddToDeck() {
     const [searchedCards, setSearchedCards] = useState([]);
+
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
 
     try {
         const response = searchMagicCards("dragon");
