@@ -60,7 +60,7 @@ const AutoSearch = styled(Autocomplete)({
 });
 
 const options = [
-    { title: "" },
+    // { title: "" },
     { title: "creature" },
     { title: "enchantment" },
     { title: "land" },
@@ -72,11 +72,11 @@ const options = [
 
 
 export const Search = () => {
-    const [searchedCards, setSearchedCards] = useState({});
-    const [nameInput, setNameInput] = useState({});
-    const [typeInput, setTypeInput] = useState({ title: "" });
-    const [subtypeInput, setSubtypeInput] = useState({});
-    const [colorInput, setColorInput] = useState({});
+    const [searchedCards, setSearchedCards] = useState([]);
+    const [nameInput, setNameInput] = useState([]);
+    const [typeInput, setTypeInput] = useState([]);
+    const [subtypeInput, setSubtypeInput] = useState([]);
+    const [colorInput, setColorInput] = useState([]);
 
 
     const handleFormSubmit = async (event) => {
