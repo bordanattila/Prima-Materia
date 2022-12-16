@@ -15,11 +15,25 @@ import {
 } from "@mui/material";
 import { mysteryCardSearch } from "../utils/API";
 import SearchCard from "../components/SearchCard";
+import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../utils/queries";
 
 export const MysteryCard = () => {
   const [mysteryCard, setMysteryCard] = useState([]);
   const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
+  const { loading, data} = useQuery(QUERY_ME);
 
+  let userData = data?.me || {};
+  //If the user is not logged in, create a user object with an empty wishList to pass into SearchCard component
+  if (error) {
+    if(error.toString() === "ApolloError: You need to be logged in!"){
+      userData = {
+        wishList: []
+      }
+    }
+    console.error(error)
+  }
+  
   const handleSubmit = async () => {
     // event.preventDefault();
     // console.log(event);
@@ -97,7 +111,7 @@ export const MysteryCard = () => {
           </Box>
           <Box sx={{ paddingTop: "2rem" }}>
             {mysteryCard.map((card) => {
-              return <SearchCard card={card} />;
+              return <SearchCard card={card} wishList={userData.wishList} />;
             })}
           </Box>
         </Grid>

@@ -15,7 +15,7 @@ import SearchCard from "../components/SearchCard";
 import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-//TODO: Import query me
+
 
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
@@ -243,7 +243,7 @@ export const Search = () => {
                 sx={{ maxHeight: "580px" }}
                 key={card.cardId}
               >
-                <SearchCard card={card} />
+                <SearchCard card={card} wishList={userData.wishList}/>
               </Grid>
             );
           })}

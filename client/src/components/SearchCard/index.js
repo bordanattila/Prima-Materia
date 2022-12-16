@@ -65,22 +65,15 @@ const cardTheme = createTheme({
 });
 
 const SearchCard = ({ card, wishList }) => {
-  // console.log(wishList);
-  // console.log("This is the card:", card)
   let wishState = false;
-  //TODO: Figure out how to handle wishList if user is not logged in. 
+  //If user is logged in, check their wishlist if the card is in their wishlist and change the heart icon to red
   if(Auth.loggedIn()){
-    // console.log("This logged in checker is functioning")
-    //APPROACH: Map through the array of cards in the wishList to check if the cardId exists
-    // wishState = wishList.includes(card) ? true : false
     const listChecker = wishList.filter( cardObj => cardObj.cardId === card.cardId)
     if(listChecker.length > 0){
       wishState = true;
     }
-    // console.log("This is the wishState: ", wishState)
   }
 
-  // console.log("The state of all the cards in the wishlist tab should display true", wishState);
   const [clicked, setClicked] = useState(wishState);
   const [openDeck, setOpenDeck] = React.useState(false);
   const [openImage, setOpenImage] = React.useState(false);
@@ -105,27 +98,23 @@ const SearchCard = ({ card, wishList }) => {
   };
 
   const handleSaveCardToList = async (card) => {
-    // console.log("This is the state of clicked", clicked);
-    // console.log("This is the state of clicked!", !clicked);
-    if(!clicked){
-      console.log("This is the if statement state of clicked: ", clicked)
+    //If the clicked state is currently set to false, change it to true and add card to user's wishlist
+    if(!clicked){//!clicked = false
       try {
         const { data } = await addCardToWishList({
           variables: { ...card },
         });
-        // to change the icon to the filled heart
-        setClicked(true);//sets clicked to true
-        console.log("This is the state of clicked after i set it to !clicked: ", clicked)
+        setClicked(true);
         return
       } catch (err) {
         console.error(err);
       }
     }
-
-    if(clicked){//if the current wish state is set to true and the user clicks the button, we want to remove it from our wishlist
+    //if the current wish state is set to true and the user clicks the button, we want to remove it from our wishlist
+    if(clicked){//clicked = true
       try{
         const { data } = await removeCardFromList({
-          variables: {idCard: card._id}//TODO: Change this to card.cardId
+          variables: {idCard: card.cardId}//Remove the card based on the cardId value
         })
         setClicked(false)
       } catch (err) {
