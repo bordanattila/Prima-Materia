@@ -17,7 +17,7 @@ import Search from "./pages/Search";
 import Decks from "./components/Deck";
 import Wishlist from "./pages/Wishlist";
 import MysteryCard from "./pages/MysteryCard";
-import SearchCard from "./components/SearchCard";
+import SingleCard from "./components/SingleCard";
 import SingleDeck from "./pages/SingleDeck";
 // import Title from "./pages/Title";
 
@@ -87,7 +87,6 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/decks/create" element={<CreateDeck />} />
-                <Route path="/card" element={<SingleDeckCard />} />
                 <Route path="/decks/:deckId" element={<SingleDeck />} />
               </Routes>
             </Container>

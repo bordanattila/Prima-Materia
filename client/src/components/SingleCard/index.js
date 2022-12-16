@@ -63,7 +63,7 @@ const cardTheme = createTheme({
   },
 });
 
-const SearchCard = ({ card, wishList }) => {
+const SingleCard = ({ card, wishList }) => {
   let wishState = false;
   //If user is logged in, check their wishlist if the card is in their wishlist and change the heart icon to red
   if (Auth.loggedIn()) {
@@ -213,4 +213,4 @@ const SearchCard = ({ card, wishList }) => {
   );
 };
 
-export default SearchCard;
+export default SingleCard;
