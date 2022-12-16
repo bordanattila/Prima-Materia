@@ -9,7 +9,7 @@
   }
   .deck {
     position: absolute;
-    margin-top: 10em;
+    margin-top: 30em;
     width: 500px;
     height: 300px;
     will-change: transform;

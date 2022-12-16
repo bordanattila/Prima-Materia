@@ -91,7 +91,7 @@ const Home = () => {
         alignItems="center"
         justifyContent="center"
         justify="center"
-        style={{ minHeight: "35vh" }}
+        style={{ minHeight: "25vh" }}
       >
         <Grid item xs={6}>
           <Box
@@ -107,10 +107,6 @@ const Home = () => {
           </Box>
         </Grid>
       </Grid>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
       <div className={styles.container}>
       <Deck />
     </div>
