@@ -11,7 +11,6 @@
     "start": "node server/server.js",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "seed": "cd server && npm run seed",
     "build": "cd client && npm run build"
   },
   "authors": "Attila Bordán, Reed Meher, Pachia Xiong, Talee Yang",
