@@ -1,14 +1,15 @@
 import React from "react";
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_ME } from "../utils/queries";
+import { QUERY_SINGLE_DECK, QUERY_ME } from "../utils/queries";
 import { REMOVE_CARD_DECK } from "../utils/mutations";
 import {
   Container,
   Grid
 } from "@mui/material"
+import { useParams } from 'react-router-dom';
 
-import SearchCard from "../components/Card";
+import SearchCard from "../components/SearchCard";
 
 const SingleDeck = () => {
 
@@ -17,7 +18,7 @@ const SingleDeck = () => {
     const { loading, error, data } = useQuery(
         deckId ? QUERY_SINGLE_DECK : QUERY_ME,
         {
-          variables: { deckId: deckId },
+          variables: { _id: deckId },
         }
       
     );
@@ -60,13 +61,13 @@ const SingleDeck = () => {
     <Container maxWidth="md" sx={{ margin: "10em" }}>
     <h2 style={{ color: "#fff" }}>Search for Cards</h2>
     <Grid container>
-          {searchedCards.map((card) => {
+          {/* {searchedCards.map((card) => { */}
             return (
               <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
-                <SearchCard card={card} />
+                {/* <SearchCard card={card} /> */}
               </Grid>
             );
-          })}
+          {/* })} */}
         </Grid>
       </Container>
 

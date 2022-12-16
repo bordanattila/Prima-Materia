@@ -67,6 +67,10 @@ const cardTheme = createTheme({
     },
 });
 
+// const linkTheme = createTheme({
+//     .MuiSvgIcon-root
+// });
+
 function CurrentDecks() {
 
     const { loading, error, data } = useQuery(QUERY_ME);
@@ -128,10 +132,12 @@ function CurrentDecks() {
                                                     {deck.title}
                                                 </Typography>
                                             </CardContent>
-                                            <div>
-                                                <Tooltip title="Edit deck">
+                                            <div >
+                                                <Tooltip title="Edit deck" >
                                                         <Link 
+                                                        
                                                         to={`/decks/${deck._id}`}
+                                                        
                                                         >
                                                             <ModeEditIcon />
                                                         </Link>                                               
