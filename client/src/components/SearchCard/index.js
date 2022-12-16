@@ -171,7 +171,7 @@ const SearchCard = ({ card }) => {
         </Grid>
       </Grid>
       <Dialog open={openDeck} onClose={handleCloseDecks}>
-        <AddToDeckDialog />
+        <AddToDeckDialog card={card} />
       </Dialog>
       <Modal
         open={openImage}
