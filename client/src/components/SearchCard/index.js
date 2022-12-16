@@ -14,15 +14,17 @@ import {
   Tooltip,
   IconButton,
   Dialog,
+  Modal,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 import AddToDeckDialog from "../AddToDeckDialog";
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client";
 import { ADD_CARD_LIST, ADD_CARD_DECK } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import ViewImage from "../ViewImage";
 
 const cardTheme = createTheme({
   components: {
@@ -64,19 +66,26 @@ const cardTheme = createTheme({
 
 const SearchCard = ({ card }) => {
   const [clicked, setClicked] = useState();
-  const [open, setOpen] = React.useState(false);
+  const [openDeck, setOpenDeck] = React.useState(false);
+  const [openImage, setOpenImage] = React.useState(false);
   const [searchedCard, setSearchedCard] = useState([]);
   const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpenDecks = () => {
+    setOpenDeck(true);
   };
 
-  const handleClose = (value) => {
-    setOpen(false);
+  const handleCloseDecks = () => {
+    setOpenDeck(false);
   };
-  console.log("***CARD***");
-  console.log(card);
+
+  const handleClickOpenImage = () => {
+    setOpenImage(true);
+  };
+
+  const handleCloseImage = () => {
+    setOpenImage(false);
+  };
 
   const handleSaveCardToList = async (card) => {
     // to change the icon to the filled heart
@@ -84,7 +93,7 @@ const SearchCard = ({ card }) => {
 
     try {
       const { data } = await addCardToWishList({
-        variables: { ...card }
+        variables: { ...card },
       });
     } catch (err) {
       console.error(err);
@@ -104,7 +113,15 @@ const SearchCard = ({ card }) => {
           <ThemeProvider theme={cardTheme}>
             <Card sx={{ color: "#fff", width: "250px" }}>
               <CardContent>
-                <CardMedia component="img" image={card.image} alt={card.name} />
+                <CardActionArea onClick={handleClickOpenImage}>
+                  <Tooltip title="Click to view bigger" followCursor={true}>
+                    <CardMedia
+                      component="img"
+                      image={card.image}
+                      alt={card.name}
+                    />
+                  </Tooltip>
+                </CardActionArea>
                 <CardContent>
                   <Typography
                     gutterBottom
@@ -142,7 +159,7 @@ const SearchCard = ({ card }) => {
                   </div>
                   <div>
                     <Tooltip title="Add to a deck">
-                      <IconButton onClick={handleClickOpen}>
+                      <IconButton onClick={handleClickOpenDecks}>
                         <AddCircleOutlineIcon />
                       </IconButton>
                     </Tooltip>
@@ -153,9 +170,20 @@ const SearchCard = ({ card }) => {
           </ThemeProvider>
         </Grid>
       </Grid>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={openDeck} onClose={handleCloseDecks}>
         <AddToDeckDialog />
       </Dialog>
+      <Modal
+        open={openImage}
+        onClose={handleCloseImage}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ViewImage card={card} />
+      </Modal>
     </>
   );
 };
