@@ -79,7 +79,7 @@ function App() {
             <Container sx={{ mt: "6rem", mb: "6rem" }}>
               <Routes>
                 {/* <Route path="/" element={<Title />} /> */}
-                <Route path="/" element={<Home />} />
+                
                 <Route path="/home" element={<Home />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/decks" element={<Decks />} />
@@ -90,6 +90,7 @@ function App() {
                 <Route path="/decks/create" element={<CreateDeck />} />
                 <Route path="/card" element={<SingleDeckCard />} />
                 <Route path="/decks/:deckId" element={<SingleDeck />} />
+                <Route path="*" element={<Home />} />
               </Routes>
             </Container>
           </div>
