@@ -21,9 +21,10 @@ export default function AddToDeckDialog({ card }) {
   };
 
   const handleAddtoDeck = async (card, deckId) => {
+    console.log(card);
     try {
       const { data } = await addCardToDeck({
-        variables: { ...card, deckId },
+        variables: { cardData: card, deckId: deckId },
       });
     } catch (err) {
       console.error(err);
