@@ -20,10 +20,10 @@ export default function AddToDeckDialog({ card }) {
     setOpen(false);
   };
 
-  const handleAddtoDeck = async (card) => {
+  const handleAddtoDeck = async (card, deckId) => {
     try {
       const { data } = await addCardToDeck({
-        variables: { ...card },
+        variables: { ...card, deckId },
       });
     } catch (err) {
       console.error(err);
@@ -38,9 +38,9 @@ export default function AddToDeckDialog({ card }) {
           {userData?.decks?.length > 0 ? (
             userData?.decks?.map((deck) => {
               return (
-                <ListItem key={deck.id}>
+                <ListItem key={deck._id}>
                   <Tooltip title="Add to this deck">
-                    <Button onClick={() => handleAddtoDeck(card)}>
+                    <Button onClick={() => handleAddtoDeck(card, deck._id)}>
                       <AddCircleOutlineIcon />
                       <ListItemText primary={deck.title} />
                     </Button>
