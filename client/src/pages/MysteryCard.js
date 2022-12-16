@@ -8,10 +8,7 @@ import {
   Typography,
   Grid,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
+ Container,
 } from "@mui/material";
 import { mysteryCardSearch } from "../utils/API";
 import SearchCard from "../components/SearchCard";
@@ -81,41 +78,34 @@ export const MysteryCard = () => {
 
   return (
     <>
-      <Grid
-        container
-        spacing={0}
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        justify="center"
-        style={{ minHeight: "20vh" }}
-      >
-        <Grid item xs={4}>
-          <Box
-            flexDirection="column"
-            sx={{
-              display: "flex",
-              color: "#fff",
-              alignItems: "center",
-            }}
-          >
-            <Typography>Cast your query into the void!</Typography>
+      <Container sx={{ marginTop: "10em", }}>
+
+        <Box
+          noValidate
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
             <Button
               onClick={handleSubmit}
               variant="contained"
               color="secondary"
-              sx={{ marginTop: "2em" }}
+              sx={{ marginTop: "1em", maxWidth: "400px", padding: "1em" }}
             >
               Get a Mystery Card
             </Button>
           </Box>
-          <Box sx={{ paddingTop: "2rem" }}>
+          
+          <Box sx={{ paddingTop: "3rem" }}>
             {mysteryCard.map((card) => {
               return <SearchCard card={card} wishList={userData.wishList} />;
             })}
           </Box>
-        </Grid>
-      </Grid>
+    
+        </Container>
     </>
   );
 };

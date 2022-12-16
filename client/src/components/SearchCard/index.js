@@ -32,7 +32,8 @@ const cardTheme = createTheme({
       styleOverrides: {
         root: {
           background: "#424242",
-          border: "solid 2px teal",
+          // border: "solid 2px teal",
+          boxShadow: "teal 0px 2px 14px 3px", 
         },
       },
     },

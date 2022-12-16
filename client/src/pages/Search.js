@@ -118,7 +118,8 @@ export const Search = () => {
   };
   return (
     <>
-      <Container maxWidth="md" sx={{ margin: "10em" }}>
+      <Container sx={{ marginTop: "10em" }}>
+        
         <h2 style={{ color: "#fff" }}>Search for Cards</h2>
 
         {/* <Form onSubmit={handleFormSubmit}> */}
@@ -128,9 +129,11 @@ export const Search = () => {
           noValidate
           sx={{
             display: "grid",
-            gridTemplateColumns: { sm: "1fr 1fr", md: "1fr" },
-            gap: 2,
-            marginBottom: "2em",
+            gridTemplateColumns: { sm: "1fr" },
+            gap: 3,
+            marginBottom: "3em",
+            justify: "center",
+            alignItems: "center",
           }}
         >
           {/* search by card name */}
@@ -185,7 +188,6 @@ export const Search = () => {
             }}
           >
             <h3>Select Card Colors:</h3>
-            {/* <hr></hr> */}
 
             <FormControlLabel
               control={<Checkbox color="primary" />}
@@ -224,11 +226,9 @@ export const Search = () => {
             style={{ maxWidth: "100px" }}
           >
             Submit
-          </Button>
+          </Button> 
+          
         </Box>
-        {/* submit button */}
-        {/* </Form> */}
-        {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
 
         {/* results of search (map all cards returned) */}
 
