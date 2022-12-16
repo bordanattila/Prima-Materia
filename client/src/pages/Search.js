@@ -12,6 +12,10 @@ import {
   Grid,
 } from "@mui/material";
 import SearchCard from "../components/SearchCard";
+import Auth from "../utils/auth";
+import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../utils/queries";
+
 
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
@@ -69,6 +73,16 @@ export const Search = () => {
   const [typeInput, setTypeInput] = useState({ title: "" });
   const [subtypeInput, setSubtypeInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
+  const { loading, data, error } = useQuery(QUERY_ME);
+
+  let userData = data?.me || {};
+  //If the user is not logged in, create a user object with an empty wishList
+  if (error) {
+    userData = {
+      wishList: []
+    }
+  }
+  
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -104,7 +118,8 @@ export const Search = () => {
   };
   return (
     <>
-      <Container maxWidth="md" sx={{ margin: "10em" }}>
+      <Container sx={{ marginTop: "10em" }}>
+        
         <h2 style={{ color: "#fff" }}>Search for Cards</h2>
 
         {/* <Form onSubmit={handleFormSubmit}> */}
@@ -114,9 +129,11 @@ export const Search = () => {
           noValidate
           sx={{
             display: "grid",
-            gridTemplateColumns: { sm: "1fr 1fr", md: "1fr" },
-            gap: 2,
-            marginBottom: "2em",
+            gridTemplateColumns: { sm: "1fr" },
+            gap: 3,
+            marginBottom: "3em",
+            justify: "center",
+            alignItems: "center",
           }}
         >
           {/* search by card name */}
@@ -171,7 +188,6 @@ export const Search = () => {
             }}
           >
             <h3>Select Card Colors:</h3>
-            {/* <hr></hr> */}
 
             <FormControlLabel
               control={<Checkbox color="primary" />}
@@ -210,19 +226,24 @@ export const Search = () => {
             style={{ maxWidth: "100px" }}
           >
             Submit
-          </Button>
+          </Button> 
+          
         </Box>
-        {/* submit button */}
-        {/* </Form> */}
-        {/* <button style={{ color: '#fff', margin: '20em', padding: '2em', backgroundColor: 'green', borderRadius: '8px' }} onClick={() => searchMagicCards()}>Test API</button> */}
 
         {/* results of search (map all cards returned) */}
 
-        <Grid container>
+        <Grid container key="searchGrid">
           {searchedCards.map((card) => {
             return (
-              <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
-                <SearchCard card={card} />
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                sx={{ maxHeight: "580px" }}
+                key={card.cardId}
+              >
+                <SearchCard card={card} wishList={userData.wishList}/>
               </Grid>
             );
           })}

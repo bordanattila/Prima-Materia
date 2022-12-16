@@ -101,7 +101,7 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { wishList: { _id: idCard } } },
+          { $pull: { wishList: { cardId: idCard } } },//If the card in wishList matches the idCard value from cardId, then remove card from the wishList
           { new: true }
         );
         return updatedUser;
