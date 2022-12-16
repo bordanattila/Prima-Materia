@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Container,
     TextField,
     Box,
-    Autocomplete,
-    FormControlLabel,
-    createTheme,
-    Button
+    Button,
+    Snackbar,
 } from "@mui/material";
 import { styled } from '@mui/system';
 import { useMutation } from '@apollo/client';
 import { CREATE_DECK } from '../utils/mutations';
 import { Link } from 'react-router-dom';
-import { grey } from '@mui/material/colors';
+import MuiAlert from '@mui/material/Alert';
 
 // styling input field
 const DeckTextField = styled(TextField)({
@@ -35,29 +33,15 @@ const linkStyle = {
     color: "white"
 }
 
-const buttonStyle = createTheme({
-    palette: {
-        primary: {
-            main: grey[800]
-
-        }
-    }
-})
-// const CustomButton = styled(Button)(({ theme }) => ({
-//     color: theme.palette.getContrastText(grey[500]),
-//     backgroundColor: grey[500],
-//     '&:hover': {
-//       backgroundColor: grey[700],
-//     },
-//   }));
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export const CreateDeck = () => {
     const [title, setTitle] = useState("");
-    const [currentDeckId, setCurrentDeckId] = useState("");
 
     const [createDeck, { error }] = useMutation(CREATE_DECK);
     const handleCreate = async (event) => {
-        // event.preventDefault();
 
         try {
             const { data } = await createDeck({
@@ -68,7 +52,6 @@ export const CreateDeck = () => {
         } catch (err) {
             console.log(err)
         }
-        // saveDeckId()
     };
 
     return (
@@ -113,7 +96,12 @@ export const CreateDeck = () => {
                             maxWidth: "150px",
                             padding: "6px",
                         }}
-                        onClick={() => handleCreate()}
+                        onClick={() => handleCreate()
+                            .handleClick({
+                            vertical: 'top',
+                            horizontal: 'center',
+                          })
+                        }
                     >
                         <Link to={"/search"} style={linkStyle}>
                             Create Deck

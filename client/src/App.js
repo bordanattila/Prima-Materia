@@ -78,7 +78,7 @@ function App() {
           <Container sx={{ mt: "6rem", mb: "6rem" }}>
             <Routes>
               {/* <Route path="/" element={<Title />} /> */}
-              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/decks" element={<Decks />} />
               <Route path="/wishlist" element={<Wishlist />} />

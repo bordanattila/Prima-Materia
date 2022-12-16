@@ -119,8 +119,7 @@ function Header(props) {
                 key={item}
                 sx={{ color: "#fff", paddingLeft: "1.5rem" }}
                 underline="none"
-                href={item.replace(/\s/g, "").toLowerCase()}
-              >
+                href={"/"+item.replace(/\s/g, "").toLowerCase()}              >
                 {item.toUpperCase()}
               </Link>
             ))}
