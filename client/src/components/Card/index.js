@@ -20,6 +20,9 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 import AddToDeckDialog from "../AddToDeckDialog";
+import { useMutation } from '@apollo/client';
+import { ADD_CARD_LIST, ADD_CARD_DECK } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 const cardTheme = createTheme({
   components: {
@@ -62,6 +65,8 @@ const cardTheme = createTheme({
 const SearchCard = ({ card }) => {
   const [clicked, setClicked] = useState();
   const [open, setOpen] = React.useState(false);
+  const [searchedCard, setSearchedCard] = useState([]);
+  const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,7 +75,21 @@ const SearchCard = ({ card }) => {
   const handleClose = (value) => {
     setOpen(false);
   };
+  console.log("***CARD***");
+  console.log(card);
 
+  const handleSaveCardToList = async (card) => {
+    // to change the icon to the filled heart
+    setClicked(!clicked);
+
+    try {
+      const { data } = await addCardToWishList({
+        variables: { ...card }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <>
       <Grid
@@ -106,7 +125,7 @@ const SearchCard = ({ card }) => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <div onClick={() => setClicked(!clicked)}>
+                  <div onClick={() => handleSaveCardToList(card)}>
                     {clicked ? (
                       <Tooltip title="Remove from wishlist">
                         <IconButton>
