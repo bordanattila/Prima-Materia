@@ -68,9 +68,9 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <ApolloProvider client={client}>
-        
+    <ApolloProvider client={client}>
+      {/* keeps the default theme dark across site */}
+      <ThemeProvider theme={darkTheme}>
         <Router>
           <div>
             <Header />
@@ -97,9 +97,8 @@ function App() {
             <Footer />
           </div>
         </Router>
-
-      </ApolloProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
 
