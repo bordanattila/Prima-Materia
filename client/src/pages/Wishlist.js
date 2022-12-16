@@ -63,7 +63,7 @@ const Wishlist = () => {
         {userData.wishList.map((card) => {
           return (
             <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
-              <SearchCard card={card} />;
+              <SearchCard card={card} wishList={userData.wishList} />;
             </Grid>
           );
         })}
