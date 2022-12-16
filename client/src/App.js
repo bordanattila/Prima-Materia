@@ -89,6 +89,9 @@ function App() {
                 <Route path="/decks/create" element={<CreateDeck />} />
                 <Route path="/card" element={<SingleDeckCard />} />
                 <Route path="/decks/:deckId" element={<SingleDeck />} />
+                <Route
+                  path='*'
+                  element={<h1 className='display-2'>Wrong page!</h1>}
               </Routes>
             </Container>
           </div>
