@@ -104,9 +104,8 @@ const Home = () => {
             <Typography>
               Prima Materia is a site dedicated to fans of Magic The Gathering.  You can search for cards, add cards to a wishlist, and create virtual decks. Login or sign up to get started!
             </Typography>
-            <div className={styles.container}>
               <Deck />
-            </div>
+
           </Box>
           
         </Grid>
