@@ -12,6 +12,10 @@ import {
   Grid,
 } from "@mui/material";
 import SearchCard from "../components/SearchCard";
+import Auth from "../utils/auth";
+import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../utils/queries";
+//TODO: Import query me
 
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
@@ -69,6 +73,16 @@ export const Search = () => {
   const [typeInput, setTypeInput] = useState({ title: "" });
   const [subtypeInput, setSubtypeInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
+  const { loading, data, error } = useQuery(QUERY_ME);
+
+  let userData = data?.me || {};
+  //If the user is not logged in, create a user object with an empty wishList
+  if (error) {
+    userData = {
+      wishList: []
+    }
+  }
+  
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -222,7 +236,7 @@ export const Search = () => {
           {searchedCards.map((card) => {
             return (
               <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
-                <SearchCard card={card} />
+                <SearchCard card={card} wishList={userData.wishList} />
               </Grid>
             );
           })}

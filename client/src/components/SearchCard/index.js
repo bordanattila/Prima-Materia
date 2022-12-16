@@ -22,7 +22,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 import AddToDeckDialog from "../AddToDeckDialog";
 import { useMutation } from "@apollo/client";
-import { ADD_CARD_LIST, ADD_CARD_DECK } from "../../utils/mutations";
+import { ADD_CARD_LIST, ADD_CARD_DECK, REMOVE_CARD_LIST } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import ViewImage from "../ViewImage";
 
@@ -64,12 +64,29 @@ const cardTheme = createTheme({
   },
 });
 
-const SearchCard = ({ card }) => {
-  const [clicked, setClicked] = useState();
+const SearchCard = ({ card, wishList }) => {
+  // console.log(wishList);
+  // console.log("This is the card:", card)
+  let wishState = false;
+  //TODO: Figure out how to handle wishList if user is not logged in. 
+  if(Auth.loggedIn()){
+    // console.log("This logged in checker is functioning")
+    //APPROACH: Map through the array of cards in the wishList to check if the cardId exists
+    // wishState = wishList.includes(card) ? true : false
+    const listChecker = wishList.filter( cardObj => cardObj.cardId === card.cardId)
+    if(listChecker.length > 0){
+      wishState = true;
+    }
+    // console.log("This is the wishState: ", wishState)
+  }
+
+  // console.log("The state of all the cards in the wishlist tab should display true", wishState);
+  const [clicked, setClicked] = useState(wishState);
   const [openDeck, setOpenDeck] = React.useState(false);
   const [openImage, setOpenImage] = React.useState(false);
   const [searchedCard, setSearchedCard] = useState([]);
   const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
+  const [removeCardFromList] = useMutation(REMOVE_CARD_LIST);
 
   const handleClickOpenDecks = () => {
     setOpenDeck(true);
@@ -88,16 +105,34 @@ const SearchCard = ({ card }) => {
   };
 
   const handleSaveCardToList = async (card) => {
-    // to change the icon to the filled heart
-    setClicked(!clicked);
-
-    try {
-      const { data } = await addCardToWishList({
-        variables: { ...card },
-      });
-    } catch (err) {
-      console.error(err);
+    // console.log("This is the state of clicked", clicked);
+    // console.log("This is the state of clicked!", !clicked);
+    if(!clicked){
+      console.log("This is the if statement state of clicked: ", clicked)
+      try {
+        const { data } = await addCardToWishList({
+          variables: { ...card },
+        });
+        // to change the icon to the filled heart
+        setClicked(true);//sets clicked to true
+        console.log("This is the state of clicked after i set it to !clicked: ", clicked)
+        return
+      } catch (err) {
+        console.error(err);
+      }
     }
+
+    if(clicked){//if the current wish state is set to true and the user clicks the button, we want to remove it from our wishlist
+      try{
+        const { data } = await removeCardFromList({
+          variables: {idCard: card._id}//TODO: Change this to card.cardId
+        })
+        setClicked(false)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
   };
   return (
     <>
