@@ -1,29 +1,24 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+import {
+  AppBar,
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Link,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { Link } from "@mui/material";
-import Auth from '../../utils/auth';
+
+import Auth from "../../utils/auth";
 
 const drawerWidth = 240;
-const navItems = [
-  "Home",
-  "Search",
-  "Decks",
-  "Wishlist",
-  "Mystery Card",
-];
+const navItems = ["Home", "Search", "Decks", "Wishlist", "Mystery Card"];
 
 function Header(props) {
   const { window } = props;
@@ -47,7 +42,7 @@ function Header(props) {
           <ListItem key={item} disablePadding>
             <ListItemButton
               sx={{ textAlign: "center" }}
-              href={"/"+item.replace(/\s/g, "").toLowerCase()}
+              href={"/" + item.replace(/\s/g, "").toLowerCase()}
               // use Link nad to to not reload page
             >
               <ListItemText primary={item} />
@@ -61,7 +56,7 @@ function Header(props) {
                 sx={{ textAlign: "center" }}
                 href="home"
                 onClick={Auth.logout}
-              // use Link nad to to not reload page
+                // use Link nad to to not reload page
               >
                 <ListItemText primary="Logout" />
               </ListItemButton>
@@ -73,14 +68,13 @@ function Header(props) {
               <ListItemButton
                 sx={{ textAlign: "center" }}
                 href="login"
-              // use Link nad to to not reload page
+                // use Link nad to to not reload page
               >
-                <ListItemText primary="Login"/>
+                <ListItemText primary="Login" />
               </ListItemButton>
             </ListItem>
           </>
-        )
-        }
+        )}
       </List>
     </Box>
   );
@@ -119,13 +113,13 @@ function Header(props) {
                 key={item}
                 sx={{ color: "#fff", paddingLeft: "1.5rem" }}
                 underline="none"
-                href={"/"+item.replace(/\s/g, "").toLowerCase()}              >
+                href={"/" + item.replace(/\s/g, "").toLowerCase()}
+              >
                 {item.toUpperCase()}
               </Link>
             ))}
-            {
-              Auth.loggedIn() ? (
-                <Link
+            {Auth.loggedIn() ? (
+              <Link
                 key="Logout"
                 sx={{ color: "#fff", paddingLeft: "1.5rem" }}
                 underline="none"
@@ -134,8 +128,8 @@ function Header(props) {
               >
                 LOGOUT
               </Link>
-              ): (
-                <Link
+            ) : (
+              <Link
                 key="Login"
                 sx={{ color: "#fff", paddingLeft: "1.5rem" }}
                 underline="none"

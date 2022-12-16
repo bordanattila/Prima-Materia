@@ -5,12 +5,10 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Button,
   CardActionArea,
   CardActions,
   ThemeProvider,
   createTheme,
-  ModalRoot,
   Tooltip,
   IconButton,
   Dialog,
@@ -22,7 +20,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 import AddToDeckDialog from "../AddToDeckDialog";
 import { useMutation } from "@apollo/client";
-import { ADD_CARD_LIST, ADD_CARD_DECK, REMOVE_CARD_LIST } from "../../utils/mutations";
+import { ADD_CARD_LIST, REMOVE_CARD_LIST } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import ViewImage from "../ViewImage";
 
@@ -33,7 +31,7 @@ const cardTheme = createTheme({
         root: {
           background: "#424242",
           // border: "solid 2px teal",
-          boxShadow: "teal 0px 2px 14px 3px", 
+          boxShadow: "teal 0px 2px 14px 3px",
         },
       },
     },
@@ -68,9 +66,11 @@ const cardTheme = createTheme({
 const SearchCard = ({ card, wishList }) => {
   let wishState = false;
   //If user is logged in, check their wishlist if the card is in their wishlist and change the heart icon to red
-  if(Auth.loggedIn()){
-    const listChecker = wishList.filter( cardObj => cardObj.cardId === card.cardId)
-    if(listChecker.length > 0){
+  if (Auth.loggedIn()) {
+    const listChecker = wishList.filter(
+      (cardObj) => cardObj.cardId === card.cardId
+    );
+    if (listChecker.length > 0) {
       wishState = true;
     }
   }
@@ -78,7 +78,6 @@ const SearchCard = ({ card, wishList }) => {
   const [clicked, setClicked] = useState(wishState);
   const [openDeck, setOpenDeck] = React.useState(false);
   const [openImage, setOpenImage] = React.useState(false);
-  const [searchedCard, setSearchedCard] = useState([]);
   const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
   const [removeCardFromList] = useMutation(REMOVE_CARD_LIST);
 
@@ -100,29 +99,30 @@ const SearchCard = ({ card, wishList }) => {
 
   const handleSaveCardToList = async (card) => {
     //If the clicked state is currently set to false, change it to true and add card to user's wishlist
-    if(!clicked){//!clicked = false
+    if (!clicked) {
+      //!clicked = false
       try {
         const { data } = await addCardToWishList({
           variables: { ...card },
         });
         setClicked(true);
-        return
+        return;
       } catch (err) {
         console.error(err);
       }
     }
     //if the current wish state is set to true and the user clicks the button, we want to remove it from our wishlist
-    if(clicked){//clicked = true
-      try{
+    if (clicked) {
+      //clicked = true
+      try {
         const { data } = await removeCardFromList({
-          variables: {idCard: card.cardId}//Remove the card based on the cardId value
-        })
-        setClicked(false)
+          variables: { idCard: card.cardId }, //Remove the card based on the cardId value
+        });
+        setClicked(false);
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     }
-
   };
   return (
     <>
