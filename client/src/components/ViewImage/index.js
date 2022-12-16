@@ -21,7 +21,7 @@ const cardTheme = createTheme({
     MuiCardMedia: {
       styleOverrides: {
         root: {
-          borderRadius: 14,
+          borderRadius: 20,
         },
       },
     },
@@ -46,7 +46,7 @@ export default function BasicModal({ card }) {
   return (
     <>
       <ThemeProvider theme={cardTheme}>
-        <Card sx={{ width: "458px", height: "639px" }}>
+        <Card sx={{ width: "458px", height: "630px" }}>
           <CardContent>
             <CardMedia component="img" image={card.image} alt={card.name} />
           </CardContent>

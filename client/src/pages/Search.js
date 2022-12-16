@@ -232,11 +232,18 @@ export const Search = () => {
 
         {/* results of search (map all cards returned) */}
 
-        <Grid container>
+        <Grid container key="searchGrid">
           {searchedCards.map((card) => {
             return (
-              <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
-                <SearchCard card={card} wishList={userData.wishList} />
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                sx={{ maxHeight: "580px" }}
+                key={card.cardId}
+              >
+                <SearchCard card={card} />
               </Grid>
             );
           })}

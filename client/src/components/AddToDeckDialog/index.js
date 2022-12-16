@@ -1,31 +1,46 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  ThemeProvider,
-  createTheme,
-  Tooltip,
-} from "@mui/material";
+import { List, ListItem, ListItemText, Tooltip, Snackbar } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { QUERY_ME } from "../../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
+import { ADD_CARD_DECK } from "../../utils/mutations";
+import { useState } from "react";
+import MuiAlert from "@mui/material/Alert";
 
-export default function AddToDeckDialog() {
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+export default function AddToDeckDialog({ card }) {
   const [open, setOpen] = React.useState(false);
-  const handleCloseDecks = () => {
-    setOpen(false);
+  const [deckCard, setDeckCard] = React.useState([]);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [addCardToDeck, { deckError }] = useMutation(ADD_CARD_DECK);
+  const { loading, userError, data } = useQuery(QUERY_ME);
+  const userData = data?.me || [];
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenAlert(false);
   };
 
-  const { loading, error, data } = useQuery(QUERY_ME);
-  const userData = data?.me || [];
+  const handleAddtoDeck = async (card, deckId) => {
+    console.log(card);
+    try {
+      const { data } = await addCardToDeck({
+        variables: { cardData: card, deckId: deckId },
+      });
+      setOpenAlert(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -35,9 +50,9 @@ export default function AddToDeckDialog() {
           {userData?.decks?.length > 0 ? (
             userData?.decks?.map((deck) => {
               return (
-                <ListItem key={deck.id}>
+                <ListItem key={deck._id}>
                   <Tooltip title="Add to this deck">
-                    <Button>
+                    <Button onClick={() => handleAddtoDeck(card, deck._id)}>
                       <AddCircleOutlineIcon />
                       <ListItemText primary={deck.title} />
                     </Button>
@@ -49,6 +64,19 @@ export default function AddToDeckDialog() {
             <ListItemText primary="No decks found" />
           )}
         </List>
+        <Snackbar
+          open={openAlert}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Card added to deck!
+          </Alert>
+        </Snackbar>
       </DialogContent>
     </>
   );

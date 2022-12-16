@@ -144,7 +144,7 @@ const SearchCard = ({ card, wishList }) => {
         justify="center"
         style={{ minHeight: "100vh" }}
       >
-        <Grid item key={card.cardId}>
+        <Grid item>
           <ThemeProvider theme={cardTheme}>
             <Card sx={{ color: "#fff", width: "250px" }}>
               <CardContent>
@@ -206,12 +206,12 @@ const SearchCard = ({ card, wishList }) => {
         </Grid>
       </Grid>
       <Dialog open={openDeck} onClose={handleCloseDecks}>
-        <AddToDeckDialog />
+        <AddToDeckDialog card={card} />
       </Dialog>
       <Modal
         open={openImage}
         onClose={handleCloseImage}
-        style={{
+        sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
