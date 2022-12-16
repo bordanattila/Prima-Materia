@@ -5,7 +5,6 @@ import {
   CardMedia,
   ThemeProvider,
   createTheme,
-  Box,
 } from "@mui/material";
 
 const cardTheme = createTheme({
@@ -39,10 +38,6 @@ const cardTheme = createTheme({
 });
 
 export default function BasicModal({ card }) {
-  const [open, setOpen] = React.useState(false);
-  const handleCloseImage = () => {
-    setOpen(false);
-  };
   return (
     <>
       <ThemeProvider theme={cardTheme}>

@@ -3,7 +3,7 @@ import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 import { REMOVE_CARD_LIST } from "../utils/mutations";
-import { cardClasses, Container, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 import SearchCard from "../components/SearchCard";
 

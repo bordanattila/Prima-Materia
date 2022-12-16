@@ -1,8 +1,13 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { List, ListItem, ListItemText, Tooltip, Snackbar } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Tooltip,
+  DialogTitle,
+  DialogContent,
+  Button,
+} from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { QUERY_ME } from "../../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
