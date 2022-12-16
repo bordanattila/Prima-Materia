@@ -46,7 +46,7 @@ export default function AddToDeckDialog({ card }) {
     <>
       <DialogTitle>{"Select a deck"}</DialogTitle>
       <DialogContent sx={{ maxHeight: "400px" }}>
-        <List sx={{ overflowY: "scroll" }} disableScrollLock={false}>
+        <List sx={{ overflowY: "scroll" }}>
           {userData?.decks?.length > 0 ? (
             userData?.decks?.map((deck) => {
               return (
