@@ -9,11 +9,9 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
-  Grid
+  Grid,
 } from "@mui/material";
-import SearchCard from "../components/Card";
-
-
+import SearchCard from "../components/SearchCard";
 
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
@@ -66,12 +64,11 @@ const options = [
 ];
 
 export const Search = () => {
-    const [searchedCards, setSearchedCards] = useState([]);
-    const [nameInput, setNameInput] = useState([]);
-    const [typeInput, setTypeInput] = useState({ title: "" });
-    const [subtypeInput, setSubtypeInput] = useState([]);
-    const [colorInput, setColorInput] = useState([]);
-
+  const [searchedCards, setSearchedCards] = useState([]);
+  const [nameInput, setNameInput] = useState([]);
+  const [typeInput, setTypeInput] = useState({ title: "" });
+  const [subtypeInput, setSubtypeInput] = useState([]);
+  const [colorInput, setColorInput] = useState([]);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -163,15 +160,15 @@ export const Search = () => {
             value={colorInput}
             onChange={(e) => setColorInput(colorInput + e.target.value + ",")}
             sx={{
-                padding: "2em",
-                paddingTop: "5px",
-                borderRadius: "8px",
-                borderColor: "teal",
-                borderWidth: "2px",
-                borderStyle: "solid",
-                textAlign: "left",
-                color: "#fff",
-              }}
+              padding: "2em",
+              paddingTop: "5px",
+              borderRadius: "8px",
+              borderColor: "teal",
+              borderWidth: "2px",
+              borderStyle: "solid",
+              textAlign: "left",
+              color: "#fff",
+            }}
           >
             <h3>Select Card Colors:</h3>
             {/* <hr></hr> */}

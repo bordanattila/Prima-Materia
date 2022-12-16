@@ -30,8 +30,8 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -41,7 +41,7 @@ const httpLink = createHttpLink({
 //dark theme by default
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 
@@ -69,33 +69,33 @@ function App() {
     <ApolloProvider client={client}>
       {/* keeps the default theme dark across site */}
       <ThemeProvider theme={darkTheme}>
-      <Router>
-        <div>
-          <Header />
-        </div>
-        <div>
-          <Container sx={{ mt: "6rem", mb: "6rem" }}>
-            <Routes>
-              {/* <Route path="/" element={<Title />} /> */}
-              <Route path="/home" element={<Home />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/decks" element={<Decks />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/mysterycard" element={<MysteryCard />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/decks/create" element={<CreateDeck />} />
-              <Route path="/decks/create/search" element={<Search />} />
-              <Route path="/card" element={<SearchCard />} />
-            </Routes>
-          </Container>
-        </div>
-        <div>
-          <Footer />
-        </div>
-      </Router>
+        <Router>
+          <div>
+            <Header />
+          </div>
+          <div>
+            <Container sx={{ mt: "6rem", mb: "6rem" }}>
+              <Routes>
+                {/* <Route path="/" element={<Title />} /> */}
+                <Route path="/home" element={<Home />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/decks" element={<Decks />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/mysterycard" element={<MysteryCard />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/decks/create" element={<CreateDeck />} />
+                {/* <Route path="/decks/create/search" element={<Search />} /> */}
+                <Route path="/card" element={<SearchCard />} />
+              </Routes>
+            </Container>
+          </div>
+          <div>
+            <Footer />
+          </div>
+        </Router>
       </ThemeProvider>
-      </ApolloProvider>
+    </ApolloProvider>
   );
 }
 
