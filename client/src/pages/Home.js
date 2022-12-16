@@ -22,7 +22,7 @@ const cards = [
 const to = (i: number) => ({
   x: 0,
   y: i * -4,
-  scale: 1,
+  scale: 1.5,
   rot: -10 + Math.random() * 20,
   delay: i * 100,
 });
@@ -39,7 +39,7 @@ function Deck() {
   })) // Create a bunch of springs using the helpers above
   // Create a gesture, we're interested in down-state, delta (current-pos - click-pos), direction and velocity
   const bind = useDrag(({ args: [index], down, movement: [mx], direction: [xDir], velocity }) => {
-    const trigger = velocity > 0.2 // If you flick hard enough it should trigger the card to fly out
+    const trigger = velocity > 0.01 // If you flick hard enough it should trigger the card to fly out
     const dir = xDir < 0 ? -1 : 1 // Direction should either point left or right
     if (!down && trigger) gone.add(index) // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
     api.start(i => {
@@ -91,7 +91,7 @@ const Home = () => {
         alignItems="center"
         justifyContent="center"
         justify="center"
-        style={{ minHeight: "70vh" }}
+        style={{ minHeight: "45vh" }}
       >
         <Grid item xs={6}>
           <Box
@@ -104,12 +104,14 @@ const Home = () => {
             <Typography>
               Prima Materia is a site dedicated to fans of Magic The Gathering.  You can search for cards, add cards to a wishlist, and create virtual decks. Login or sign up to get started!
             </Typography>
-              <Deck />
 
           </Box>
-          
+
         </Grid>
       </Grid>
+      <div className={styles.container}>
+      <Deck />
+    </div>
 
     </>
   );
