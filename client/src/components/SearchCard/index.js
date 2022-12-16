@@ -5,12 +5,10 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Button,
   CardActionArea,
   CardActions,
   ThemeProvider,
   createTheme,
-  ModalRoot,
   Tooltip,
   IconButton,
   Dialog,
@@ -22,11 +20,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 import AddToDeckDialog from "../AddToDeckDialog";
 import { useMutation } from "@apollo/client";
-import {
-  ADD_CARD_LIST,
-  ADD_CARD_DECK,
-  REMOVE_CARD_LIST,
-} from "../../utils/mutations";
+import { ADD_CARD_LIST, REMOVE_CARD_LIST } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import ViewImage from "../ViewImage";
 
@@ -84,7 +78,6 @@ const SearchCard = ({ card, wishList }) => {
   const [clicked, setClicked] = useState(wishState);
   const [openDeck, setOpenDeck] = React.useState(false);
   const [openImage, setOpenImage] = React.useState(false);
-  const [searchedCard, setSearchedCard] = useState([]);
   const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
   const [removeCardFromList] = useMutation(REMOVE_CARD_LIST);
 

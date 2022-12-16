@@ -7,13 +7,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { QUERY_ME } from "../../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CARD_DECK } from "../../utils/mutations";
-import { useState } from "react";
-import MuiAlert from "@mui/material/Alert";
 import { SnackbarProvider, useSnackbar } from "notistack";
-
-// const Alert = React.forwardRef(function Alert(props, ref) {
-//   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-// });
 
 export default function AddToDeckDialog({ card }) {
   return (
@@ -24,9 +18,6 @@ export default function AddToDeckDialog({ card }) {
 }
 
 function DeckList({ card }) {
-  const [open, setOpen] = React.useState(false);
-  const [deckCard, setDeckCard] = React.useState([]);
-  const [openAlert, setOpenAlert] = React.useState(false);
   const [addCardToDeck, { deckError }] = useMutation(ADD_CARD_DECK);
   const { loading, userError, data } = useQuery(QUERY_ME);
   const userData = data?.me || [];
