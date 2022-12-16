@@ -9,12 +9,21 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CARD_DECK } from "../../utils/mutations";
 import { useState } from "react";
 import MuiAlert from "@mui/material/Alert";
+import { SnackbarProvider, useSnackbar } from "notistack";
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+// const Alert = React.forwardRef(function Alert(props, ref) {
+//   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+// });
 
 export default function AddToDeckDialog({ card }) {
+  return (
+    <SnackbarProvider maxSnack={3}>
+      <DeckList card={card} />
+    </SnackbarProvider>
+  );
+}
+
+function DeckList({ card }) {
   const [open, setOpen] = React.useState(false);
   const [deckCard, setDeckCard] = React.useState([]);
   const [openAlert, setOpenAlert] = React.useState(false);
@@ -22,21 +31,15 @@ export default function AddToDeckDialog({ card }) {
   const { loading, userError, data } = useQuery(QUERY_ME);
   const userData = data?.me || [];
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+  const { enqueueSnackbar } = useSnackbar();
 
-    setOpenAlert(false);
-  };
-
-  const handleAddtoDeck = async (card, deckId) => {
+  const handleAddtoDeck = async (card, deck) => {
     console.log(card);
     try {
       const { data } = await addCardToDeck({
-        variables: { cardData: card, deckId: deckId },
+        variables: { cardData: card, deckId: deck._id },
       });
-      setOpenAlert(true);
+      enqueueSnackbar(`Added to ${deck.title}`, { variant: "success" });
     } catch (err) {
       console.error(err);
     }
@@ -52,7 +55,7 @@ export default function AddToDeckDialog({ card }) {
               return (
                 <ListItem key={deck._id}>
                   <Tooltip title="Add to this deck">
-                    <Button onClick={() => handleAddtoDeck(card, deck._id)}>
+                    <Button onClick={() => handleAddtoDeck(card, deck)}>
                       <AddCircleOutlineIcon />
                       <ListItemText primary={deck.title} />
                     </Button>
@@ -64,19 +67,6 @@ export default function AddToDeckDialog({ card }) {
             <ListItemText primary="No decks found" />
           )}
         </List>
-        <Snackbar
-          open={openAlert}
-          autoHideDuration={2000}
-          onClose={handleClose}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Card added to deck!
-          </Alert>
-        </Snackbar>
       </DialogContent>
     </>
   );
