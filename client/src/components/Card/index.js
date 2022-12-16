@@ -19,7 +19,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
-import AlertDialog from "../AddToDeck";
+import AddToDeckDialog from "../AddToDeckDialog";
 import { useMutation } from '@apollo/client';
 import { ADD_CARD_LIST, ADD_CARD_DECK } from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -155,7 +155,7 @@ const SearchCard = ({ card }) => {
         </Grid>
       </Grid>
       <Dialog open={open} onClose={handleClose}>
-        <AlertDialog />
+        <AddToDeckDialog />
       </Dialog>
     </>
   );
