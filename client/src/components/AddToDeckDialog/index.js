@@ -1,31 +1,34 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  ThemeProvider,
-  createTheme,
-  Tooltip,
-} from "@mui/material";
+import { List, ListItem, ListItemText, Tooltip } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { QUERY_ME } from "../../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
+import { ADD_CARD_DECK } from "../../utils/mutations";
+import { useState } from "react";
 
-export default function AddToDeckDialog() {
+export default function AddToDeckDialog({ card }) {
   const [open, setOpen] = React.useState(false);
+  const [deckCard, setDeckCard] = React.useState([]);
+  const [addCardToDeck, { deckError }] = useMutation(ADD_CARD_DECK);
+  const { loading, userError, data } = useQuery(QUERY_ME);
+  const userData = data?.me || [];
+
   const handleCloseDecks = () => {
     setOpen(false);
   };
 
-  const { loading, error, data } = useQuery(QUERY_ME);
-  const userData = data?.me || [];
+  const handleAddtoDeck = async (card, deckId) => {
+    try {
+      const { data } = await addCardToDeck({
+        variables: { ...card, deckId },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -35,9 +38,9 @@ export default function AddToDeckDialog() {
           {userData?.decks?.length > 0 ? (
             userData?.decks?.map((deck) => {
               return (
-                <ListItem key={deck.id}>
+                <ListItem key={deck._id}>
                   <Tooltip title="Add to this deck">
-                    <Button>
+                    <Button onClick={() => handleAddtoDeck(card, deck._id)}>
                       <AddCircleOutlineIcon />
                       <ListItemText primary={deck.title} />
                     </Button>
