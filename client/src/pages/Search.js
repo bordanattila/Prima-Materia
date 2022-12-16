@@ -11,7 +11,7 @@ import {
   Button,
   Grid,
 } from "@mui/material";
-import SearchCard from "../components/SearchCard";
+import SingleCard from "../components/SingleCard";
 import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
@@ -239,7 +239,7 @@ export const Search = () => {
                 sx={{ maxHeight: "580px" }}
                 key={card.cardId}
               >
-                <SearchCard card={card} wishList={userData.wishList} />
+                <SingleCard card={card} wishList={userData.wishList} />
               </Grid>
             );
           })}

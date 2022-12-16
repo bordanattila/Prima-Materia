@@ -16,6 +16,7 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 
 export default function AddToDeckDialog({ card }) {
   return (
+    // limits the alert to 3 max
     <SnackbarProvider maxSnack={3}>
       <DeckList card={card} />
     </SnackbarProvider>
@@ -29,12 +30,14 @@ function DeckList({ card }) {
 
   const { enqueueSnackbar } = useSnackbar();
 
+  // takes in a card and deck object
   const handleAddtoDeck = async (card, deck) => {
     console.log(card);
     try {
       const { data } = await addCardToDeck({
         variables: { cardData: card, deckId: deck._id },
       });
+      // Display the success message when card added to deck
       enqueueSnackbar(`Added to ${deck.title}`, { variant: "success" });
     } catch (err) {
       console.error(err);
@@ -45,7 +48,9 @@ function DeckList({ card }) {
     <>
       <DialogTitle>{"Select a deck"}</DialogTitle>
       <DialogContent sx={{ maxHeight: "400px" }}>
+        {/* overflowY allows for scrolling*/}
         <List sx={{ overflowY: "scroll" }}>
+          {/* checks for userdata -> decks -> and maps deck titles as list items */}
           {userData?.decks?.length > 0 ? (
             userData?.decks?.map((deck) => {
               return (

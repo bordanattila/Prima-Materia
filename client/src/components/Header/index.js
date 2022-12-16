@@ -28,6 +28,7 @@ function Header(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  // drawer navigation for small viewports
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography
@@ -43,7 +44,6 @@ function Header(props) {
             <ListItemButton
               sx={{ textAlign: "center" }}
               href={"/" + item.replace(/\s/g, "").toLowerCase()}
-              // use Link nad to to not reload page
             >
               <ListItemText primary={item} />
             </ListItemButton>
@@ -56,7 +56,6 @@ function Header(props) {
                 sx={{ textAlign: "center" }}
                 href="home"
                 onClick={Auth.logout}
-                // use Link nad to to not reload page
               >
                 <ListItemText primary="Logout" />
               </ListItemButton>
@@ -65,11 +64,7 @@ function Header(props) {
         ) : (
           <>
             <ListItem key="Login" disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                href="login"
-                // use Link nad to to not reload page
-              >
+              <ListItemButton sx={{ textAlign: "center" }} href="login">
                 <ListItemText primary="Login" />
               </ListItemButton>
             </ListItem>
@@ -108,6 +103,7 @@ function Header(props) {
             Prima Materia
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            {/* creates a clickable navigation item that reroutes the page based on the navItems. Removes spaces and and makes all letters to lowercase for route */}
             {navItems.map((item) => (
               <Link
                 key={item}
@@ -118,6 +114,7 @@ function Header(props) {
                 {item.toUpperCase()}
               </Link>
             ))}
+            {/* checks if a user is logged in or not to display either LOGIN or LOGOUT in Nav */}
             {Auth.loggedIn() ? (
               <Link
                 key="Logout"
