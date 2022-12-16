@@ -23,7 +23,6 @@ import AddToDeckDialog from "../AddToDeckDialog";
 import { useMutation } from '@apollo/client';
 import { ADD_CARD_LIST, ADD_CARD_DECK } from "../../utils/mutations";
 import Auth from "../../utils/auth";
-import { searchMagicCards } from "../../utils/API";
 
 const cardTheme = createTheme({
   components: {
