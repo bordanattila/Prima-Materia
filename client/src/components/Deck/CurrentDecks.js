@@ -4,28 +4,33 @@ import {
     Container,
     TextField,
     Box,
-    Autocomplete,
+    ThemeProvider,
+    createTheme,
     CardMedia,
     Card,
     Button,
-    CardContent
+    Typography,
+    Tooltip,
+    IconButton,
+    CardContent,
+    BottomNavigation,
+    BottomNavigationAction
 } from "@mui/material";
 import { styled } from '@mui/system';
-import Auth from '../../utils/auth';
 import { Link } from 'react-router-dom';
-// import DeckLayout from './Decks';
 import { QUERY_ME } from '../../utils/queries';
-import { useMutation, useQuery } from '@apollo/client';
-
+import { useQuery } from '@apollo/client';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import SingleDeck from '../../pages/SingleDeck';
 
 // styling input field
 const DeckTextField = styled(TextField)({
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
-            borderColor: 'white',
+            borderColor: 'teal',
         },
         '&:hover fieldset': {
-            borderColor: 'white',
+            borderColor: 'teal',
         },
     }
 })
@@ -33,10 +38,50 @@ const DeckTextField = styled(TextField)({
 // styling button 
 const linkStyle = {
     textDecoration: "none",
-    color: "white"
+    color: "black"
 }
 
+const cardTheme = createTheme({
+    components: {
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    background: "#424242",
+                    border: "solid 2px teal",
+                },
+            },
+        },
+        MuiCardMedia: {
+            styleOverrides: {
+                root: {
+                    borderRadius: 12,
+                },
+            },
+        },
+        MuiCardContent: {
+            styleOverrides: {
+                root: {
+                    padding: ".75rem",
+                    "&:last-child": {
+                        paddingBottom: ".75rem",
+                    },
+                },
+            },
+        },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    color: "#fff",
+                    fontSize: "large",
+                },
+            },
+        },
+    },
+});
+
 function CurrentDecks() {
+    // const [value, setValue] = useState("");
+
     const { loading, error, data } = useQuery(QUERY_ME);
 
     const userData = data?.me || [];
@@ -45,20 +90,27 @@ function CurrentDecks() {
         <h1 style={{
             color: "white",
             textAlign: "center"
-        }}>Error</h1>
+        }}>You need to be logged in</h1>
     );
 
+    // const editDeck = () => {
+
+
+    //     return (
+    //         <SingleDeck />
+    //     )
+    // }
     return (
         <>
             <Container maxWidth="md"
                 sx={{
                     margin: "10em",
                 }}>
-                <h3 style={{
+                <h1 style={{
                     color: "white",
                     textAlign: "center"
                 }}
-                >Your Decks</h3>
+                >Your Decks</h1>
                 <Box component="form"
                     noValidate
                     sx={{
@@ -75,40 +127,59 @@ function CurrentDecks() {
                             display: "flex",
                             flexDirection: "row",
                             flexWrap: "wrap",
-                            gap: 6,
+                            gap: 40,
                         }}
                         > {userData?.decks?.map((deck) => {
                             return (
-                                <Card sx={{
-                                    background: "#424242",
-                                    minWidth: "100px",
-                                    maxWidth: "200px",
-                                    minHeight: "100px",
-                                    maxHeight: "275px",
-                                    padding: "6px"
-                                }}>
-                                    <CardContent
+                                <ThemeProvider theme={cardTheme}>
+                                    <Card sx={{ color: "#fff", width: "250px" }}>
+                                        <CardContent>
+                                            <CardMedia component="img" image="https://cf.geekdo-images.com/CxJmNl4wR4InjqyNrMdBTw__imagepagezoom/img/KuHBP_jVjw_8gbieS8skQD_-_Ho=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic163749.jpg" />
+                                            <CardContent>
+                                                <Typography
+                                                    gutterBottom
+                                                    sx={{
+                                                        fontWeight: "bold",
+                                                        height: "40px",
+                                                        size: "2vw",
+                                                    }}
+                                                    component="div"
+                                                >
+                                                    {deck.title}
+                                                </Typography>
+                                            </CardContent>
+                                            <div>
+                                                <Tooltip title="Edit deck">
+                                                    {/* <IconButton
+                                                    //   onClick={editDeck(deck._id)}
+                                                    > */}
+                                                        <Link 
+                                                        // component={
+                                                        //     <ModeEditIcon />
+                                                        // }
+                                                        to={`/decks/${deck._id}`}
+                                                        >
+                                                            <ModeEditIcon />
+                                                        </Link>
+                                                        {/* <ModeEditIcon /> */}
+                                                    {/* </IconButton> */}
+                                                    {/* <BottomNavigation
+                                                        // showLabels
+                                                        // value={`/decks/${deck._id}`}
+                                                        // onClick={editDeck(deck._id)}
+                                                        value={value}
+                                                        onChange={(event, newValue) => {
+                                                          setValue(newValue);
+                                                        }}
+                                                    >
+                                                        <BottomNavigationAction icon={<ModeEditIcon />} />
+                                                    </BottomNavigation> */}
 
-                                        sx={{
-                                            color: "white",
-                                            textAlign: "center",
-                                            minWidth: "10px",
-                                            maxWidth: "150px",
-                                            minHeight: "10px",
-                                            maxHeight: "150px",
-                                            padding: "6px"
-                                        }}>
-                                        {deck.title}
-
-                                    </CardContent>
-                                    <CardMedia
-                                        component="img"
-                                        height="225"
-                                        width="150"
-                                        image="https://cf.geekdo-images.com/CxJmNl4wR4InjqyNrMdBTw__imagepagezoom/img/KuHBP_jVjw_8gbieS8skQD_-_Ho=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic163749.jpg"
-                                        alt="deck cover"
-                                    />
-                                </Card>
+                                                </Tooltip>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </ThemeProvider>
                             )
                         })}
 

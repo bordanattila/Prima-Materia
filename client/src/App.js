@@ -18,6 +18,7 @@ import Decks from "./components/Deck";
 import Wishlist from "./pages/Wishlist";
 import MysteryCard from "./pages/MysteryCard";
 import SearchCard from "./components/Card";
+import SingleDeck from "./pages/SingleDeck";
 // import Title from "./pages/Title";
 
 import "./App.css";
@@ -84,9 +85,9 @@ function App() {
               <Route path="/mysterycard" element={<MysteryCard />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/decks/create" element={<CreateDeck />} />
-              <Route path="/decks/create/search" element={<Search />} />
+              <Route path="/decks/create" element={<CreateDeck />} />              
               <Route path="/card" element={<SearchCard />} />
+              <Route path="/decks/:deckId" element={<SingleDeck />} />
             </Routes>
           </Container>
         </div>
