@@ -2,7 +2,7 @@ import React from "react";
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-import { REMOVE_CARD_LIST } from "../utils/mutations";
+import { REMOVE_CARD_DECK } from "../utils/mutations";
 import {
   Container,
   Grid
@@ -11,61 +11,64 @@ import {
 import SearchCard from "../components/Card";
 
 const SingleDeck = () => {
-//   const { loading, error, data } = useQuery(QUERY_ME);
 
-//   const userData = data?.me || {};
+    const { deckId } = useParams();
 
-//   const [removeCardFromList] = useMutation(REMOVE_CARD_LIST);
+    const { loading, error, data } = useQuery(
+        deckId ? QUERY_SINGLE_DECK : QUERY_ME,
+        {
+          variables: { deckId: deckId },
+        }
+      
+    );
 
-//   //Error handling if user is not logged in
-//   if (error) {
-//     console.log(error)
-//     return <h3
-//       style={{
-//         color: "#fff",
-//         textAlign: "center",
-//       }}>{error.toString().replace("ApolloError: ", "")}</h3>
-//   }
+    const userData = data?.me || data?.deck || [];
 
-//   const handleDeleteCardList = async (idCard) => {
-//     const token = Auth.loggedIn() ? Auth.getToken() : null;
+  const [removeCardFromDeck] = useMutation(REMOVE_CARD_DECK);
 
-//     if (!token) {
-//       return false;
-//     }
+  //Error handling if user is not logged in
+  if (error) {
+    console.log(error)
+    return <h3
+      style={{
+        color: "#fff",
+        textAlign: "center",
+      }}>{error.toString().replace("ApolloError: ", "")}</h3>
+  }
 
-//     try {
-//       const { data } = await removeCardFromList({
-//         variables: { idCard: idCard }
-//       })
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
+  const handleDeleteCardDeck = async (idCard) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-//   if (loading) {
-//     return <h2>LOADING...</h2>
-//   }
+    // if (!token) {
+    //   return false;
+    // }
+
+    try {
+      const { data } = await removeCardFromDeck({
+        variables: { idCard: idCard }
+      })
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  if (loading) {
+    return <h2>LOADING...</h2>
+  }
 
   return (
-    <Container maxWidth="md"
-      sx={{ margin: "10em" }}>
-      <h3
-        style={{
-          color: "#fff",
-          textAlign: "center"
-        }}>
-        single deck</h3>
-        {/* <Grid container>
-        {userData.wishList.map((card) => {
-          return (
-            <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
-              <SearchCard card={card} />;
-            </Grid>
+    <Container maxWidth="md" sx={{ margin: "10em" }}>
+    <h2 style={{ color: "#fff" }}>Search for Cards</h2>
+    <Grid container>
+          {searchedCards.map((card) => {
+            return (
+              <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
+                <SearchCard card={card} />
+              </Grid>
             );
-        })}
-        </Grid> */}
-    </Container>
+          })}
+        </Grid>
+      </Container>
 
   )
 };

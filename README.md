@@ -6,4 +6,7 @@ A full stack React application built collaboratively by a team of 4. Built with 
 ## Badges
 <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/bordanattila/Prima-Materia">
 
+## Credit
+Deck cover image is from https://boardgamegeek.com/image/163749/magic-gathering
+
 ## Links

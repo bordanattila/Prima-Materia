@@ -23,18 +23,6 @@ import { useQuery } from '@apollo/client';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import SingleDeck from '../../pages/SingleDeck';
 
-// styling input field
-const DeckTextField = styled(TextField)({
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: 'teal',
-        },
-        '&:hover fieldset': {
-            borderColor: 'teal',
-        },
-    }
-})
-
 // styling button 
 const linkStyle = {
     textDecoration: "none",
@@ -80,7 +68,6 @@ const cardTheme = createTheme({
 });
 
 function CurrentDecks() {
-    // const [value, setValue] = useState("");
 
     const { loading, error, data } = useQuery(QUERY_ME);
 
@@ -93,13 +80,6 @@ function CurrentDecks() {
         }}>You need to be logged in</h1>
     );
 
-    // const editDeck = () => {
-
-
-    //     return (
-    //         <SingleDeck />
-    //     )
-    // }
     return (
         <>
             <Container maxWidth="md"
@@ -150,31 +130,11 @@ function CurrentDecks() {
                                             </CardContent>
                                             <div>
                                                 <Tooltip title="Edit deck">
-                                                    {/* <IconButton
-                                                    //   onClick={editDeck(deck._id)}
-                                                    > */}
                                                         <Link 
-                                                        // component={
-                                                        //     <ModeEditIcon />
-                                                        // }
                                                         to={`/decks/${deck._id}`}
                                                         >
                                                             <ModeEditIcon />
-                                                        </Link>
-                                                        {/* <ModeEditIcon /> */}
-                                                    {/* </IconButton> */}
-                                                    {/* <BottomNavigation
-                                                        // showLabels
-                                                        // value={`/decks/${deck._id}`}
-                                                        // onClick={editDeck(deck._id)}
-                                                        value={value}
-                                                        onChange={(event, newValue) => {
-                                                          setValue(newValue);
-                                                        }}
-                                                    >
-                                                        <BottomNavigationAction icon={<ModeEditIcon />} />
-                                                    </BottomNavigation> */}
-
+                                                        </Link>                                               
                                                 </Tooltip>
                                             </div>
                                         </CardContent>

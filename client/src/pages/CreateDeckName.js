@@ -27,10 +27,6 @@ const linkStyle = {
   color: "white",
 };
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 export const CreateDeck = () => {
   const [title, setTitle] = useState("");
 
