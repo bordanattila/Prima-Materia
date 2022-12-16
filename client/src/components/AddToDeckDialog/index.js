@@ -20,7 +20,7 @@ import { useMutation, useQuery } from "@apollo/client";
 
 export default function AddToDeckDialog() {
   const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
+  const handleCloseDecks = () => {
     setOpen(false);
   };
 
