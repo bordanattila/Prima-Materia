@@ -73,6 +73,7 @@ export const Search = () => {
   const [typeInput, setTypeInput] = useState({ title: "" });
   const [subtypeInput, setSubtypeInput] = useState([]);
   const [superTypeInput, setSuperTypeInput] = useState([]);
+  const [setInput, setSetInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
   const { loading, data, error } = useQuery(QUERY_ME);
 
@@ -93,6 +94,7 @@ export const Search = () => {
         typeInput.title,
         subtypeInput,
         superTypeInput,
+        setInput,
         colorInput
       );
 
@@ -184,6 +186,16 @@ export const Search = () => {
             value={superTypeInput}
             onChange={(e) => setSuperTypeInput(e.target.value)}
             label="Search by Supertype (Basic, Legendary, Snow, etc))"
+            id="cardName"
+            sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
+          />
+
+                    {/* search by setType */}
+                    <SearchBox
+            name="setInput"
+            value={setInput}
+            onChange={(e) => setSetInput(e.target.value)}
+            label="Search by Set Name"
             id="cardName"
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
           />
