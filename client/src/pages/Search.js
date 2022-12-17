@@ -151,6 +151,7 @@ export const Search = () => {
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
             // trims extra spaces after the user has finished typing
+            onBlur={() => setNameInput(nameInput.trim())}
             label="Search by Card Name"
             id="cardName"
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
