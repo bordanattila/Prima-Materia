@@ -1,8 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Container,
-    TextField,
     Box,
     ThemeProvider,
     createTheme,
@@ -11,17 +10,15 @@ import {
     Button,
     Typography,
     Tooltip,
-    IconButton,
     CardContent,
-    BottomNavigation,
-    BottomNavigationAction
+    IconButton
 } from "@mui/material";
-import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
 import { QUERY_ME } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import SingleDeck from '../../pages/SingleDeck';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { REMOVE_DECK } from "../../utils/mutations";
 
 // styling button 
 const linkStyle = {
@@ -67,13 +64,11 @@ const cardTheme = createTheme({
     },
 });
 
-// const linkTheme = createTheme({
-//     .MuiSvgIcon-root
-// });
-
 function CurrentDecks() {
 
     const { loading, error, data } = useQuery(QUERY_ME);
+    const [removeDeck, {err}] = useMutation(REMOVE_DECK);
+    const [_id, set_id] = useState("");
 
     const userData = data?.me || [];
 
@@ -83,6 +78,17 @@ function CurrentDecks() {
             textAlign: "center"
         }}>You need to be logged in</h1>
     );
+
+    const handleDelete = async (event) => {
+        try {
+          const { data } = await removeDeck({
+            variables: { _id },
+          });
+          
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
     return (
         <>
@@ -132,17 +138,31 @@ function CurrentDecks() {
                                                     {deck.title}
                                                 </Typography>
                                             </CardContent>
-                                            <div >
+                                            <Box
+                                                style={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    flexWrap: "wrap",
+                                                    gap: 160,
+                                                    alignItems: "center"
+                                                }}
+                                            >
                                                 <Tooltip title="Edit deck" >
-                                                        <Link 
-                                                        
+                                                    <Link
+                                                        className="custom-link"
                                                         to={`/decks/${deck._id}`}
-                                                        
-                                                        >
-                                                            <ModeEditIcon />
-                                                        </Link>                                               
+                                                    >
+                                                        <ModeEditIcon />
+                                                    </Link>
                                                 </Tooltip>
-                                            </div>
+                                                <Tooltip title="Delete deck" >
+                                                    <IconButton onClick={handleDelete}>
+                                                        <DeleteIcon 
+                                                        className="custom-link"
+                                                        sx={{variant: "filled"}}/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Box>
                                         </CardContent>
                                     </Card>
                                 </ThemeProvider>

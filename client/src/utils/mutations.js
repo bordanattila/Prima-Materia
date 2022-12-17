@@ -97,3 +97,18 @@ mutation removeCardFromDeck($idDeck: ID!, $idCard: ID!) {
   }
 }
 `;
+
+export const REMOVE_DECK = gql`
+  mutation removeDeck($_id: ID!) {
+    removeDeck(_id: $_id) {
+      _id
+      username
+      email
+      decks {
+        _id
+        title
+        cards
+      }
+    }
+  }
+`;
