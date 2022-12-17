@@ -10,6 +10,7 @@ import {
   Checkbox,
   Button,
   Grid,
+  Typography,
 } from "@mui/material";
 import SingleCard from "../components/SingleCard";
 import Auth from "../utils/auth";
@@ -117,8 +118,15 @@ export const Search = () => {
   return (
     <>
       <Container sx={{ marginTop: "10em" }}>
-        <h2 style={{ color: "#fff" }}>Search for Cards</h2>
 
+        <h2 style={{ color: "#fff" }}>Search for Cards</h2>
+            <Typography color={"primary"} style={{ maxWidth: "570px" }}>
+              Any and all fields may be left blank.<br></br> 
+              Results are randomized and only 20 cards are returned at a time, 
+              so feel free to keep clicking the submit button to get fresh results 
+              with your query!
+            </Typography>
+            <br></br>
         {/* <Form onSubmit={handleFormSubmit}> */}
         <Box
           component="form"
@@ -185,7 +193,6 @@ export const Search = () => {
             }}
           >
             <h3>Select Card Colors:</h3>
-
             <FormControlLabel
               control={<Checkbox color="primary" />}
               label="White"
