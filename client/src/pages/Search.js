@@ -10,6 +10,7 @@ import {
   Checkbox,
   Button,
   Grid,
+  Typography,
 } from "@mui/material";
 import SingleCard from "../components/SingleCard";
 import Auth from "../utils/auth";
@@ -71,6 +72,8 @@ export const Search = () => {
   const [nameInput, setNameInput] = useState([]);
   const [typeInput, setTypeInput] = useState({ title: "" });
   const [subtypeInput, setSubtypeInput] = useState([]);
+  const [superTypeInput, setSuperTypeInput] = useState([]);
+  const [setInput, setSetInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
   const { loading, data, error } = useQuery(QUERY_ME);
 
@@ -90,6 +93,8 @@ export const Search = () => {
         nameInput,
         typeInput.title,
         subtypeInput,
+        superTypeInput,
+        setInput,
         colorInput
       );
 
@@ -109,16 +114,23 @@ export const Search = () => {
       console.log(cardData);
       setSearchedCards(cardData);
       console.log(searchedCards);
-      // we may not want to clear the form for the user in this setting -- they may want to run the same search again, as it only returns a small, random sample of the many possible matches.
     } catch (err) {
       console.error(err);
     }
   };
+
   return (
     <>
       <Container sx={{ marginTop: "10em" }}>
-        <h2 style={{ color: "#fff" }}>Search for Cards</h2>
 
+        <h2 style={{ color: "#fff" }}>Search for Cards</h2>
+        <Typography color={"primary"} style={{ maxWidth: "570px" }}>
+          Any and all fields may be left blank.<br></br>
+          Results are randomized and only 20 cards are returned at a time,
+          so feel free to keep clicking the submit button to get fresh results
+          with your query!
+        </Typography>
+        <br></br>
         {/* <Form onSubmit={handleFormSubmit}> */}
         <Box
           component="form"
@@ -160,10 +172,30 @@ export const Search = () => {
 
           {/* search by subtype */}
           <SearchBox
-            name="nameInput"
+            name="subtypeInput"
             value={subtypeInput}
             onChange={(e) => setSubtypeInput(e.target.value)}
             label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)"
+            id="cardName"
+            sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
+          />
+
+          {/* search by supertype */}
+          <SearchBox
+            name="superTypeInput"
+            value={superTypeInput}
+            onChange={(e) => setSuperTypeInput(e.target.value)}
+            label="Search by Supertype (Basic, Legendary, Snow, etc))"
+            id="cardName"
+            sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
+          />
+
+                    {/* search by setType */}
+                    <SearchBox
+            name="setInput"
+            value={setInput}
+            onChange={(e) => setSetInput(e.target.value)}
+            label="Search by Set Name"
             id="cardName"
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
           />
@@ -185,7 +217,6 @@ export const Search = () => {
             }}
           >
             <h3>Select Card Colors:</h3>
-
             <FormControlLabel
               control={<Checkbox color="primary" />}
               label="White"
