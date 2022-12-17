@@ -9,7 +9,7 @@ import {
 } from "@mui/material"
 import { useParams } from 'react-router-dom';
 
-import SearchCard from "../components/SearchCard";
+import SingleCard from "../components/SingleCard";
 
 const SingleDeck = () => {
 

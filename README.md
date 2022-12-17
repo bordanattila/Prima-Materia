@@ -1,7 +1,7 @@
 # Prima-Materia
 
 ## Links
-View the deployed app: 
+View the deployed app: https://prima-materia-84.herokuapp.com/
 ## Screenshot
 ![screenshot](./client/public/screenshot_search.png)    
 ## Table of Contents:

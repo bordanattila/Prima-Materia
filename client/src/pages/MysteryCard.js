@@ -1,26 +1,29 @@
 import React, { useState } from "react";
-import { useMutation } from '@apollo/client';
-import Auth from "../utils/auth"
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
 import { ADD_CARD_LIST } from "../utils/mutations";
 import { ADD_CARD_DECK } from "../utils/mutations";
-import { 
-  Box, 
-  Typography, 
-  Grid, 
-  Button, 
-  Card, 
-  CardActions, 
-  CardContent, 
-  CardMedia 
-} from "@mui/material";
+import { Box, Typography, Grid, Button, Container } from "@mui/material";
 import { mysteryCardSearch } from "../utils/API";
-
-
+import SingleCard from "../components/SingleCard";
+import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../utils/queries";
 
 export const MysteryCard = () => {
-
   const [mysteryCard, setMysteryCard] = useState([]);
   const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
+  const { loading, data } = useQuery(QUERY_ME);
+
+  let userData = data?.me || {};
+  //If the user is not logged in, create a user object with an empty wishList to pass into SingleCard component
+  if (error) {
+    if (error.toString() === "ApolloError: You need to be logged in!") {
+      userData = {
+        wishList: [],
+      };
+    }
+    console.error(error);
+  }
 
   const handleSubmit = async () => {
     // event.preventDefault();
@@ -49,7 +52,6 @@ export const MysteryCard = () => {
   };
 
   const handleSaveCardToList = async (cardId) => {
-
     const cardToSave = mysteryCard.find((card) => card.cardId === cardId);
 
     // get token
@@ -61,7 +63,7 @@ export const MysteryCard = () => {
 
     try {
       const { data } = await addCardToWishList({
-        variables: { ...cardToSave }
+        variables: { ...cardToSave },
       });
     } catch (err) {
       console.error(err);
@@ -70,63 +72,32 @@ export const MysteryCard = () => {
 
   return (
     <>
-      <Grid
-        container
-        spacing={0}
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        justify="center"
-        style={{ minHeight: "20vh" }}
-      >
-        <Grid item xs={4}>
-          <Box
-            flexDirection="column"
-            sx={{
-              display: "flex",
-              color: "#fff",
-              alignItems: "center",
-            }}
+      <Container sx={{ marginTop: "10em" }}>
+        <Box
+          noValidate
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            color="secondary"
+            sx={{ marginTop: "1em", maxWidth: "400px", padding: "1em" }}
           >
-            <Typography>
-              Cast your query into the void!
-            </Typography>
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              color="secondary"
-              sx={{ marginTop: "2em" }}
-            >
-              Get a Mystery Card
-            </Button>
-          </Box>
-          {mysteryCard.map((card) => {
-            return (
-              <Card key={card.cardId} sx={{ padding: "1.5em", margin: "5px", backgroundColor: "#424242", color: "#fff", marginTop: "2em" }}>
-                <CardMedia
-                  component="img"
-                  image={card.image}
-                  alt={card.name}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {card.name}
-                  </Typography>
-                  <Typography variant="body2" color="#eeeeee">
-                    {card.text}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  {/* these buttons need functionality */}
-                  <Button size="small" color="secondary" onClick={() => handleSaveCardToList(card.cardId)}>Add to Wishlist</Button>
-                  <Button size="small">Add to a Deck:</Button>
-                </CardActions>
-              </Card>
-            );
-          })}
+            Get a Mystery Card
+          </Button>
+        </Box>
 
-        </Grid>
-      </Grid>
+        <Box sx={{ paddingTop: "3rem" }}>
+          {mysteryCard.map((card) => {
+            return <SingleCard card={card} wishList={userData.wishList} />;
+          })}
+        </Box>
+      </Container>
     </>
   );
 };

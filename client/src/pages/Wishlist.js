@@ -5,7 +5,7 @@ import { QUERY_ME } from "../utils/queries";
 import { REMOVE_CARD_LIST } from "../utils/mutations";
 import { Container, Grid } from "@mui/material";
 
-import SearchCard from "../components/SearchCard";
+import SingleCard from "../components/SingleCard";
 
 const Wishlist = () => {
   const { loading, error, data } = useQuery(QUERY_ME);
@@ -61,9 +61,16 @@ const Wishlist = () => {
       </h3>
       <Grid container>
         {userData.wishList.map((card) => {
+          const cardData = {
+            cardId: card.cardId,
+            name: card.name,
+            type: card.type,
+            text: card.text,
+            image: card.image,
+          };
           return (
             <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
-              <SearchCard card={card} />;
+              <SingleCard card={cardData} wishList={userData.wishList} />;
             </Grid>
           );
         })}

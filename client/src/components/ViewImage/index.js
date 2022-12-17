@@ -5,7 +5,6 @@ import {
   CardMedia,
   ThemeProvider,
   createTheme,
-  Box,
 } from "@mui/material";
 
 const cardTheme = createTheme({
@@ -21,7 +20,7 @@ const cardTheme = createTheme({
     MuiCardMedia: {
       styleOverrides: {
         root: {
-          borderRadius: 14,
+          borderRadius: 20,
         },
       },
     },
@@ -39,14 +38,10 @@ const cardTheme = createTheme({
 });
 
 export default function BasicModal({ card }) {
-  const [open, setOpen] = React.useState(false);
-  const handleCloseImage = () => {
-    setOpen(false);
-  };
   return (
     <>
       <ThemeProvider theme={cardTheme}>
-        <Card sx={{ width: "458px", height: "639px" }}>
+        <Card sx={{ width: "458px", height: "630px" }}>
           <CardContent>
             <CardMedia component="img" image={card.image} alt={card.name} />
           </CardContent>

@@ -34,7 +34,7 @@ export const CreateDeck = () => {
   const handleCreate = async (event) => {
     try {
       const { data } = await createDeck({
-        variables: { title },
+        variables: { title: title },
       });
       setTitle("");
     } catch (err) {
