@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { searchMagicCards } from "../utils/API";
-import { alpha, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import {
   Container,
   TextField,
@@ -11,11 +11,10 @@ import {
   Button,
   Grid,
 } from "@mui/material";
-import SearchCard from "../components/SearchCard";
+import SingleCard from "../components/SingleCard";
 import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-
 
 const SearchBox = styled(TextField)({
   "& label.Mui-focused": {
@@ -79,10 +78,9 @@ export const Search = () => {
   //If the user is not logged in, create a user object with an empty wishList
   if (error) {
     userData = {
-      wishList: []
-    }
+      wishList: [],
+    };
   }
-  
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -119,7 +117,6 @@ export const Search = () => {
   return (
     <>
       <Container sx={{ marginTop: "10em" }}>
-        
         <h2 style={{ color: "#fff" }}>Search for Cards</h2>
 
         {/* <Form onSubmit={handleFormSubmit}> */}
@@ -226,8 +223,7 @@ export const Search = () => {
             style={{ maxWidth: "100px" }}
           >
             Submit
-          </Button> 
-          
+          </Button>
         </Box>
 
         {/* results of search (map all cards returned) */}
@@ -243,7 +239,7 @@ export const Search = () => {
                 sx={{ maxHeight: "580px" }}
                 key={card.cardId}
               >
-                <SearchCard card={card} wishList={userData.wishList}/>
+                <SingleCard card={card} wishList={userData.wishList} />
               </Grid>
             );
           })}

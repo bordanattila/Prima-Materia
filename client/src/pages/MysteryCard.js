@@ -3,34 +3,28 @@ import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_CARD_LIST } from "../utils/mutations";
 import { ADD_CARD_DECK } from "../utils/mutations";
-import {
-  Box,
-  Typography,
-  Grid,
-  Button,
- Container,
-} from "@mui/material";
+import { Box, Typography, Grid, Button, Container } from "@mui/material";
 import { mysteryCardSearch } from "../utils/API";
-import SearchCard from "../components/SearchCard";
+import SingleCard from "../components/SingleCard";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 
 export const MysteryCard = () => {
   const [mysteryCard, setMysteryCard] = useState([]);
   const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
-  const { loading, data} = useQuery(QUERY_ME);
+  const { loading, data } = useQuery(QUERY_ME);
 
   let userData = data?.me || {};
-  //If the user is not logged in, create a user object with an empty wishList to pass into SearchCard component
+  //If the user is not logged in, create a user object with an empty wishList to pass into SingleCard component
   if (error) {
-    if(error.toString() === "ApolloError: You need to be logged in!"){
+    if (error.toString() === "ApolloError: You need to be logged in!") {
       userData = {
-        wishList: []
-      }
+        wishList: [],
+      };
     }
-    console.error(error)
+    console.error(error);
   }
-  
+
   const handleSubmit = async () => {
     // event.preventDefault();
     // console.log(event);
@@ -78,8 +72,7 @@ export const MysteryCard = () => {
 
   return (
     <>
-      <Container sx={{ marginTop: "10em", }}>
-
+      <Container sx={{ marginTop: "10em" }}>
         <Box
           noValidate
           sx={{
@@ -89,23 +82,22 @@ export const MysteryCard = () => {
             textAlign: "center",
           }}
         >
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              color="secondary"
-              sx={{ marginTop: "1em", maxWidth: "400px", padding: "1em" }}
-            >
-              Get a Mystery Card
-            </Button>
-          </Box>
-          
-          <Box sx={{ paddingTop: "3rem" }}>
-            {mysteryCard.map((card) => {
-              return <SearchCard card={card} wishList={userData.wishList} />;
-            })}
-          </Box>
-    
-        </Container>
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            color="secondary"
+            sx={{ marginTop: "1em", maxWidth: "400px", padding: "1em" }}
+          >
+            Get a Mystery Card
+          </Button>
+        </Box>
+
+        <Box sx={{ paddingTop: "3rem" }}>
+          {mysteryCard.map((card) => {
+            return <SingleCard card={card} wishList={userData.wishList} />;
+          })}
+        </Box>
+      </Container>
     </>
   );
 };

@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { Grid, Button, } from "@mui/material";
-import MuiAlert from '@mui/material/Alert';
-import { styled } from "@mui/material/styles";
+import { Grid, Button, Box, TextField, styled } from "@mui/material";
 import { CREATE_USER } from "../utils/mutations";
-import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth';
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
 
 const FormInput = styled(TextField)({
   "& label.Mui-focused": {
@@ -74,7 +70,6 @@ const SignUp = () => {
     } catch (e) {
       console.error(e);
     }
-
   };
 
   return (
@@ -92,11 +87,6 @@ const SignUp = () => {
           color: "#fff",
         }}
       >
-        {/* {data ? (
-          <p>
-            Success! You may now head <Link to="/home">back to the homepage.</Link>
-          </p>
-        ) : ( */}
         <Grid item>
           <Box
             component="form"
@@ -149,8 +139,6 @@ const SignUp = () => {
             </div>
           </Box>
         </Grid>
-        {/* )}
-         {error && ({error.message})} */}
       </Box>
     </Grid>
   );
