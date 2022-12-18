@@ -1,6 +1,6 @@
-export const searchMagicCards = (name, type, subtype, supertype, setName, colors) => {
+export const searchMagicCards = (name, type, subtype, supertype, setname, colors) => {
 
-return fetch(`https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl;random=true;name=${name};types=${type};supertypes=${supertype};subtypes=${subtype};setName=${setName};colors=${colors}`)
+return fetch(`https://api.magicthegathering.io/v1/cards?pageSize=20;contains=imageUrl;random=true;name=${name};types=${type};supertypes=${supertype};subtypes=${subtype};setName=${setname};colors=${colors}`)
 
 }
 

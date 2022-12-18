@@ -150,6 +150,8 @@ export const Search = () => {
             name="nameInput"
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
+            // trims extra spaces after the user has finished typing
+            onBlur={() => setNameInput(nameInput.trim())}
             label="Search by Card Name"
             id="cardName"
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
@@ -170,31 +172,36 @@ export const Search = () => {
             )}
           />
 
-          {/* search by subtype */}
-          <SearchBox
-            name="subtypeInput"
-            value={subtypeInput}
-            onChange={(e) => setSubtypeInput(e.target.value)}
-            label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)"
-            id="cardName"
-            sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
-          />
-
           {/* search by supertype */}
           <SearchBox
             name="superTypeInput"
             value={superTypeInput}
             onChange={(e) => setSuperTypeInput(e.target.value)}
+            //supertype doesn't allow for spaces in the fetch like name param does: this trims field onBlur
+            onBlur={() => setSuperTypeInput(superTypeInput.trim())}
             label="Search by Supertype (Basic, Legendary, Snow, etc))"
             id="cardName"
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
           />
 
-                    {/* search by setType */}
-                    <SearchBox
+          {/* search by subtype */}
+          <SearchBox
+            name="subtypeInput"
+            value={subtypeInput}
+            onChange={(e) => setSubtypeInput(e.target.value)}
+            onBlur={() => setSubtypeInput(subtypeInput.trim())}
+            label="Search by Subtype (dragon, cat, zombie, squirrel, etc.)"
+            id="cardName"
+            sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
+          />
+
+
+          {/* search by setType */}
+          <SearchBox
             name="setInput"
             value={setInput}
             onChange={(e) => setSetInput(e.target.value)}
+            onBlur={() => setSetInput(setInput.trim())}
             label="Search by Set Name"
             id="cardName"
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
