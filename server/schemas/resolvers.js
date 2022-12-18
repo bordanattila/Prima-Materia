@@ -109,42 +109,6 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-<<<<<<< HEAD
-//      Retrieve the _id key from a deck and use it for idDeck. Retrieve the _id key for a card and use it for idCard
-         removeCardFromDeck: async (parent, {idDeck, idCard}, context) => {
-            if(context.user){
-                const updatedDeck = await Deck.findOneAndUpdate(
-                    {_id: idDeck},
-                    {$pull: {cards: {_id: idCard}}},
-                    {new: true}
-                );
-                const user = await User.findOne(
-                    {_id: context.user._id},
-                ).populate({
-                    path: 'decks',
-                    populate: {
-                        path: 'cards'
-                    }
-                });
-                return user;
-            }
-            throw new AuthenticationError("You need to be logged in!");
-         },
-         
-         removeDeck: async (parent, { deckId }, context) => {
-            if (context.user) {
-              const updatedUser = await User.findOneAndUpdate(
-                { _id: context.user._id },
-                { $pull: { decks: { _id } } },
-                { new: true }
-              )
-              return updatedUser;
-            }
-            throw new AuthenticationError("You need to be logged in!");
-          }
-    }
-}
-=======
     //      Retrieve the _id key from a deck and use it for idDeck. Retrieve the _id key for a card and use it for idCard
     removeCardFromDeck: async (parent, { idDeck, idCard }, context) => {
       if (context.user) {
@@ -163,8 +127,19 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
+    removeDeck: async (parent, { _id }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { decks: { _id } } },
+          { new: true }
+        )
+        return updatedUser;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    }
   },
 };
->>>>>>> 339285229c44650a75778add8e6c32b6df87136e
 
 module.exports = resolvers;

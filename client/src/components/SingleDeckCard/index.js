@@ -20,6 +20,11 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { SingleDeck } from "../../pages/SingleDeck";
+import { REMOVE_CARD_DECK } from "../../utils/mutations";
+import { QUERY_SINGLE_DECK } from '../../utils/queries';
+import { useQuery, useMutation } from "@apollo/client";
+import { useParams } from 'react-router-dom';
 
 const cardTheme = createTheme({
   components: {
@@ -59,7 +64,29 @@ const cardTheme = createTheme({
   },
 });
 
+
 const SingleDeckCard = ({ card }) => {
+  // const { deckId } = useParams();
+  // const { loading, error, data } = useQuery(
+  //   QUERY_SINGLE_DECK,
+  //       {
+  //         variables: { _id: deckId },
+  //       }
+  //       );
+
+  // const {data} = {userData}
+  // const [removeCardFromDeck] = useMutation(REMOVE_CARD_DECK);
+  // const handleDeleteCardDeck = async (idCard) => {
+  //   // const token = Auth.loggedIn() ? Auth.getToken() : null;
+  
+  //   try {
+  //     const { data } = await removeCardFromDeck({
+  //       variables: { idCard: data.cards.idCard, idDeck: data._id }
+  //     })
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
   return (
     <>
       <Grid
@@ -96,7 +123,7 @@ const SingleDeckCard = ({ card }) => {
                 </CardContent>
                 <CardActions>
                   <Tooltip title="Remove from deck">
-                    <IconButton>
+                    <IconButton >
                       <DeleteIcon />
                     </IconButton>
                   </Tooltip>

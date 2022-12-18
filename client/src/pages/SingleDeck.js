@@ -9,23 +9,23 @@ import {
 } from "@mui/material"
 import { useParams } from 'react-router-dom';
 
-import SingleCard from "../components/SingleCard";
+import SingleCard from "../components/SingleDeckCard";
 
 const SingleDeck = () => {
 
     const { deckId } = useParams();
-
+    
     const { loading, error, data } = useQuery(
-        deckId ? QUERY_SINGLE_DECK : QUERY_ME,
-        {
-          variables: { _id: deckId },
-        }
+      deckId ? QUERY_SINGLE_DECK : QUERY_ME,
+      {
+        variables: { _id: deckId },
+      }
       
-    );
+      );
+      const [removeCardFromDeck] = useMutation(REMOVE_CARD_DECK);
 
-    const userData = data?.me || data?.deck || [];
+    const userData = data?.me || data?.deck || data?.cards || [];
 
-  const [removeCardFromDeck] = useMutation(REMOVE_CARD_DECK);
 
   //Error handling if user is not logged in
   if (error) {
@@ -37,16 +37,12 @@ const SingleDeck = () => {
       }}>{error.toString().replace("ApolloError: ", "")}</h3>
   }
 
-  const handleDeleteCardDeck = async (idCard) => {
+  const handleDeleteCardDeck = async (_id) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    // if (!token) {
-    //   return false;
-    // }
-
     try {
-      const { data } = await removeCardFromDeck({
-        variables: { idCard: idCard }
+      const { deck } = await removeCardFromDeck({
+        variables: { idCard: _id, idDeck: deckId }
       })
     } catch (err) {
       console.error(err);
@@ -59,16 +55,19 @@ const SingleDeck = () => {
 
   return (
     <Container maxWidth="md" sx={{ margin: "10em" }}>
-    <h2 style={{ color: "#fff" }}>Search for Cards</h2>
-    <Grid container>
-          {/* {searchedCards.map((card) => { */}
+    <h1 style={{ color: "#fff", textAlign: "center" }}>{userData.title}</h1>
+    {userData?.cards?.length > 0 ?
+    <Grid container
+  
+  >
+          {userData?.cards?.map((card) => {
             return (
-              <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }}>
-                {/* <SearchCard card={card} /> */}
+              <Grid item xs={12} sm={6} md={4} sx={{ maxHeight: "580px" }} onClick={() => handleDeleteCardDeck(card._id)}>
+                <SingleCard card={card} />
               </Grid>
             );
-          {/* })} */}
-        </Grid>
+           })} 
+        </Grid> : <h2 style={{ color: "#fff" }}>This deck has no cards.</h2>}
       </Container>
 
   )

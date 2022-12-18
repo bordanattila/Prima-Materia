@@ -105,7 +105,9 @@ export const REMOVE_CARD_DECK = gql`
     removeCardFromDeck(idDeck: $idDeck, idCard: $idCard) {
       decks {
         _id
-      }
+        cards {
+          _id
+        }
     }
   }
 }

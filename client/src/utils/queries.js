@@ -31,8 +31,8 @@ query me {
 `;
 
 export const QUERY_SINGLE_DECK = gql`
-  query singleDeck($deckId: ID!) {
-    deck(deckId: $deckId) {
+  query singleDeck($_id: ID!) {
+    deck(_id: $_id) {
       _id
       title
         cards {
@@ -46,3 +46,4 @@ export const QUERY_SINGLE_DECK = gql`
     }
   }
 `;
+

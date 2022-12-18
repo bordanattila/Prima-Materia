@@ -41,18 +41,6 @@ const typeDefs = gql`
     deck(_id: ID!): Deck
   }
 
-<<<<<<< HEAD
-type Mutation {
-  createUser(username: String!, email: String!, password: String!): Auth
-  login(email: String!, password: String!): Auth
-  addCardToWishList(cardId: ID!, name: String!, type: String!, text: String!, image: String!): User
-  addCardToDeck(cardData: CardInput!): User
-  createDeck(title: String!): User
-  removeCardFromList(idCard: ID!): User
-  removeCardFromDeck(idDeck: ID!, idCard: ID!): User
-  removeDeck(_id: ID!): User
-}
-=======
   type Mutation {
     createUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
@@ -67,8 +55,9 @@ type Mutation {
     createDeck(title: String!): User
     removeCardFromList(idCard: ID!): User
     removeCardFromDeck(idDeck: ID!, idCard: ID!): User
+    removeDeck(_id: ID!): User
   }
->>>>>>> 339285229c44650a75778add8e6c32b6df87136e
+  
 `;
 
 module.exports = typeDefs;
