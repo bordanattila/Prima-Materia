@@ -78,7 +78,6 @@ function App() {
           <div>
             <Container sx={{ mt: "6rem", mb: "6rem" }}>
               <Routes>
-                {/* <Route path="/" element={<Title />} /> */}
                 <Route path="/home" element={<Home />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/decks" element={<Decks />} />
@@ -88,6 +87,7 @@ function App() {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/decks/create" element={<CreateDeck />} />
                 <Route path="/decks/:deckId" element={<SingleDeck />} />
+                <Route path="*" element={<Home />} />
               </Routes>
             </Container>
           </div>
