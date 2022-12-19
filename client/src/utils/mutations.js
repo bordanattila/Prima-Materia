@@ -114,9 +114,8 @@ export const REMOVE_CARD_DECK = gql`
 `;
 
 export const REMOVE_DECK = gql`
-  mutation removeDeck($_id: ID!, $idDeck: ID!) {
-    removeDeck(_id: $_id, idDeck: $idDeck) {
-      _id
+  mutation removeDeck($idDeck: ID!) {
+    removeDeck(idDeck: $idDeck) {
       decks {
         _id     
       }

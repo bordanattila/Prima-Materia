@@ -128,11 +128,11 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    removeDeck: async (parent, { _id, idDeck }, context) => {
+    removeDeck: async (parent, { idDeck }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
-          { _id: _id },
-          { $pull: { decks: { _id: idDeck} } },
+          { _id: context.user._id },
+          { $pull: { decks: { _id: idDeck } } },
           { new: true }
         );
         return updatedUser;
