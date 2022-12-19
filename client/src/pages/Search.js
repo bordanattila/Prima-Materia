@@ -122,16 +122,14 @@ export const Search = () => {
   return (
     <>
       <Container sx={{ marginTop: "10em" }}>
-
         <h2 style={{ color: "#fff" }}>Search for Cards</h2>
         <Typography color={"primary"} style={{ maxWidth: "570px" }}>
           Any and all fields may be left blank.<br></br>
-          Results are randomized and only 20 cards are returned at a time,
-          so feel free to keep clicking the submit button to get fresh results
-          with your query!
+          Results are randomized and only 20 cards are returned at a time, so
+          feel free to keep clicking the submit button to get fresh results with
+          your query!
         </Typography>
         <br></br>
-        {/* <Form onSubmit={handleFormSubmit}> */}
         <Box
           component="form"
           onSubmit={handleFormSubmit}
@@ -194,7 +192,6 @@ export const Search = () => {
             id="cardName"
             sx={{ input: { color: "#fff" }, label: { color: "#fff" } }}
           />
-
 
           {/* search by setType */}
           <SearchBox
