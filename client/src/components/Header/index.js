@@ -14,7 +14,6 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-
 import Auth from "../../utils/auth";
 
 const drawerWidth = 240;
@@ -74,6 +73,7 @@ function Header(props) {
     </Box>
   );
 
+  // chsck to see if script is being run in the web-page
   const container =
     window !== undefined ? () => window().document.body : undefined;
 

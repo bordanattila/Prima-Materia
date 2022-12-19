@@ -1,7 +1,5 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import {
-    Container,
     Box,
     ThemeProvider,
     createTheme,
@@ -14,9 +12,8 @@ import {
     IconButton
 } from "@mui/material";
 import { Link } from 'react-router-dom';
-import { QUERY_SINGLE_DECK, QUERY_ME } from '../../utils/queries';
+import { QUERY_ME } from '../../utils/queries';
 import { useMutation, useQuery } from '@apollo/client';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { REMOVE_DECK } from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -28,6 +25,7 @@ const linkStyle = {
     fontSize: "108px"
 }
 
+// create theme for the card
 const cardTheme = createTheme({
     components: {
         MuiCard: {
@@ -74,7 +72,6 @@ function CurrentDecks() {
     const [removeDeck] = useMutation(REMOVE_DECK, {
         refetchQueries: [{ query: QUERY_ME }]
     });
-    // const [_id, set_id] = useState("");
 
     const userData = data?.me || [];
 
@@ -105,10 +102,6 @@ function CurrentDecks() {
                 textAlign: "center"
             }}
             >Your Decks</h1>
-            {/* <Container maxWidth="md"
-                sx={{
-                    margin: "10em",
-                }}> */}
             <Box component="form"
                 noValidate
                 sx={{
@@ -128,7 +121,6 @@ function CurrentDecks() {
                         minHeight: "425px",
                         maxHeight: "425px",
                         marginTop: "50px",
-                        // padding: "30px",
                         marginRight: "1.5em",
                     }}>
                     <Link to={"/decks/create"} style={linkStyle}>
@@ -180,11 +172,6 @@ function CurrentDecks() {
                                                     alignItems: "center"
                                                 }}
                                             >
-                                                {/* <Tooltip title="Edit deck" >
-                                                 
-                                                            <ModeEditIcon /> */}
-
-                                                {/* </Tooltip> */}
                                                 <Tooltip title="Delete deck" >
                                                     <IconButton onClick={() => handleDelete(deck._id)}>
                                                         <DeleteIcon
@@ -202,9 +189,7 @@ function CurrentDecks() {
 
                     </section> : <h1>No Decks found</h1>
                 }
-
             </Box>
-            {/* </Container> */}
         </>
     );
 }

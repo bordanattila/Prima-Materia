@@ -14,6 +14,7 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
+// Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -21,10 +22,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
+// Create a route that will serve up the `../client/build/index.html` page
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
-
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
