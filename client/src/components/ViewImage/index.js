@@ -37,7 +37,7 @@ const cardTheme = createTheme({
   },
 });
 
-export default function BasicModal({ card }) {
+export default function ViewImage({ card }) {
   return (
     <>
       <ThemeProvider theme={cardTheme}>

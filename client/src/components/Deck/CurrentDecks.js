@@ -23,7 +23,8 @@ import Auth from "../../utils/auth";
 // styling button 
 const linkStyle = {
     textDecoration: "none",
-    color: "black"
+    color: "black",
+    fontSize: "108px"
 }
 
 const cardTheme = createTheme({
@@ -32,7 +33,7 @@ const cardTheme = createTheme({
             styleOverrides: {
                 root: {
                     background: "#424242",
-                    border: "solid 2px teal",
+                    boxShadow: "teal 0px 2px 14px 3px",
                 },
             },
         },
@@ -67,9 +68,11 @@ const cardTheme = createTheme({
 function CurrentDecks() {
 
     const { loading, error, data } = useQuery(QUERY_ME
-       
+
     );
-    const [removeDeck, {err}] = useMutation(REMOVE_DECK);
+    const [removeDeck] = useMutation(REMOVE_DECK, {
+        refetchQueries: [{ query: QUERY_ME }]
+    });
     // const [_id, set_id] = useState("");
 
     const userData = data?.me || [];
@@ -84,65 +87,89 @@ function CurrentDecks() {
     const handleDelete = async (_id) => {
         const token = Auth.loggedIn() ? Auth.getToken() : null;
         console.log(_id)
-        console.log(userData._id)
         try {
             const { data } = await removeDeck({
-                variables: { _id: userData._id, idDeck: _id },
+                variables: { _id: _id },
             });
             console.log("done")
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
-      };
+    };
 
     return (
         <>
-            <Container maxWidth="md"
+            <h1 style={{
+                color: "white",
+                textAlign: "center"
+            }}
+            >Your Decks</h1>
+            {/* <Container maxWidth="md"
                 sx={{
                     margin: "10em",
-                }}>
-                <h1 style={{
-                    color: "white",
-                    textAlign: "center"
+                }}> */}
+            <Box component="form"
+                noValidate
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: { sm: '1fr', md: '1fr 1fr 1fr', },
+                    gap: 2,
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
                 }}
-                >Your Decks</h1>
-                <Box component="form"
-                    noValidate
+            >
+                <Button variant="contained"
                     sx={{
-                        display: 'grid',
-                        gridTemplateColumns: { sm: '1fr 1fr', md: '1fr 1fr 1fr', },
-                        gap: 2,
+                        minWidth: "250px",
+                        maxWidth: "250px",
+                        minHeight: "425px",
+                        maxHeight: "425px",
+                        marginTop: "50px",
+                        // padding: "30px",
+                        marginRight: "1.5em",
+                    }}>
+                    <Link to={"/decks/create"} style={linkStyle}>
+                        +
+                    </Link>
+                </Button>
+                {userData?.decks?.length > 0 ?
+                    <section style={{
                         display: "flex",
                         flexDirection: "row",
-                        flexWrap: "wrap"
+                        flexWrap: "wrap",
+                        padding: "36px",
+                        gap: 40,
                     }}
-                >
-                    {userData?.decks?.length > 0 ?
-                        <section style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            flexWrap: "wrap",
-                            gap: 40,
-                        }}
-                        > {userData?.decks?.map((deck) => {
+                    >
+                        {userData?.decks?.map((deck) => {
                             return (
-                                <ThemeProvider theme={cardTheme}>
-                                    <Card sx={{ color: "#fff", width: "250px" }}>
-                                        <CardContent>
-                                            <CardMedia component="img" image="https://cf.geekdo-images.com/CxJmNl4wR4InjqyNrMdBTw__imagepagezoom/img/KuHBP_jVjw_8gbieS8skQD_-_Ho=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic163749.jpg" />
-                                            <CardContent>
-                                                <Typography
-                                                    gutterBottom
-                                                    sx={{
-                                                        fontWeight: "bold",
-                                                        height: "40px",
-                                                        size: "2vw",
-                                                    }}
-                                                    component="div"
-                                                >
-                                                    {deck.title}
-                                                </Typography>
-                                            </CardContent>
+                                <ThemeProvider key={deck._id} theme={cardTheme}>
+                                    <Card key={deck._id} sx={{ color: "#fff", width: "250px" }}>
+
+                                        <CardContent key={deck._id}>
+
+                                            <Link
+                                                className="custom-link"
+                                                to={`/decks/${deck._id}`}
+                                            >
+                                                <CardMedia component="img" image="https://cf.geekdo-images.com/CxJmNl4wR4InjqyNrMdBTw__imagepagezoom/img/KuHBP_jVjw_8gbieS8skQD_-_Ho=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic163749.jpg" />
+                                                <CardContent>
+                                                    <Typography
+                                                        gutterBottom
+                                                        sx={{
+                                                            fontWeight: "bold",
+                                                            height: "40px",
+                                                            fontSize: "20px",
+
+                                                        }}
+                                                        component="div"
+                                                    >
+                                                        {deck.title}
+                                                    </Typography>
+                                                </CardContent>
+                                            </Link>
                                             <Box
                                                 style={{
                                                     display: "flex",
@@ -152,41 +179,31 @@ function CurrentDecks() {
                                                     alignItems: "center"
                                                 }}
                                             >
-                                                <Tooltip title="Edit deck" >
-                                                    <Link
-                                                        className="custom-link"
-                                                        to={`/decks/${deck._id}`}
-                                                    >
-                                                        <ModeEditIcon />
-                                                    </Link>
-                                                </Tooltip>
+                                                {/* <Tooltip title="Edit deck" >
+                                                 
+                                                            <ModeEditIcon /> */}
+
+                                                {/* </Tooltip> */}
                                                 <Tooltip title="Delete deck" >
                                                     <IconButton onClick={() => handleDelete(deck._id)}>
-                                                        <DeleteIcon 
-                                                        className="custom-link"
-                                                        sx={{variant: "filled"}}/>
+                                                        <DeleteIcon
+                                                            className="custom-link"
+                                                            sx={{ variant: "filled" }} />
                                                     </IconButton>
                                                 </Tooltip>
                                             </Box>
                                         </CardContent>
+
                                     </Card>
                                 </ThemeProvider>
                             )
                         })}
 
-                        </section> : <h1>No Decks found</h1>}
-                    <Button variant="contained"
-                        sx={{
-                            minWidth: "10px",
-                            maxWidth: "150px",
-                            padding: "6px"
-                        }}>
-                        <Link to={"/decks/create"} style={linkStyle}>
-                            Add new deck
-                        </Link>
-                    </Button>
-                </Box>
-            </Container>
+                    </section> : <h1>No Decks found</h1>
+                }
+
+            </Box>
+            {/* </Container> */}
         </>
     );
 }
