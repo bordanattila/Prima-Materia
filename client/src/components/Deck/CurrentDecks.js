@@ -83,9 +83,9 @@ function CurrentDecks() {
         }}>You need to be logged in</h1>
     );
 
-    const handleDelete = async (_id ) => {
+    const handleDelete = async (_id) => {
         const token = Auth.loggedIn() ? Auth.getToken() : null;
-        console.log(_id )
+        console.log(_id)
         try {
             const { data } = await removeDeck({
                 variables: { _id: _id },
@@ -111,13 +111,23 @@ function CurrentDecks() {
                     noValidate
                     sx={{
                         display: 'grid',
-                        gridTemplateColumns: { sm: '1fr 1fr', md: '1fr 1fr 1fr', },
+                        gridTemplateColumns: { sm: '1fr', md: '1fr 1fr 1fr', },
                         gap: 2,
                         display: "flex",
                         flexDirection: "row",
                         flexWrap: "wrap"
                     }}
                 >
+                    <Button variant="contained"
+                        sx={{
+                            minWidth: "250px",
+                            maxWidth: "250px",
+                            padding: "40px",
+                        }}>
+                        <Link to={"/decks/create"} style={linkStyle}>
+                            +
+                        </Link>
+                    </Button>
                     {userData?.decks?.length > 0 ?
                         <section style={{
                             display: "flex",
@@ -126,16 +136,6 @@ function CurrentDecks() {
                             gap: 40,
                         }}
                         >
-                            <Button variant="contained"
-                                sx={{
-                                    minWidth: "250px",
-                                    maxWidth: "250px",
-                                    padding: "40px",
-                                }}>
-                                <Link to={"/decks/create"} style={linkStyle}>
-                                    +
-                                </Link>
-                            </Button>
                             {userData?.decks?.map((deck) => {
                                 return (
                                     <ThemeProvider key={deck._id} theme={cardTheme}>
