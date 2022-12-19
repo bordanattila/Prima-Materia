@@ -14,13 +14,13 @@ View the deployed app: https://prima-materia-84.herokuapp.com/
 
 #### [Technology](#technology)
 
-#### [Usage Info](#usage-info)
-
 #### [Contribution Guidelines](#contribution-guidelines)
 
 #### [Installation](#installation)
 
 #### [Kudos](#kudos)
+
+#### [Contributors](#contributors)
 
 #### [Questions](#questions)
 
@@ -50,6 +50,13 @@ In terminal
 Thanks to https://magicthegathering.io for the wonderful and easy to access API! Thanks to all the people at Material UI for the top-notch documentation. Thanks to everyone who contributed and everyone who helped troubleshoot as we got this application live!
 
 Deck cover image is from https://boardgamegeek.com/image/163749/magic-gathering
+
+## Contributors
+
+Reed Meher - https://github.com/archonology<br>
+Talee Yang - https://github.com/tyang896 <br>
+Pachia Xiong - https://github.com/PDKetchum <br>
+Attila Bordan - https://github.com/bordanattila
 
 ## Questions
 

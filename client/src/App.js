@@ -17,14 +17,11 @@ import Search from "./pages/Search";
 import Decks from "./components/Deck";
 import Wishlist from "./pages/Wishlist";
 import MysteryCard from "./pages/MysteryCard";
-import SingleCard from "./components/SingleCard";
 import SingleDeck from "./pages/SingleDeck";
-// import Title from "./pages/Title";
 
 import "./App.css";
 import { Container } from "@mui/material";
 import CreateDeck from "./pages/CreateDeckName";
-import AddToDeck from "./pages/AddToDeck";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -32,8 +29,6 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import SingleDeckCard from "./components/SingleDeckCard";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({

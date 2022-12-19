@@ -1,8 +1,6 @@
 import React from "react";
-import Auth from "../utils/auth";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-import { REMOVE_CARD_LIST } from "../utils/mutations";
 import { Container, Grid } from "@mui/material";
 
 import SingleCard from "../components/SingleCard";
@@ -11,8 +9,6 @@ const Wishlist = () => {
   const { loading, error, data } = useQuery(QUERY_ME);
 
   const userData = data?.me || {};
-
-  const [removeCardFromList] = useMutation(REMOVE_CARD_LIST);
 
   //Error handling if user is not logged in
   if (error) {
@@ -28,22 +24,6 @@ const Wishlist = () => {
       </h3>
     );
   }
-
-  const handleDeleteCardList = async (idCard) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
-    try {
-      const { data } = await removeCardFromList({
-        variables: { idCard: idCard },
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   if (loading) {
     return <h2>LOADING...</h2>;
