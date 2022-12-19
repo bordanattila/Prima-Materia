@@ -114,15 +114,11 @@ export const REMOVE_CARD_DECK = gql`
 `;
 
 export const REMOVE_DECK = gql`
-  mutation removeDeck($_id: ID!) {
-    removeDeck(_id: $_id) {
+  mutation removeDeck($_id: ID!, $idDeck: ID!) {
+    removeDeck(_id: $_id, idDeck: $idDeck) {
       _id
-      username
-      email
       decks {
-        _id
-        title
-        cards
+        _id     
       }
     }
   }

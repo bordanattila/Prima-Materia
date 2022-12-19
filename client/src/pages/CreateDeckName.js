@@ -27,7 +27,60 @@ const linkStyle = {
   color: "white",
 };
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export const CreateDeck = () => {
+
+  // Create state for sncakbar
+  const [state, setState] = React.useState({
+    openagain: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal, openagain } = state;
+
+  const [open, setOpen] = React.useState(false);
+  const [deckName, setDeckName] = useState("")
+  const handleClick = () => {
+    setOpen(true);
+
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const button = (
+    <React.Fragment>
+      <Button variant="contained"
+
+        sx={{
+          minWidth: "10px",
+          maxWidth: "150px",
+          padding: "6px",
+        }}
+        onClick={() => {
+          handleCreate();
+          handleClick({
+            vertical: 'top',
+            horizontal: 'center',
+          });
+          setDeckName(title)
+        }}
+      > Create Deck
+        {/* <Link to={"/search"} style={linkStyle}>
+                    Create Deck
+                </Link> */}
+      </Button>
+    </React.Fragment>
+  )
+
   const [title, setTitle] = useState("");
 
   const [createDeck, { error }] = useMutation(CREATE_DECK);
@@ -41,6 +94,7 @@ export const CreateDeck = () => {
       console.log(err);
     }
   };
+
 
   return (
     <>
@@ -82,24 +136,15 @@ export const CreateDeck = () => {
             value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
-          <Button
-            variant="contained"
-            sx={{
-              minWidth: "10px",
-              maxWidth: "150px",
-              padding: "6px",
-            }}
-            onClick={() =>
-              handleCreate().handleClick({
-                vertical: "top",
-                horizontal: "center",
-              })
-            }
-          >
-            <Link to={"/search"} style={linkStyle}>
-              Create Deck
-            </Link>
-          </Button>
+          {button}
+
+
+          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} key={vertical + horizontal}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+              {deckName} was successfully created!
+            </Alert>
+          </Snackbar>
+
         </Box>
       </Container>
     </>
