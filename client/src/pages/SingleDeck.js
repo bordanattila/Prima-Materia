@@ -1,8 +1,6 @@
 import React from "react";
-import Auth from "../utils/auth";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_DECK, QUERY_ME } from "../utils/queries";
-import { REMOVE_CARD_DECK } from "../utils/mutations";
 import { Container, Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 
