@@ -55,7 +55,7 @@ const typeDefs = gql`
     createDeck(title: String!): User
     removeCardFromList(idCard: ID!): User
     removeCardFromDeck(idDeck: ID!, idCard: ID!): User
-    removeDeck(idDeck: ID!): User
+    removeDeck(_id: ID!): User
   }
   
 `;

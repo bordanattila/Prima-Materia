@@ -83,13 +83,12 @@ function CurrentDecks() {
         }}>You need to be logged in</h1>
     );
 
-    const handleDelete = async (idDeck) => {
+    const handleDelete = async (_id ) => {
         const token = Auth.loggedIn() ? Auth.getToken() : null;
-        console.log(idDeck)
-        console.log(userData._id)
+        console.log(_id )
         try {
             const { data } = await removeDeck({
-                variables: { idDeck: idDeck },
+                variables: { _id: _id },
             });
             console.log("done")
         } catch (err) {
