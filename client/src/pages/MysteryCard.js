@@ -25,8 +25,6 @@ export const MysteryCard = () => {
   }
 
   const handleSubmit = async () => {
-    // event.preventDefault();
-    // console.log(event);
     try {
       const response = await mysteryCardSearch();
 
