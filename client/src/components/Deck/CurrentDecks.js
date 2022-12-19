@@ -145,11 +145,13 @@ function CurrentDecks() {
                             return (
                                 <ThemeProvider key={deck._id} theme={cardTheme}>
                                     <Card key={deck._id} sx={{ color: "#fff", width: "250px" }}>
-                                        <Link
-                                            className="custom-link"
-                                            to={`/decks/${deck._id}`}
-                                        >
-                                            <CardContent key={deck._id}>
+
+                                        <CardContent key={deck._id}>
+
+                                            <Link
+                                                className="custom-link"
+                                                to={`/decks/${deck._id}`}
+                                            >
                                                 <CardMedia component="img" image="https://cf.geekdo-images.com/CxJmNl4wR4InjqyNrMdBTw__imagepagezoom/img/KuHBP_jVjw_8gbieS8skQD_-_Ho=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic163749.jpg" />
                                                 <CardContent>
                                                     <Typography
@@ -165,30 +167,31 @@ function CurrentDecks() {
                                                         {deck.title}
                                                     </Typography>
                                                 </CardContent>
-                                                <Box
-                                                    style={{
-                                                        display: "flex",
-                                                        flexDirection: "row",
-                                                        flexWrap: "wrap",
-                                                        gap: 160,
-                                                        alignItems: "center"
-                                                    }}
-                                                >
-                                                    {/* <Tooltip title="Edit deck" >
+                                            </Link>
+                                            <Box
+                                                style={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    flexWrap: "wrap",
+                                                    gap: 160,
+                                                    alignItems: "center"
+                                                }}
+                                            >
+                                                {/* <Tooltip title="Edit deck" >
                                                  
                                                             <ModeEditIcon /> */}
 
-                                                    {/* </Tooltip> */}
-                                                    <Tooltip title="Delete deck" >
-                                                        <IconButton onClick={() => handleDelete(deck._id)}>
-                                                            <DeleteIcon
-                                                                className="custom-link"
-                                                                sx={{ variant: "filled" }} />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </Box>
-                                            </CardContent>
-                                        </Link>
+                                                {/* </Tooltip> */}
+                                                <Tooltip title="Delete deck" >
+                                                    <IconButton onClick={() => handleDelete(deck._id)}>
+                                                        <DeleteIcon
+                                                            className="custom-link"
+                                                            sx={{ variant: "filled" }} />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Box>
+                                        </CardContent>
+
                                     </Card>
                                 </ThemeProvider>
                             )
