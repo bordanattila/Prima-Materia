@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Container,
     Box,
@@ -14,7 +14,7 @@ import {
     IconButton
 } from "@mui/material";
 import { Link } from 'react-router-dom';
-import { QUERY_SINGLE_DECK, QUERY_ME } from '../../utils/queries';
+import { QUERY_ME } from '../../utils/queries';
 import { useMutation, useQuery } from '@apollo/client';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
