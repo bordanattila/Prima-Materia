@@ -90,6 +90,7 @@ export const CreateDeck = () => {
         variables: { title: title },
       });
       setTitle("");
+      window.location.assign('/decks');
     } catch (err) {
       console.log(err);
     }
