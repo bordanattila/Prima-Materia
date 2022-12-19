@@ -98,15 +98,15 @@ function CurrentDecks() {
 
     return (
         <>
-            <Container maxWidth="md"
+                            <h1 style={{
+                        color: "white",
+                        textAlign: "center"
+                    }}
+                    >Your Decks</h1>
+            {/* <Container maxWidth="md"
                 sx={{
                     margin: "10em",
-                }}>
-                <h1 style={{
-                    color: "white",
-                    textAlign: "center"
-                }}
-                >Your Decks</h1>
+                }}> */}
                 <Box component="form"
                     noValidate
                     sx={{
@@ -115,7 +115,8 @@ function CurrentDecks() {
                         gap: 2,
                         display: "flex",
                         flexDirection: "row",
-                        flexWrap: "wrap"
+                        flexWrap: "wrap",
+                        justifyContent: "center",
                     }}
                 >
                     <Button variant="contained"
@@ -123,6 +124,7 @@ function CurrentDecks() {
                             minWidth: "250px",
                             maxWidth: "250px",
                             padding: "40px",
+                            marginRight: "1.5em"
                         }}>
                         <Link to={"/decks/create"} style={linkStyle}>
                             +
@@ -190,7 +192,7 @@ function CurrentDecks() {
                     }
 
                 </Box>
-            </Container>
+            {/* </Container> */}
         </>
     );
 }
