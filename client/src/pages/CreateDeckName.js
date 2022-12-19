@@ -56,6 +56,7 @@ export const CreateDeck = () => {
     setOpen(false);
   };
 
+  // Button for snackbar
   const button = (
     <React.Fragment>
       <Button variant="contained"
