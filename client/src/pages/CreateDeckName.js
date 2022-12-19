@@ -99,7 +99,7 @@ export const CreateDeck = () => {
 
   return (
     <>
-      <Container
+      {/* <Container
         maxWidth="md"
         sx={{
           margin: "10em",
@@ -107,16 +107,18 @@ export const CreateDeck = () => {
           flexDirection: "row",
           justifyContent: "center",
         }}
-      >
+      > */}
         <Box
           component="form"
           noValidate
           sx={{
             textAlign: "center",
-            gridTemplateColumns: { sm: "1fr 1fr", md: "1fr 1fr 1fr" },
+            gridTemplateColumns: { sm: "1fr", md: "1fr 1fr" },
             gap: 2,
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
+            margin: "5em",
           }}
         >
           <h3
@@ -128,8 +130,9 @@ export const CreateDeck = () => {
           </h3>
           <DeckTextField
             sx={{
-              input: { color: "teal" },
-              label: { color: "teal" },
+              input: { color: "#fff" },
+              label: { color: "#fff" },
+              maxWidth: "400px"
             }}
             id="outlined"
             label="Name your Deck"
@@ -147,7 +150,7 @@ export const CreateDeck = () => {
           </Snackbar>
 
         </Box>
-      </Container>
+      {/* </Container> */}
     </>
   );
 };
