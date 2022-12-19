@@ -71,7 +71,9 @@ function CurrentDecks() {
     const { loading, error, data } = useQuery(QUERY_ME
 
     );
-    const [removeDeck] = useMutation(REMOVE_DECK);
+    const [removeDeck] = useMutation(REMOVE_DECK, {
+        refetchQueries: [{ query: QUERY_ME }]
+      });
     // const [_id, set_id] = useState("");
 
     const userData = data?.me || [];
