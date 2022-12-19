@@ -125,8 +125,10 @@ function CurrentDecks() {
                     sx={{
                         minWidth: "250px",
                         maxWidth: "250px",
-                        minHeight: "400px",
-                        padding: "40px",
+                        minHeight: "425px",
+                        maxHeight: "425px",
+                        marginTop: "50px",
+                        // padding: "30px",
                         marginRight: "1.5em",
                     }}>
                     <Link to={"/decks/create"} style={linkStyle}>
@@ -138,6 +140,7 @@ function CurrentDecks() {
                         display: "flex",
                         flexDirection: "row",
                         flexWrap: "wrap",
+                        padding: "36px",
                         gap: 40,
                     }}
                     >
