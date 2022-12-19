@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.custom-link {
+  color: grey;
+}
+
+.custom-link:hover {
+  color: rgb(36, 35, 35); 
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

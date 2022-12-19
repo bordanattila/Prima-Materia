@@ -1,8 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Container,
-    TextField,
     Box,
     ThemeProvider,
     createTheme,
@@ -11,29 +10,16 @@ import {
     Button,
     Typography,
     Tooltip,
-    IconButton,
     CardContent,
-    BottomNavigation,
-    BottomNavigationAction
+    IconButton
 } from "@mui/material";
-import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
-import { QUERY_ME } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
+import { QUERY_SINGLE_DECK, QUERY_ME } from '../../utils/queries';
+import { useMutation, useQuery } from '@apollo/client';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import SingleDeck from '../../pages/SingleDeck';
-
-// styling input field
-const DeckTextField = styled(TextField)({
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: 'teal',
-        },
-        '&:hover fieldset': {
-            borderColor: 'teal',
-        },
-    }
-})
+import DeleteIcon from '@mui/icons-material/Delete';
+import { REMOVE_DECK } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 // styling button 
 const linkStyle = {
@@ -80,9 +66,12 @@ const cardTheme = createTheme({
 });
 
 function CurrentDecks() {
-    // const [value, setValue] = useState("");
 
-    const { loading, error, data } = useQuery(QUERY_ME);
+    const { loading, error, data } = useQuery(QUERY_ME
+       
+    );
+    const [removeDeck, {err}] = useMutation(REMOVE_DECK);
+    // const [_id, set_id] = useState("");
 
     const userData = data?.me || [];
 
@@ -93,13 +82,20 @@ function CurrentDecks() {
         }}>You need to be logged in</h1>
     );
 
-    // const editDeck = () => {
+    const handleDelete = async (_id) => {
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+        console.log(_id)
+        console.log(userData._id)
+        try {
+            const { data } = await removeDeck({
+                variables: { _id: userData._id, idDeck: _id },
+            });
+            console.log("done")
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
-
-    //     return (
-    //         <SingleDeck />
-    //     )
-    // }
     return (
         <>
             <Container maxWidth="md"
@@ -148,35 +144,31 @@ function CurrentDecks() {
                                                     {deck.title}
                                                 </Typography>
                                             </CardContent>
-                                            <div>
-                                                <Tooltip title="Edit deck">
-                                                    {/* <IconButton
-                                                    //   onClick={editDeck(deck._id)}
-                                                    > */}
-                                                        <Link 
-                                                        // component={
-                                                        //     <ModeEditIcon />
-                                                        // }
+                                            <Box
+                                                style={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    flexWrap: "wrap",
+                                                    gap: 160,
+                                                    alignItems: "center"
+                                                }}
+                                            >
+                                                <Tooltip title="Edit deck" >
+                                                    <Link
+                                                        className="custom-link"
                                                         to={`/decks/${deck._id}`}
-                                                        >
-                                                            <ModeEditIcon />
-                                                        </Link>
-                                                        {/* <ModeEditIcon /> */}
-                                                    {/* </IconButton> */}
-                                                    {/* <BottomNavigation
-                                                        // showLabels
-                                                        // value={`/decks/${deck._id}`}
-                                                        // onClick={editDeck(deck._id)}
-                                                        value={value}
-                                                        onChange={(event, newValue) => {
-                                                          setValue(newValue);
-                                                        }}
                                                     >
-                                                        <BottomNavigationAction icon={<ModeEditIcon />} />
-                                                    </BottomNavigation> */}
-
+                                                        <ModeEditIcon />
+                                                    </Link>
                                                 </Tooltip>
-                                            </div>
+                                                <Tooltip title="Delete deck" >
+                                                    <IconButton onClick={() => handleDelete(deck._id)}>
+                                                        <DeleteIcon 
+                                                        className="custom-link"
+                                                        sx={{variant: "filled"}}/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Box>
                                         </CardContent>
                                     </Card>
                                 </ThemeProvider>
