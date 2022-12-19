@@ -5,26 +5,20 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Button,
+  Modal,
   CardActionArea,
   CardActions,
   ThemeProvider,
   createTheme,
-  ModalRoot,
   Tooltip,
   IconButton,
-  Dialog,
 } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useState } from "react";
+
 import DeleteIcon from "@mui/icons-material/Delete";
-import { SingleDeck } from "../../pages/SingleDeck";
 import { REMOVE_CARD_DECK } from "../../utils/mutations";
-import { QUERY_SINGLE_DECK } from '../../utils/queries';
-import { useQuery, useMutation } from "@apollo/client";
-import { useParams } from 'react-router-dom';
+import { useMutation } from "@apollo/client";
+import ViewImage from "../ViewImage";
+import Auth from "../../utils/auth";
 
 const cardTheme = createTheme({
   components: {
@@ -64,29 +58,30 @@ const cardTheme = createTheme({
   },
 });
 
+const SingleDeckCard = ({ card, deckId }) => {
+  const [removeCardFromDeck] = useMutation(REMOVE_CARD_DECK);
+  const [openImage, setOpenImage] = React.useState(false);
 
-const SingleDeckCard = ({ card }) => {
-  // const { deckId } = useParams();
-  // const { loading, error, data } = useQuery(
-  //   QUERY_SINGLE_DECK,
-  //       {
-  //         variables: { _id: deckId },
-  //       }
-  //       );
+  const handleClickOpenImage = () => {
+    setOpenImage(true);
+  };
 
-  // const {data} = {userData}
-  // const [removeCardFromDeck] = useMutation(REMOVE_CARD_DECK);
-  // const handleDeleteCardDeck = async (idCard) => {
-  //   // const token = Auth.loggedIn() ? Auth.getToken() : null;
-  
-  //   try {
-  //     const { data } = await removeCardFromDeck({
-  //       variables: { idCard: data.cards.idCard, idDeck: data._id }
-  //     })
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
+  const handleCloseImage = () => {
+    setOpenImage(false);
+  };
+
+  const handleDeleteCardDeck = async (cardId, deckId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    try {
+      const { deck } = await removeCardFromDeck({
+        variables: { idCard: cardId, idDeck: deckId },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
       <Grid
@@ -101,7 +96,15 @@ const SingleDeckCard = ({ card }) => {
           <ThemeProvider theme={cardTheme}>
             <Card sx={{ color: "#fff", width: "250px" }}>
               <CardContent>
-                <CardMedia component="img" image={card.image} alt={card.name} />
+                <CardActionArea onClick={handleClickOpenImage}>
+                  <Tooltip title="Click to view bigger" followCursor={true}>
+                    <CardMedia
+                      component="img"
+                      image={card.image}
+                      alt={card.name}
+                    />
+                  </Tooltip>
+                </CardActionArea>
                 <CardContent>
                   <Typography
                     gutterBottom
@@ -123,7 +126,9 @@ const SingleDeckCard = ({ card }) => {
                 </CardContent>
                 <CardActions>
                   <Tooltip title="Remove from deck">
-                    <IconButton >
+                    <IconButton
+                      onClick={() => handleDeleteCardDeck(card._id, deckId)}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </Tooltip>
@@ -133,6 +138,17 @@ const SingleDeckCard = ({ card }) => {
           </ThemeProvider>
         </Grid>
       </Grid>
+      <Modal
+        open={openImage}
+        onClose={handleCloseImage}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ViewImage card={card} />
+      </Modal>
     </>
   );
 };
