@@ -101,7 +101,7 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { wishList: { cardId: idCard } } },//If the card in wishList matches the idCard value from cardId, then remove card from the wishList
+          { $pull: { wishList: { cardId: idCard } } }, //If the card in wishList matches the idCard value from cardId, then remove card from the wishList
           { new: true }
         );
         return updatedUser;
@@ -138,7 +138,7 @@ const resolvers = {
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
-    }
+    },
   },
 };
 
