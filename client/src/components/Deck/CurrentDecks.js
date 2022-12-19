@@ -1,8 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Container,
-    TextField,
     Box,
     ThemeProvider,
     createTheme,
@@ -11,34 +10,22 @@ import {
     Button,
     Typography,
     Tooltip,
-    IconButton,
     CardContent,
-    BottomNavigation,
-    BottomNavigationAction
+    IconButton
 } from "@mui/material";
-import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
-import { QUERY_ME } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
+import { QUERY_SINGLE_DECK, QUERY_ME } from '../../utils/queries';
+import { useMutation, useQuery } from '@apollo/client';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import SingleDeck from '../../pages/SingleDeck';
-
-// styling input field
-const DeckTextField = styled(TextField)({
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: 'teal',
-        },
-        '&:hover fieldset': {
-            borderColor: 'teal',
-        },
-    }
-})
+import DeleteIcon from '@mui/icons-material/Delete';
+import { REMOVE_DECK } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 // styling button 
 const linkStyle = {
     textDecoration: "none",
-    color: "black"
+    color: "black",
+    fontSize: "108px"
 }
 
 const cardTheme = createTheme({
@@ -47,7 +34,7 @@ const cardTheme = createTheme({
             styleOverrides: {
                 root: {
                     background: "#424242",
-                    border: "solid 2px teal",
+                    boxShadow: "teal 0px 2px 14px 3px",
                 },
             },
         },
@@ -80,9 +67,12 @@ const cardTheme = createTheme({
 });
 
 function CurrentDecks() {
-    // const [value, setValue] = useState("");
 
-    const { loading, error, data } = useQuery(QUERY_ME);
+    const { loading, error, data } = useQuery(QUERY_ME
+
+    );
+    const [removeDeck] = useMutation(REMOVE_DECK);
+    // const [_id, set_id] = useState("");
 
     const userData = data?.me || [];
 
@@ -93,13 +83,19 @@ function CurrentDecks() {
         }}>You need to be logged in</h1>
     );
 
-    // const editDeck = () => {
+    const handleDelete = async (_id) => {
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+        console.log(_id)
+        try {
+            const { data } = await removeDeck({
+                variables: { _id: _id },
+            });
+            console.log("done")
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
-
-    //     return (
-    //         <SingleDeck />
-    //     )
-    // }
     return (
         <>
             <Container maxWidth="md"
@@ -115,13 +111,23 @@ function CurrentDecks() {
                     noValidate
                     sx={{
                         display: 'grid',
-                        gridTemplateColumns: { sm: '1fr 1fr', md: '1fr 1fr 1fr', },
+                        gridTemplateColumns: { sm: '1fr', md: '1fr 1fr 1fr', },
                         gap: 2,
                         display: "flex",
                         flexDirection: "row",
                         flexWrap: "wrap"
                     }}
                 >
+                    <Button variant="contained"
+                        sx={{
+                            minWidth: "250px",
+                            maxWidth: "250px",
+                            padding: "40px",
+                        }}>
+                        <Link to={"/decks/create"} style={linkStyle}>
+                            +
+                        </Link>
+                    </Button>
                     {userData?.decks?.length > 0 ?
                         <section style={{
                             display: "flex",
@@ -129,71 +135,60 @@ function CurrentDecks() {
                             flexWrap: "wrap",
                             gap: 40,
                         }}
-                        > {userData?.decks?.map((deck) => {
-                            return (
-                                <ThemeProvider theme={cardTheme}>
-                                    <Card sx={{ color: "#fff", width: "250px" }}>
-                                        <CardContent>
-                                            <CardMedia component="img" image="https://cf.geekdo-images.com/CxJmNl4wR4InjqyNrMdBTw__imagepagezoom/img/KuHBP_jVjw_8gbieS8skQD_-_Ho=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic163749.jpg" />
-                                            <CardContent>
-                                                <Typography
-                                                    gutterBottom
-                                                    sx={{
-                                                        fontWeight: "bold",
-                                                        height: "40px",
-                                                        size: "2vw",
+                        >
+                            {userData?.decks?.map((deck) => {
+                                return (
+                                    <ThemeProvider key={deck._id} theme={cardTheme}>
+                                        <Card key={deck._id} sx={{ color: "#fff", width: "250px" }}>
+                                            <CardContent key={deck._id}>
+                                                <CardMedia component="img" image="https://cf.geekdo-images.com/CxJmNl4wR4InjqyNrMdBTw__imagepagezoom/img/KuHBP_jVjw_8gbieS8skQD_-_Ho=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic163749.jpg" />
+                                                <CardContent>
+                                                    <Typography
+                                                        gutterBottom
+                                                        sx={{
+                                                            fontWeight: "bold",
+                                                            height: "40px",
+                                                            size: "2vw",
+                                                        }}
+                                                        component="div"
+                                                    >
+                                                        {deck.title}
+                                                    </Typography>
+                                                </CardContent>
+                                                <Box
+                                                    style={{
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        flexWrap: "wrap",
+                                                        gap: 160,
+                                                        alignItems: "center"
                                                     }}
-                                                    component="div"
                                                 >
-                                                    {deck.title}
-                                                </Typography>
-                                            </CardContent>
-                                            <div>
-                                                <Tooltip title="Edit deck">
-                                                    {/* <IconButton
-                                                    //   onClick={editDeck(deck._id)}
-                                                    > */}
-                                                        <Link 
-                                                        // component={
-                                                        //     <ModeEditIcon />
-                                                        // }
-                                                        to={`/decks/${deck._id}`}
+                                                    <Tooltip title="Edit deck" >
+                                                        <Link
+                                                            className="custom-link"
+                                                            to={`/decks/${deck._id}`}
                                                         >
                                                             <ModeEditIcon />
                                                         </Link>
-                                                        {/* <ModeEditIcon /> */}
-                                                    {/* </IconButton> */}
-                                                    {/* <BottomNavigation
-                                                        // showLabels
-                                                        // value={`/decks/${deck._id}`}
-                                                        // onClick={editDeck(deck._id)}
-                                                        value={value}
-                                                        onChange={(event, newValue) => {
-                                                          setValue(newValue);
-                                                        }}
-                                                    >
-                                                        <BottomNavigationAction icon={<ModeEditIcon />} />
-                                                    </BottomNavigation> */}
+                                                    </Tooltip>
+                                                    <Tooltip title="Delete deck" >
+                                                        <IconButton onClick={() => handleDelete(deck._id)}>
+                                                            <DeleteIcon
+                                                                className="custom-link"
+                                                                sx={{ variant: "filled" }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Box>
+                                            </CardContent>
+                                        </Card>
+                                    </ThemeProvider>
+                                )
+                            })}
 
-                                                </Tooltip>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </ThemeProvider>
-                            )
-                        })}
+                        </section> : <h1>No Decks found</h1>
+                    }
 
-                        </section> : <h1>No Decks found</h1>}
-                    <Button variant="contained"
-                        sx={{
-                            minWidth: "10px",
-                            maxWidth: "150px",
-                            padding: "6px"
-                        }}>
-                        <Link to={"/decks/create"} style={linkStyle}>
-                            Add new deck
-                        </Link>
-                    </Button>
                 </Box>
             </Container>
         </>

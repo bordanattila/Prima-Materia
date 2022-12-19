@@ -24,9 +24,12 @@ if you would like to contribute or play around with the application, please crea
 ## Kudos
 Thanks to https://magicthegathering.io for the wonderful and easy to access API! Thanks to all the people at Material UI for the top-notch documentation. Thanks to everyone who contributed and everyone who helped troubleshoot as we got this application live!
 
+Deck cover image is from https://boardgamegeek.com/image/163749/magic-gathering
+
 ## Questions
 If you have questions please contact any of the developers listed: Reed Meher / reed@meherdevs.com
 Check out more of our work on Github at [archonology](https://github.com/archonology).
     
 ## Badges
 <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/bordanattila/Prima-Materia">
+<img alt="Repo size" src="https://img.shields.io/github/repo-size/bordanattila/react-portfolio?color=information">

@@ -29,3 +29,21 @@ query me {
     }
 }
 `;
+
+export const QUERY_SINGLE_DECK = gql`
+  query singleDeck($_id: ID!) {
+    deck(_id: $_id) {
+      _id
+      title
+        cards {
+            _id
+            cardId
+            name
+            type
+            text
+            image
+        }
+    }
+  }
+`;
+

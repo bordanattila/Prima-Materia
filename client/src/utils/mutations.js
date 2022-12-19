@@ -105,6 +105,19 @@ export const REMOVE_CARD_DECK = gql`
     removeCardFromDeck(idDeck: $idDeck, idCard: $idCard) {
       decks {
         _id
+        cards {
+          _id
+        }
+    }
+  }
+}
+`;
+
+export const REMOVE_DECK = gql`
+  mutation removeDeck($_id : ID!) {
+    removeDeck(_id : $_id ) {
+      decks {
+        _id     
       }
     }
   }
