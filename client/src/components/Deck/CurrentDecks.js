@@ -123,8 +123,9 @@ function CurrentDecks() {
                         sx={{
                             minWidth: "250px",
                             maxWidth: "250px",
+                            minHeight: "400px",
                             padding: "40px",
-                            marginRight: "1.5em"
+                            marginRight: "1.5em",
                         }}>
                         <Link to={"/decks/create"} style={linkStyle}>
                             +
