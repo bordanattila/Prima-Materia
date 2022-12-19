@@ -12,6 +12,7 @@ import {
   createTheme,
   Tooltip,
   IconButton,
+  Dialog
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,6 +20,12 @@ import { REMOVE_CARD_DECK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import ViewImage from "../ViewImage";
 import Auth from "../../utils/auth";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useState } from "react";
+import AddToDeckDialog from "../AddToDeckDialog";
+import { ADD_CARD_LIST, REMOVE_CARD_LIST } from "../../utils/mutations";
 
 const cardTheme = createTheme({
   components: {
@@ -58,9 +65,41 @@ const cardTheme = createTheme({
   },
 });
 
-const SingleDeckCard = ({ card, deckId }) => {
+const SingleDeckCard = ({ card, deckId, wishList }) => {
+    let wishState = false;
+    console.log("This is the wishlist: ", wishList);
+    //If user is logged in, check their wishlist if the card is in their wishlist and change the heart icon to red
+    if (Auth.loggedIn()) {
+      const listChecker = wishList.filter(
+        (cardObj) => cardObj.cardId === card.cardId
+      );
+      if (listChecker.length > 0) {
+        wishState = true;
+      }
+    }
+  
+    const cardData = {
+      cardId: card.cardId,
+      name: card.name,
+      type: card.type,
+      text: card.text,
+      image: card.image,
+    };
+  
+  const [clicked, setClicked] = useState(wishState);
+  const [openDeck, setOpenDeck] = React.useState(false);
+  const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
+  const [removeCardFromList] = useMutation(REMOVE_CARD_LIST); 
   const [removeCardFromDeck] = useMutation(REMOVE_CARD_DECK);
   const [openImage, setOpenImage] = React.useState(false);
+
+  const handleClickOpenDecks = () => {
+    setOpenDeck(true);
+  };
+
+  const handleCloseDecks = () => {
+    setOpenDeck(false);
+  };
 
   const handleClickOpenImage = () => {
     setOpenImage(true);
@@ -68,6 +107,34 @@ const SingleDeckCard = ({ card, deckId }) => {
 
   const handleCloseImage = () => {
     setOpenImage(false);
+  };
+
+  const handleSaveCardToList = async (card) => {
+    //If the clicked state is currently set to false, change it to true and add card to user's wishlist
+    if (!clicked) {
+      //!clicked = false
+      try {
+        const { data } = await addCardToWishList({
+          variables: { ...card },
+        });
+        setClicked(true);
+        return;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    //if the current wish state is set to true and the user clicks the button, we want to remove it from our wishlist
+    if (clicked) {
+      //clicked = true
+      try {
+        const { data } = await removeCardFromList({
+          variables: { idCard: card.cardId }, //Remove the card based on the cardId value
+        });
+        setClicked(false);
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
   const handleDeleteCardDeck = async (cardId, deckId) => {
@@ -125,6 +192,29 @@ const SingleDeckCard = ({ card, deckId }) => {
                   </Typography>
                 </CardContent>
                 <CardActions>
+                  <div onClick={() => handleSaveCardToList(card)}>
+                    {clicked ? (
+                      <Tooltip title="Remove from wishlist">
+                        <IconButton>
+                          <FavoriteIcon sx={{ color: "red" }} />
+                        </IconButton>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="Add to wishlist">
+                        <IconButton>
+                          <FavoriteBorderIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </div>
+                  <div>
+                    <Tooltip title="Add to a deck">
+                      <IconButton onClick={handleClickOpenDecks}>
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                  <div>
                   <Tooltip title="Remove from deck">
                     <IconButton
                       onClick={() => handleDeleteCardDeck(card._id, deckId)}
@@ -132,12 +222,16 @@ const SingleDeckCard = ({ card, deckId }) => {
                       <DeleteIcon />
                     </IconButton>
                   </Tooltip>
+                  </div>
                 </CardActions>
               </CardContent>
             </Card>
           </ThemeProvider>
         </Grid>
       </Grid>
+      <Dialog open={openDeck} onClose={handleCloseDecks}>
+        <AddToDeckDialog card={cardData} />
+      </Dialog>
       <Modal
         open={openImage}
         onClose={handleCloseImage}
