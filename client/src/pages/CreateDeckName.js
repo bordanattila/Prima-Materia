@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Container, TextField, Box, Button, Snackbar } from "@mui/material";
+import { TextField, Box, Button, Snackbar } from "@mui/material";
 import { styled } from "@mui/system";
 import { useMutation } from "@apollo/client";
 import { CREATE_DECK } from "../utils/mutations";
-import { Link } from "react-router-dom";
 import MuiAlert from "@mui/material/Alert";
 
 // styling input field
@@ -56,6 +55,7 @@ export const CreateDeck = () => {
     setOpen(false);
   };
 
+  // Button for snackbar
   const button = (
     <React.Fragment>
       <Button variant="contained"
@@ -73,10 +73,7 @@ export const CreateDeck = () => {
           });
           setDeckName(title)
         }}
-      > Create Deck
-        {/* <Link to={"/search"} style={linkStyle}>
-                    Create Deck
-                </Link> */}
+      > Create Deck       
       </Button>
     </React.Fragment>
   )
@@ -99,16 +96,7 @@ export const CreateDeck = () => {
 
   return (
     <>
-      {/* <Container
-        maxWidth="md"
-        sx={{
-          margin: "10em",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      > */}
-        <Box
+              <Box
           component="form"
           noValidate
           sx={{
@@ -141,16 +129,12 @@ export const CreateDeck = () => {
             onChange={(event) => setTitle(event.target.value)}
           />
           {button}
-
-
           <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} key={vertical + horizontal}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
               {deckName} was successfully created!
             </Alert>
           </Snackbar>
-
-        </Box>
-      {/* </Container> */}
+        </Box>     
     </>
   );
 };

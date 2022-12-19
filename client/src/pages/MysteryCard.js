@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_CARD_LIST } from "../utils/mutations";
-import { ADD_CARD_DECK } from "../utils/mutations";
-import { Box, Typography, Grid, Button, Container } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import { mysteryCardSearch } from "../utils/API";
 import SingleCard from "../components/SingleCard";
 import { useQuery } from "@apollo/client";
@@ -46,25 +45,6 @@ export const MysteryCard = () => {
       }));
       console.log(cardData);
       setMysteryCard(cardData);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleSaveCardToList = async (cardId) => {
-    const cardToSave = mysteryCard.find((card) => card.cardId === cardId);
-
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
-    try {
-      const { data } = await addCardToWishList({
-        variables: { ...cardToSave },
-      });
     } catch (err) {
       console.error(err);
     }

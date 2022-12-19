@@ -16,5 +16,8 @@
   "authors": "Attila Bordán, Reed Meher, Pachia Xiong, Talee Yang",
   "devDependencies": {
     "concurrently": "^5.3.0"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
