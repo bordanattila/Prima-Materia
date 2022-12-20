@@ -111,9 +111,8 @@ export const Search = () => {
         text: card.text,
         image: card.imageUrl,
       }));
-      console.log(cardData);
+
       setSearchedCards(cardData);
-      console.log(searchedCards);
     } catch (err) {
       console.error(err);
     }
