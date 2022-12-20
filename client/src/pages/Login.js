@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { Grid, Button, Link, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 
 const FormInput = styled(TextField)({
   "& label.Mui-focused": {
@@ -56,7 +56,6 @@ const Login = () => {
     });
   };
 
-
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -65,9 +64,8 @@ const Login = () => {
       const { data } = await login({
         variables: { ...formState },
       });
-console.log(data)
-      Auth.login(data.login.token);
 
+      Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }

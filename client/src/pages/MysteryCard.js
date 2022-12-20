@@ -31,9 +31,8 @@ export const MysteryCard = () => {
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
-      console.log(response);
+
       const { cards } = await response.json();
-      console.log(cards);
       const cardData = cards.map((card) => ({
         cardId: card.id,
         name: card.name,
@@ -41,7 +40,7 @@ export const MysteryCard = () => {
         text: card.text,
         image: card.imageUrl,
       }));
-      console.log(cardData);
+
       setMysteryCard(cardData);
     } catch (err) {
       console.error(err);
