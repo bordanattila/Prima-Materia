@@ -32,7 +32,6 @@ function DeckList({ card }) {
 
   // takes in a card and deck object
   const handleAddtoDeck = async (card, deck) => {
-    console.log(card);
     try {
       const { data } = await addCardToDeck({
         variables: { cardData: card, deckId: deck._id },

@@ -12,7 +12,7 @@ import {
   createTheme,
   Tooltip,
   IconButton,
-  Dialog
+  Dialog,
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -66,30 +66,29 @@ const cardTheme = createTheme({
 });
 
 const SingleDeckCard = ({ card, deckId, wishList }) => {
-    let wishState = false;
-    console.log("This is the wishlist: ", wishList);
-    //If user is logged in, check their wishlist if the card is in their wishlist and change the heart icon to red
-    if (Auth.loggedIn()) {
-      const listChecker = wishList.filter(
-        (cardObj) => cardObj.cardId === card.cardId
-      );
-      if (listChecker.length > 0) {
-        wishState = true;
-      }
+  let wishState = false;
+  //If user is logged in, check their wishlist if the card is in their wishlist and change the heart icon to red
+  if (Auth.loggedIn()) {
+    const listChecker = wishList.filter(
+      (cardObj) => cardObj.cardId === card.cardId
+    );
+    if (listChecker.length > 0) {
+      wishState = true;
     }
-  
-    const cardData = {
-      cardId: card.cardId,
-      name: card.name,
-      type: card.type,
-      text: card.text,
-      image: card.image,
-    };
-  
+  }
+
+  const cardData = {
+    cardId: card.cardId,
+    name: card.name,
+    type: card.type,
+    text: card.text,
+    image: card.image,
+  };
+
   const [clicked, setClicked] = useState(wishState);
   const [openDeck, setOpenDeck] = React.useState(false);
   const [addCardToWishList, { error }] = useMutation(ADD_CARD_LIST);
-  const [removeCardFromList] = useMutation(REMOVE_CARD_LIST); 
+  const [removeCardFromList] = useMutation(REMOVE_CARD_LIST);
   const [removeCardFromDeck] = useMutation(REMOVE_CARD_DECK);
   const [openImage, setOpenImage] = React.useState(false);
 
@@ -215,13 +214,13 @@ const SingleDeckCard = ({ card, deckId, wishList }) => {
                     </Tooltip>
                   </div>
                   <div>
-                  <Tooltip title="Remove from deck">
-                    <IconButton
-                      onClick={() => handleDeleteCardDeck(card._id, deckId)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
+                    <Tooltip title="Remove from deck">
+                      <IconButton
+                        onClick={() => handleDeleteCardDeck(card._id, deckId)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
                   </div>
                 </CardActions>
               </CardContent>
