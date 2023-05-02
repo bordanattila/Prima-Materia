@@ -76,6 +76,7 @@ export const Search = () => {
   const [setInput, setSetInput] = useState([]);
   const [colorInput, setColorInput] = useState([]);
   const { loading, data, error } = useQuery(QUERY_ME);
+  const [message, setMessage] = useState('');
 
   let userData = data?.me || {};
   //If the user is not logged in, create a user object with an empty wishList
@@ -89,6 +90,7 @@ export const Search = () => {
     event.preventDefault();
 
     try {
+      setMessage('loading results...');
       const response = await searchMagicCards(
         nameInput,
         typeInput.title,
@@ -113,6 +115,7 @@ export const Search = () => {
       }));
 
       setSearchedCards(cardData);
+      setMessage('');
     } catch (err) {
       console.error(err);
     }
@@ -260,6 +263,15 @@ export const Search = () => {
           </Button>
         </Box>
 
+        {/* display loading/error text */}
+        {message && (
+          <div>
+            <p className="message-text">{message}</p>
+          </div>
+        )}
+        {/* <div>
+          <p className="message-text">{message} loading results...</p>
+        </div> */}
         {/* results of search (map all cards returned) */}
 
         <Grid container key="searchGrid">

@@ -33,13 +33,20 @@
 }
 
 .custom-link:hover {
-  color: rgb(36, 35, 35); 
+  color: rgb(36, 35, 35);
+}
+
+.message-text {
+  color: white;
+  font-size: 18px;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
